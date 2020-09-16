@@ -5,10 +5,9 @@ package main
 #include "sampgdk/sampgdk.h"
 
 typedef const char* str;
-extern void goModeInit();
 
-PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit() {
-	goModeInit();
+PLUGIN_EXPORT bool PLUGIN_CALL OnPublicCall(AMX *amx, const char *name, cell *params, cell *retval) {
+	sampgdk_logprintf("OnPublicCall from C side, public called was %s\n", name);
 	return true;
 }
 */
@@ -18,10 +17,10 @@ import (
 	"unsafe"
 )
 
-func OnPublicCall(amx *C.AMX, name C.str) bool {
+/*func OnPublicCall(amx *C.AMX, name C.str) bool {
 	fmt.Printf("Function %s called\n", C.GoString(name))
 	return true
-}
+}*/
 
 //export goModeInit
 func goModeInit() {
