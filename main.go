@@ -1,19 +1,16 @@
 package main
 
 /*
-#cgo LDFLAGS: -ldl
-#include <dlfcn.h>
-
-typedef struct {
-	const char *dli_fname;
-	void       *dli_fbase;
-	const char *dli_sname;
-	void       *dli_saddr;
-} Dl_info;
-
-#include "sampgdk/sampgdk.c"
+#cgo LDFLAGS: -L. -l:sampgdk/build/bin/Release/libsampgdk.a
+#include "sampgdk/sampgdk.h"
 
 typedef const char* str;
+extern void goModeInit();
+
+PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit() {
+	goModeInit();
+	return true;
+}
 */
 import "C"
 import (
@@ -26,9 +23,9 @@ func OnPublicCall(amx *C.AMX, name C.str) bool {
 	return true
 }
 
-func OnGameModeInit() bool {
-	fmt.Println("Called main.go#OnGameModeInit")
-	return true
+//export goModeInit
+func goModeInit() {
+	fmt.Println("goModeInit called")
 }
 
 //export Supports
