@@ -7,11 +7,10 @@ project "sampgdk"
     language "C"
     architecture "x32"
 
-    files { "sampgdk.h", "sampgdk.h" }
-    includedirs { "samp-plugin-sdk", "samp-plugin-sdk/amx" }
+    files { "src/*.c", "src/*.h", "lib/sampgdk/*.c", "lib/sampgdk/*.h", "lib/samp-plugin-sdk/**.c", "lib/samp-plugin-sdk/**.h" }
+    includedirs { "lib/sampgdk", "lib/samp-plugin-sdk", "lib/samp-plugin-sdk/amx" }
 
     buildoptions { "-Wno-attributes" }
 
     filter { "configurations:Release" }
-        defines { }
         optimize "On"
