@@ -1,5 +1,7 @@
-# sampgo
+<center>
+<img src="https://github.com/sampgo/sampgo/blob/master/img/GTASAGOMP_Stylesheet_condensed@4x.png?raw=true"/>
 sampgo is a SAMP gamemode SDK written in Go, based on Zeex's SAMPGDK.
+</center>
 
 ## Quickstart
 Clone the `https://github.com/sampgo/base.git` repo.
