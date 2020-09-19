@@ -8,7 +8,6 @@ project "sampgdk"
     files { "**.h", "**.c" }
     architecture "x32"
 
-    
     includedirs { "amx" }
 
     filter { "toolset:gcc or toolset:clang" }
