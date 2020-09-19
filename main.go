@@ -11,6 +11,13 @@ func init() {
 
 	sampgo.On("goModeInit", func() bool {
 		sampgo.Print("Hello from Go!")
+
+		v1 := sampgo.CreateVehicle(503, 0, 0, 5.0, 0, 1, 1, 30, true)
+		sampgo.Print(fmt.Sprintf("Vehicle id %d created", v1))
+
+		v2 := sampgo.CreateVehicle(504, 0, 2, 5, 0, 3, 3, 30, false)
+		sampgo.Print(fmt.Sprintf("Vehicle id %d created", v2))
+
 		return true
 	})
 

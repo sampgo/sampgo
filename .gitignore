@@ -1,1 +1,3 @@
-build/
+/build/
+sampgo/sampgdk/build/*
+!/sampgo/sampgdk/build/bin

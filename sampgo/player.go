@@ -2,8 +2,8 @@ package sampgo
 
 /*
 #cgo CFLAGS: -Wno-attributes
-#cgo linux LDFLAGS: -L. -l:sampgdk/build/bin/Debug/libsampgdk.a
-#cgo linux LDFLAGS: -ldl
+#cgo linux.386 linux LDFLAGS: -L. -l:sampgdk/build/bin/Debug/libsampgdk.a
+#cgo linux.386 linux LDFLAGS: -ldl
 
 #ifndef GOLANG_APP
 #define GOLANG_APP

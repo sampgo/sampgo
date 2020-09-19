@@ -1,11 +1,9 @@
 package sampgo
 
-import "unsafe"
-
 /*
 #cgo CFLAGS: -Wno-attributes
-#cgo linux LDFLAGS: -L. -l:sampgdk/build/bin/Debug/libsampgdk.a
-#cgo linux LDFLAGS: -ldl
+#cgo linux.386 LDFLAGS: -L. -l:sampgdk/build/bin/Debug/libsampgdk.a
+#cgo linux.386 LDFLAGS: -ldl
 
 #ifndef GOLANG_APP
 #define GOLANG_APP
@@ -14,62 +12,75 @@ import "unsafe"
 
 #endif
 */
+import "C"
+import "unsafe"
 
 // CreateActor implements
 func CreateActor(modelid int, x float32, y float32, z float32, rotation float32) int {
-
+	return int(C.CreateActor(C.int(modelid), C.float(x), C.float(y), C.float(z), C.float(rotation)))
 }
 
 // DestroyActor implements
 func DestroyActor(actorid int) bool {
-
+	return bool(C.DestroyActor(C.int(actorid)))
 }
 
 // IsActorStreamedIn implements
-func IsActorStreamedIn(actorid int, forplayerid int) bool {
-
+func IsActorStreamedIn(actorid int, forplayer Player) bool {
+	return bool(C.IsActorStreamedIn(C.int(actorid), C.int(forplayer.ID)))
 }
 
 // SetActorVirtualWorld implements
 func SetActorVirtualWorld(actorid int, vworld int) bool {
-
+	return bool(C.SetActorVirtualWorld(C.int(actorid), C.int(vworld)))
 }
 
 // GetActorVirtualWorld implements
 func GetActorVirtualWorld(actorid int) int {
-
+	return int(C.GetActorVirtualWorld(C.int(actorid)))
 }
 
 // ApplyActorAnimation implements
-func ApplyActorAnimation(actorid int, animlib string, animname string, fDelta float32, loop bool, lockx bool, locky bool, freeze bool, time int) bool {
+func ApplyActorAnimation(actorid int, animlib, animname string, fDelta float32, loop, lockx, locky, freeze bool, time int) bool {
+	lib := C.CString(animlib)
+	name := C.CString(animname)
 
+	defer C.free(unsafe.Pointer(lib))
+	defer C.free(unsafe.Pointer(name))
+
+	return bool(C.ApplyActorAnimation(C.int(actorid), C.nonConstToConst(lib), C.nonConstToConst(name), C.float(fDelta), C.bool(loop), C.bool(lockx), C.bool(locky), C.bool(freeze), C.int(time)))
 }
 
 // ClearActorAnimations implements
 func ClearActorAnimations(actorid int) bool {
-
+	return bool(C.ClearActorAnimations(C.int(actorid)))
 }
 
 // SetActorPos implements
 func SetActorPos(actorid int, x float32, y float32, z float32) bool {
-
+	return bool(C.SetActorPos(C.int(actorid), C.float(x), C.float(y), C.float(z)))
 }
 
 // GetActorPos implements
-func GetActorPos(actorid int, x float32, y float32, z float32) bool {
-
+func GetActorPos(actorid int) (float32, float32, float32) {
+	var x, y, z C.float
+	C.GetActorPos(C.int(actorid), &x, &y, &z)
+	return float32(x), float32(y), float32(z)
 }
 
 // SetActorFacingAngle implements
 func SetActorFacingAngle(actorid int, angle float32) bool {
-
+	return bool(C.SetActorFacingAngle(C.int(actorid), C.float(angle)))
 }
 
 // GetActorFacingAngle implements
-func GetActorFacingAngle(actorid int, angle float32) bool {
-
+func GetActorFacingAngle(actorid int) float32 {
+	var a C.float
+	C.GetActorFacingAngle(C.int(actorid), &a)
+	return float32(a)
 }
 
+/*
 // SetActorHealth implements
 func SetActorHealth(actorid int, health float32) bool {
 
@@ -93,28 +104,29 @@ func IsActorInvulnerable(actorid int) bool {
 // IsValidActor implements
 func IsValidActor(actorid int) bool {
 
-}
+}*/
 
 // IsValidVehicle implements
 func IsValidVehicle(vehicleid int) bool {
-
+	return bool(C.IsValidVehicle(C.int(vehicleid)))
 }
 
-// GetVehicleDistanceFromPoimplements int
+// GetVehicleDistanceFromPoint returns how far a vehicle is from a certain point in relation to a certain XYZ coordinate.
 func GetVehicleDistanceFromPoint(vehicleid int, x float32, y float32, z float32) float32 {
-
+	return float32(C.GetVehicleDistanceFromPoint(C.int(vehicleid), C.float(x), C.float(y), C.float(z)))
 }
 
-// CreateVehicle implements
+// CreateVehicle allows you to create a vehicle.
 func CreateVehicle(vehicletype int, x float32, y float32, z float32, rotation float32, color1 int, color2 int, respawnDelay int, addsiren bool) int {
-
+	return int(C.CreateVehicle(C.int(vehicletype), C.float(x), C.float(y), C.float(z), C.float(rotation), C.int(color1), C.int(color2), C.int(respawnDelay), C.bool(addsiren)))
 }
 
-// DestroyVehicle implements
+// DestroyVehicle allows you to destroy a vehicle.
 func DestroyVehicle(vehicleid int) bool {
-
+	return bool(C.DestroyVehicle(C.int(vehicleid)))
 }
 
+/*
 // IsVehicleStreamedIn implements
 func IsVehicleStreamedIn(vehicleid int, forplayerid int) bool {
 
@@ -313,33 +325,27 @@ func GetVehicleVirtualWorld(vehicleid int) int {
 // GetVehicleModelInfo implements
 func GetVehicleModelInfo(model int, infotype int, X float32, Y float32, Z float32) bool {
 
-}
+}*/
 
 // SendClientMessage implements
-func SendClientMessage(playerid int, color int, message string) error {
+func SendClientMessage(playerid, color int, message string) error {
 	msg := C.CString(message)
 	defer C.free(unsafe.Pointer(msg))
 
-	C.SendClientMessage(C.int(p.ID), color, C.nonConstToConst(msg))
-
+	C.SendClientMessage(C.int(playerid), C.int(color), C.nonConstToConst(msg))
 	return nil
 }
 
 // SendClientMessageToAll implements
-func SendClientMessageToAll(color int, message string) bool {
+func SendClientMessageToAll(color int, message string) error {
+	msg := C.CString(message)
+	defer C.free(unsafe.Pointer(msg))
 
+	C.SendClientMessageToAll(C.int(color), C.nonConstToConst(msg))
+	return nil
 }
 
-// SendPlayerMessageToPlayer implements
-func SendPlayerMessageToPlayer(playerid int, senderid int, message string) bool {
-
-}
-
-// SendPlayerMessageToAll implements
-func SendPlayerMessageToAll(senderid int, message string) bool {
-
-}
-
+/*
 // SendDeathMessage implements
 func SendDeathMessage(killer int, killee int, weapon int) bool {
 
@@ -1173,47 +1179,49 @@ func SetObjectsDefaultCameraCol(disable bool) bool {
 // SetSpawnInfo implements
 func SetSpawnInfo(playerid int, team int, skin int, x float32, y float32, z float32, rotation float32, weapon1 int, weapon1_ammo int, weapon2 int, weapon2_ammo int, weapon3 int, weapon3_ammo int) bool {
 
-}
+}*/
 
 // SpawnPlayer spawns the player.
 func SpawnPlayer(playerid int) bool {
-	return C.SpawnPlayer(C.int(playerid))
+	return bool(C.SpawnPlayer(C.int(playerid)))
 }
 
 // SetPlayerPos sets the player's current position.
 func SetPlayerPos(playerid int, x float32, y float32, z float32) bool {
-	return C.SetPlayerPos(playerid, C.float(x), C.float(y), C.float(z))
+	return bool(C.SetPlayerPos(C.int(playerid), C.float(x), C.float(y), C.float(z)))
 }
 
+/*
 // SetPlayerPosFindZ implements
 func SetPlayerPosFindZ(playerid int, x float32, y float32, z float32) bool {
 
-}
+}*/
 
 // GetPlayerPos returns the player's current position.
 func GetPlayerPos(playerid int) (float32, float32, float32) {
 	var x, y, z C.float
-	C.GetPlayerPos(C.int(playerid), x, y, z)
+	C.GetPlayerPos(C.int(playerid), &x, &y, &z)
 	return float32(x), float32(y), float32(z)
 }
 
 // SetPlayerFacingAngle sets the player's facing angle.
 func SetPlayerFacingAngle(playerid int, angle float32) bool {
-	return C.SetPlayerFacingAngle(C.int(playerid), C.float(angle))
+	return bool(C.SetPlayerFacingAngle(C.int(playerid), C.float(angle)))
 }
 
 // GetPlayerFacingAngle gets the player's facing angle.
 func GetPlayerFacingAngle(playerid int) float32 {
 	var a C.float
-	C.GetPlayerFacingAngle(C.int(playerid), a)
-	return float(a)
+	C.GetPlayerFacingAngle(C.int(playerid), &a)
+	return float32(a)
 }
 
 // IsPlayerInRangeOfPoint returns whether a player is or isnt in range of a set of coordinates.
 func IsPlayerInRangeOfPoint(playerid int, pRange, x, y, z float32) bool {
-	return C.IsPlayerInRangeOfPoint(C.int(playerid), C.float(pRange), C.float(x), C.float(y), C.float(z))
+	return bool(C.IsPlayerInRangeOfPoint(C.int(playerid), C.float(pRange), C.float(x), C.float(y), C.float(z)))
 }
 
+/*
 // GetPlayerDistanceFromPoimplements int
 func GetPlayerDistanceFromPoint(playerid int, x float32, y float32, z float32) float32 {
 
@@ -1898,3 +1906,4 @@ func StopRecordingPlayerData(playerid int) bool {
 func CreateExplosionForPlayer(playerid int, X float32, Y float32, Z float32, eType int, Radius float32) bool {
 
 }
+*/
