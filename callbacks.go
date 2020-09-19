@@ -1012,21 +1012,3 @@ func onPlayerRequestDownload(playerid, dtype, crc C.int) bool {
 	fn(p, int(dtype), int(crc))
 	return true
 }
-
-//export onHTTPResponse
-func onHTTPResponse(index, responseCode C.int, data *C.char_t) bool {
-	evt, ok := events["onPlayerRequestDownload"]
-	if !ok {
-		return false
-	}
-
-	fn, ok := evt.Handler.(func(int, int, string) bool)
-	if !ok {
-		return false
-	}
-
-	Data := C.constToNonConst(data)
-
-	fn(int(index), int(responseCode), C.GoString(Data))
-	return true
-}
