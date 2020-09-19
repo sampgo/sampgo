@@ -35,20 +35,20 @@ endef
 
 ifeq ($(config),debug)
 TARGETDIR = bin/Debug
-TARGET = $(TARGETDIR)/libsampgdk.a
+TARGET = $(TARGETDIR)/sampgdk.lib
 OBJDIR = obj/Debug
-DEFINES += -DLINUX -DDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wno-attributes -include stddef.h
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wno-attributes -include stddef.h
+DEFINES += -DWIN32 -DDEBUG
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wno-attributes -include stddef.h -include stdint.h
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wno-attributes -include stddef.h -include stdint.h
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32
 
 else ifeq ($(config),release)
 TARGETDIR = bin/Release
-TARGET = $(TARGETDIR)/libsampgdk.a
+TARGET = $(TARGETDIR)/sampgdk.lib
 OBJDIR = obj/Release
-DEFINES += -DLINUX -DNDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -Wno-attributes -include stddef.h
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -Wno-attributes -include stddef.h
+DEFINES += -DWIN32 -DNDEBUG
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -Wno-attributes -include stddef.h -include stdint.h
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O2 -Wno-attributes -include stddef.h -include stdint.h
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -s
 
 endif
