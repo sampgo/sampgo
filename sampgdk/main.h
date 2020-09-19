@@ -95,7 +95,6 @@ extern bool onPlayerSelectObject(int playerid, int type, int objectid, int model
 extern bool onPlayerWeaponShot(int playerid, int weaponid, int hittype, int hitid, float fX, float fY, float fZ);
 
 extern bool onPlayerRequestDownload(int playerid, int type, int crc);
-extern void onHTTPResponse(int index, int response_code, const char * data);
 #endif
 
 // All of the natives we want to export.
