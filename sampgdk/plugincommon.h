@@ -16,23 +16,23 @@
 #ifdef __cplusplus
   #define PLUGIN_EXTERN_C extern "C"
 #else
-  #define PLUGIN_EXTERN_C 
+  #define PLUGIN_EXTERN_C
 #endif
 
-#if defined(LINUX) || defined(FREEBSD) || defined(__FreeBSD__) || defined(__OpenBSD__)
+#if defined(LINUX) || defined(FREEBSD) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__APPLE__)
   #ifndef __GNUC__
-    #pragma message "Warning: Not using a GNU compiler."
+	#pragma message "Warning: Not using a GNU compiler."
   #endif
   #define PLUGIN_CALL 
   #ifndef SAMPSVR
-    // Compile code with -fvisibility=hidden to hide non-exported functions.
-    #define PLUGIN_EXPORT PLUGIN_EXTERN_C __attribute__((visibility("default")))
+	// Compile code with -fvisibility=hidden to hide non-exported functions.
+	#define PLUGIN_EXPORT PLUGIN_EXTERN_C __attribute__((visibility("default")))
   #else
-    #define PLUGIN_EXPORT PLUGIN_EXTERN_C 
+	#define PLUGIN_EXPORT PLUGIN_EXTERN_C
   #endif
 #elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
   #ifndef _MSC_VER
-    #pragma message "Warning: Not using a VC++ compiler."
+	#pragma message "Warning: Not using a VC++ compiler."
   #endif
   #define PLUGIN_CALL __stdcall
   #define PLUGIN_EXPORT PLUGIN_EXTERN_C
