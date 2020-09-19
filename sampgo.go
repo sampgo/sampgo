@@ -25,7 +25,7 @@ type event struct {
 	Handler interface{}
 }
 
-var events map[string]event = make(map[string]event)
+var events = make(map[string]event)
 var mainEvent func() = nil
 
 // On registers an event with a handler.
