@@ -8,8 +8,11 @@ project "sampgdk"
     files { "**.h", "**.c" }
     architecture "x32"
 
-    buildoptions { "-Wno-attributes", "-include stddef.h" }
+    
     includedirs { "amx" }
+
+    filter { "toolset:gcc or toolset:clang" }
+        buildoptions { "-Wno-attributes", "-include stddef.h" }
 
     filter { "configurations:Debug" }
         defines { "DEBUG", "LINUX" }
