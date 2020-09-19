@@ -1,5 +1,9 @@
 package sampgo
 
+/*
+	A big thank you goes out to Logic for this!
+*/
+
 // SAMP constants
 const (
 	MaxPlayerName                    int = 24

@@ -591,12 +591,12 @@ func GetPlayerVersion(playerid int, version string, len int) bool {
 }
 
 // BlockIpAddress implements
-func BlockIpAddress(ip_address string, timems int) bool {
+func BlockIPAddress(ip_address string, timems int) bool {
 
 }
 
 // UnBlockIpAddress implements
-func UnBlockIpAddress(ip_address string) bool {
+func UnBlockIPAddress(ip_address string) bool {
 
 }
 
@@ -1175,14 +1175,14 @@ func SetSpawnInfo(playerid int, team int, skin int, x float32, y float32, z floa
 
 }
 
-// SpawnPlayer implements
+// SpawnPlayer spawns the player.
 func SpawnPlayer(playerid int) bool {
-
+	return C.SpawnPlayer(C.int(playerid))
 }
 
-// SetPlayerPos implements
+// SetPlayerPos sets the player's current position.
 func SetPlayerPos(playerid int, x float32, y float32, z float32) bool {
-
+	return C.SetPlayerPos(playerid, C.float(x), C.float(y), C.float(z))
 }
 
 // SetPlayerPosFindZ implements
@@ -1190,24 +1190,28 @@ func SetPlayerPosFindZ(playerid int, x float32, y float32, z float32) bool {
 
 }
 
-// GetPlayerPos implements
-func GetPlayerPos(playerid int, x float32, y float32, z float32) bool {
-
+// GetPlayerPos returns the player's current position.
+func GetPlayerPos(playerid int) (float32, float32, float32) {
+	var x, y, z C.float
+	C.GetPlayerPos(C.int(playerid), x, y, z)
+	return float32(x), float32(y), float32(z)
 }
 
-// SetPlayerFacingAngle implements
+// SetPlayerFacingAngle sets the player's facing angle.
 func SetPlayerFacingAngle(playerid int, angle float32) bool {
-
+	return C.SetPlayerFacingAngle(C.int(playerid), C.float(angle))
 }
 
-// GetPlayerFacingAngle implements
-func GetPlayerFacingAngle(playerid int, angle float32) bool {
-
+// GetPlayerFacingAngle gets the player's facing angle.
+func GetPlayerFacingAngle(playerid int) float32 {
+	var a C.float
+	C.GetPlayerFacingAngle(C.int(playerid), a)
+	return float(a)
 }
 
-// IsPlayerInRangeOfPoimplements int
-func IsPlayerInRangeOfPoint(playerid int, pRange float32, x float32, y float32, z float32) bool {
-
+// IsPlayerInRangeOfPoint returns whether a player is or isnt in range of a set of coordinates.
+func IsPlayerInRangeOfPoint(playerid int, pRange, x, y, z float32) bool {
+	return C.IsPlayerInRangeOfPoint(C.int(playerid), C.float(pRange), C.float(x), C.float(y), C.float(z))
 }
 
 // GetPlayerDistanceFromPoimplements int
