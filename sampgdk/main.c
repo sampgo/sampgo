@@ -511,10 +511,6 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerRequestDownload(int playerid, int type, i
 	return true;
 }
 
-PLUGIN_EXPORT void OnHTTPResponse(int index, int response_code, const char * data) {
-    onHTTPResponse(index, response_code, data);
-}
-
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports() {
     return sampgdk_Supports() | SUPPORTS_PROCESS_TICK;
 }
