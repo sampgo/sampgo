@@ -10,13 +10,22 @@ project "sampgdk"
 
     includedirs { "amx" }
 
+    filter { "system:windows" }
+        defines { "WIN32" }
+
+    filter { "system:linux" }
+        defines { "LINUX" }
+        
     filter { "toolset:gcc or toolset:clang" }
-        buildoptions { "-Wno-attributes", "-include stddef.h" }
+        buildoptions { "-Wno-attributes" }
+
+    filter { "toolset:gcc" }
+        buildoptions{ "-include stddef.h" }
 
     filter { "configurations:Debug" }
-        defines { "DEBUG", "LINUX" }
+        defines { "DEBUG" }
         symbols "On"
 
     filter { "configurations:Release" }
-        defines { "NDEBUG", "LINUX" }
+        defines { "NDEBUG" }
         optimize "On"
