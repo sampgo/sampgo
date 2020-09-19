@@ -17,4 +17,4 @@ AliLogic for quite a few things.
 Dakyskye for helping out with some event handling logic, and a lot of motivation.
 
 ## API coverage
-See here
+See [here!](https://github.com/sampgo/sampgo/wiki/API-coverage)
