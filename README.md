@@ -1,8 +1,6 @@
 # sampgo
 sampgo is a SAMP gamemode SDK written in Go, based on Zeex's SAMPGDK.
 
-CGO_ENABLED=1 GOOS=linux GOARCH=386 go build -buildmode=c-shared -o build/libsampgo.so main.go
-
 ## Quickstart
 Clone the `https://github.com/sampgo/base.git` repo.
 
@@ -17,3 +15,439 @@ go get -u github.com/sampgo/sampgo
 AliLogic for quite a few things.
 
 Dakyskye for helping out with some event handling logic, and a lot of motivation.
+
+## API Coverage
+
+### Callbacks
+- [x] goModeInit (onGameModeInit)
+- [x] goModeExit (onGameModeExit)
+- [x] onPlayerConnect
+- [x] onPlayerDisconnect
+- [x] onPlayerSpawn
+- [x] onPlayerDeath
+- [x] onVehicleSpawn
+- [x] onVehicleDeath
+- [x] onPlayerText
+- [x] onPlayerCommandText
+- [x] onPlayerRequestClass
+- [x] onPlayerEnterVehicle
+- [x] onPlayerExitVehicle
+- [x] onPlayerStateChange
+- [x] onPlayerEnterCheckpoint
+- [x] onPlayerLeaveCheckpoint
+- [x] onPlayerEnterRaceCheckpoint
+- [x] onPlayerLeaveRaceCheckpoint
+- [x] onRconCommand
+- [x] onPlayerRequestSpawn
+- [x] onObjectMoved
+- [x] onPlayerObjectMoved
+- [x] onPlayerPickUpPickup
+- [x] onVehicleMod
+- [x] onEnterExitModShop
+- [x] onVehiclePaintjob
+- [x] onVehicleRespray
+- [x] onVehicleDamageStatusUpdate
+- [x] onUnoccupiedVehicleUpdate
+- [x] onPlayerSelectedMenuRow
+- [x] onPlayerExitedMenu
+- [x] onPlayerInteriorChange
+- [x] onPlayerKeyStateChange
+- [x] onRconLoginAttempt
+- [x] onPlayerUpdate
+- [x] onPlayerStreamIn
+- [x] onPlayerStreamOut
+- [x] onVehicleStreamIn
+- [x] onVehicleStreamOut
+- [x] onActorStreamIn
+- [x] onActorStreamOut
+- [x] onDialogResponse
+- [x] onPlayerTakeDamage
+- [x] onPlayerGiveDamage
+- [x] onPlayerGiveDamageActor
+- [x] onPlayerClickMap
+- [x] onPlayerClickTextDraw
+- [x] onPlayerClickPlayerTextDraw
+- [x] onIncomingConnection
+- [x] onTrailerUpdate
+- [x] onVehicleSirenStateChange
+- [x] onPlayerClickPlayer
+- [x] onPlayerEditObject
+- [x] onPlayerEditAttachedObject
+- [x] onPlayerSelectObject
+- [x] onPlayerWeaponShot
+- [x] onPlayerRequestDownload
+
+### Natives
+- [x] CreateActor
+- [x] DestroyActor
+- [x] IsActorStreamedIn
+- [x] SetActorVirtualWorld
+- [x] GetActorVirtualWorld
+- [x] ApplyActorAnimation
+- [x] ClearActorAnimations
+- [x] SetActorPos
+- [x] GetActorPos
+- [x] SetActorFacingAngle
+- [x] GetActorFacingAngle
+- [ ] SetActorHealth
+- [ ] GetActorHealth
+- [ ] SetActorInvulnerable
+- [ ] IsActorInvulnerable
+- [ ] IsValidActor
+- [x] IsValidVehicle
+- [x] GetVehicleDistanceFromPoint
+- [x] CreateVehicle
+- [x] DestroyVehicle
+- [ ] IsVehicleStreamedIn
+- [ ] GetVehiclePos
+- [ ] SetVehiclePos
+- [ ] GetVehicleZAngle
+- [ ] GetVehicleRotationQuat
+- [ ] SetVehicleZAngle
+- [ ] SetVehicleParamsForPlayer
+- [ ] ManualVehicleEngineAndLights
+- [ ] SetVehicleParamsEx
+- [ ] GetVehicleParamsEx
+- [ ] GetVehicleParamsSirenState
+- [ ] SetVehicleParamsCarDoors
+- [ ] GetVehicleParamsCarDoors
+- [ ] SetVehicleParamsCarWindows
+- [ ] GetVehicleParamsCarWindows
+- [ ] SetVehicleToRespawn
+- [ ] LinkVehicleToInterior
+- [ ] AddVehicleComponent
+- [ ] RemoveVehicleComponent
+- [ ] ChangeVehicleColor
+- [ ] ChangeVehiclePaintjob
+- [ ] SetVehicleHealth
+- [ ] GetVehicleHealth
+- [ ] AttachTrailerToVehicle
+- [ ] DetachTrailerFromVehicle
+- [ ] IsTrailerAttachedToVehicle
+- [ ] GetVehicleTrailer
+- [ ] SetVehicleNumberPlate
+- [ ] GetVehicleModel
+- [ ] GetVehicleComponentInSlot
+- [ ] GetVehicleComponentType
+- [ ] RepairVehicle
+- [ ] GetVehicleVelocity
+- [ ] SetVehicleVelocity
+- [ ] SetVehicleAngularVelocity
+- [ ] GetVehicleDamageStatus
+- [ ] UpdateVehicleDamageStatus
+- [ ] SetVehicleVirtualWorld
+- [ ] GetVehicleVirtualWorld
+- [ ] GetVehicleModelInfo
+- [x] SendClientMessage
+- [x] SendClientMessageToAll
+- [ ] SendDeathMessage
+- [ ] SendDeathMessageToPlayer
+- [ ] GameTextForAll
+- [ ] GameTextForPlayer
+- [ ] GetTickCount
+- [ ] GetMaxPlayers
+- [ ] VectorSize
+- [ ] GetPlayerPoolSize
+- [ ] GetVehiclePoolSize
+- [ ] GetActorPoolSize
+- [ ] SetGameModeText
+- [ ] SetTeamCount
+- [ ] AddPlayerClass
+- [ ] AddPlayerClassEx
+- [ ] AddStaticVehicle
+- [ ] AddStaticVehicleEx
+- [ ] AddStaticPickup
+- [ ] CreatePickup
+- [ ] DestroyPickup
+- [ ] ShowNameTags
+- [ ] ShowPlayerMarkers
+- [ ] GameModeExit
+- [ ] SetWorldTime
+- [ ] GetWeaponName
+- [ ] EnableTirePopping
+- [ ] EnableVehicleFriendlyFire
+- [ ] AllowInteriorWeapons
+- [ ] SetWeather
+- [ ] SetGravity
+- [ ] GetGravity
+- [ ] AllowAdminTeleport
+- [ ] SetDeathDropAmount
+- [ ] CreateExplosion
+- [ ] EnableZoneNames
+- [ ] UsePlayerPedAnims
+- [ ] DisableInteriorEnterExits
+- [ ] SetNameTagDrawDistance
+- [ ] DisableNameTagLOS
+- [ ] LimitGlobalChatRadius
+- [ ] LimitPlayerMarkerRadius
+- [ ] ConnectNPC
+- [ ] IsPlayerNPC
+- [ ] IsPlayerAdmin
+- [ ] Kick
+- [ ] Ban
+- [ ] BanEx
+- [ ] SendRconCommand
+- [ ] GetPlayerNetworkStats
+- [ ] GetNetworkStats
+- [ ] GetPlayerVersion
+- [ ] BlockIPAddress
+- [ ] UnBlockIPAddress
+- [ ] GetServerVarAsString
+- [ ] GetServerVarAsInt
+- [ ] GetServerVarAsBool
+- [ ] GetConsoleVarAsString
+- [ ] GetConsoleVarAsInt
+- [ ] GetConsoleVarAsBool
+- [ ] GetServerTickRate
+- [ ] NetStats_GetConnectedTime
+- [ ] NetStats_MessagesReceived
+- [ ] NetStats_BytesReceived
+- [ ] NetStats_MessagesSent
+- [ ] NetStats_BytesSent
+- [ ] NetStats_MessagesRecvPerSecond
+- [ ] NetStats_PacketLossPercent
+- [ ] NetStats_ConnectionStatus
+- [ ] NetStats_GetIpPort
+- [ ] CreateMenu
+- [ ] DestroyMenu
+- [ ] AddMenuItem
+- [ ] SetMenuColumnHeader
+- [ ] ShowMenuForPlayer
+- [ ] HideMenuForPlayer
+- [ ] IsValidMenu
+- [ ] DisableMenu
+- [ ] DisableMenuRow
+- [ ] GetPlayerMenu
+- [ ] TextDrawCreate
+- [ ] TextDrawDestroy
+- [ ] TextDrawLetterSize
+- [ ] TextDrawTextSize
+- [ ] TextDrawAlignment
+- [ ] TextDrawColor
+- [ ] TextDrawUseBox
+- [ ] TextDrawBoxColor
+- [ ] TextDrawSetShadow
+- [ ] TextDrawSetOutline
+- [ ] TextDrawBackgroundColor
+- [ ] TextDrawFont
+- [ ] TextDrawSetProportional
+- [ ] TextDrawSetSelectable
+- [ ] TextDrawShowForPlayer
+- [ ] TextDrawHideForPlayer
+- [ ] TextDrawShowForAll
+- [ ] TextDrawHideForAll
+- [ ] TextDrawSetString
+- [ ] TextDrawSetPreviewModel
+- [ ] TextDrawSetPreviewRot
+- [ ] TextDrawSetPreviewVehCol
+- [ ] SelectTextDraw
+- [ ] CancelSelectTextDraw
+- [ ] GangZoneCreate
+- [ ] GangZoneDestroy
+- [ ] GangZoneShowForPlayer
+- [ ] GangZoneShowForAll
+- [ ] GangZoneHideForPlayer
+- [ ] GangZoneHideForAll
+- [ ] GangZoneFlashForPlayer
+- [ ] GangZoneFlashForAll
+- [ ] GangZoneStopFlashForPlayer
+- [ ] GangZoneStopFlashForAll
+- [ ] Create3DTextLabel
+- [ ] Delete3DTextLabel
+- [ ] Attach3DTextLabelToPlayer
+- [ ] Attach3DTextLabelToVehicle
+- [ ] Update3DTextLabelText
+- [ ] CreatePlayer3DTextLabel
+- [ ] DeletePlayer3DTextLabel
+- [ ] UpdatePlayer3DTextLabelText
+- [ ] ShowPlayerDialog
+- [ ] Gpci
+- [ ] AddCharModel
+- [ ] AddSimpleModel
+- [ ] AddSimpleModelTimed
+- [ ] FindModelFileNameFromCRC
+- [ ] FindTextureFileNameFromCRC
+- [ ] RedirectDownload
+- [ ] CreateObject
+- [ ] AttachObjectToVehicle
+- [ ] AttachObjectToObject
+- [ ] AttachObjectToPlayer
+- [ ] SetObjectPos
+- [ ] GetObjectPos
+- [ ] SetObjectRot
+- [ ] GetObjectRot
+- [ ] GetObjectModel
+- [ ] SetObjectNoCameraCol
+- [ ] IsValidObject
+- [ ] DestroyObject
+- [ ] MoveObject
+- [ ] StopObject
+- [ ] IsObjectMoving
+- [ ] EditObject
+- [ ] EditPlayerObject
+- [ ] SelectObject
+- [ ] CancelEdit
+- [ ] CreatePlayerObject
+- [ ] AttachPlayerObjectToPlayer
+- [ ] AttachPlayerObjectToVehicle
+- [ ] SetPlayerObjectPos
+- [ ] GetPlayerObjectPos
+- [ ] SetPlayerObjectRot
+- [ ] GetPlayerObjectRot
+- [ ] GetPlayerObjectModel
+- [ ] SetPlayerObjectNoCameraCol
+- [ ] IsValidPlayerObject
+- [ ] DestroyPlayerObject
+- [ ] MovePlayerObject
+- [ ] StopPlayerObject
+- [ ] IsPlayerObjectMoving
+- [ ] SetObjectMaterial
+- [ ] SetPlayerObjectMaterial
+- [ ] SetObjectMaterialText
+- [ ] SetPlayerObjectMaterialText
+- [ ] SetObjectsDefaultCameraCol
+- [ ] SetSpawnInfo
+- [x] SpawnPlayer
+- [x] SetPlayerPos
+- [ ] SetPlayerPosFindZ
+- [x] GetPlayerPos
+- [x] SetPlayerFacingAngle
+- [x] GetPlayerFacingAngle
+- [x] IsPlayerInRangeOfPoint
+- [ ] GetPlayerDistanceFromPoint
+- [ ] IsPlayerStreamedIn
+- [ ] SetPlayerInterior
+- [ ] GetPlayerInterior
+- [ ] SetPlayerHealth
+- [ ] GetPlayerHealth
+- [ ] SetPlayerArmour
+- [ ] GetPlayerArmour
+- [ ] SetPlayerAmmo
+- [ ] GetPlayerAmmo
+- [ ] GetPlayerWeaponState
+- [ ] GetPlayerTargetPlayer
+- [ ] GetPlayerTargetActor
+- [ ] SetPlayerTeam
+- [ ] GetPlayerTeam
+- [ ] SetPlayerScore
+- [ ] GetPlayerScore
+- [ ] GetPlayerDrunkLevel
+- [ ] SetPlayerDrunkLevel
+- [ ] SetPlayerColor
+- [ ] GetPlayerColor
+- [ ] SetPlayerSkin
+- [ ] GetPlayerSkin
+- [ ] GivePlayerWeapon
+- [ ] ResetPlayerWeapons
+- [ ] SetPlayerArmedWeapon
+- [ ] GetPlayerWeaponData
+- [ ] GivePlayerMoney
+- [ ] ResetPlayerMoney
+- [ ] SetPlayerName
+- [ ] GetPlayerMoney
+- [ ] GetPlayerState
+- [ ] GetPlayerIp
+- [ ] GetPlayerPing
+- [ ] GetPlayerWeapon
+- [ ] GetPlayerKeys
+- [ ] GetPlayerName
+- [ ] SetPlayerTime
+- [ ] GetPlayerTime
+- [ ] TogglePlayerClock
+- [ ] SetPlayerWeather
+- [ ] ForceClassSelection
+- [ ] SetPlayerWantedLevel
+- [ ] GetPlayerWantedLevel
+- [ ] SetPlayerFightingStyle
+- [ ] GetPlayerFightingStyle
+- [ ] SetPlayerVelocity
+- [ ] GetPlayerVelocity
+- [ ] PlayCrimeReportForPlayer
+- [ ] PlayAudioStreamForPlayer
+- [ ] StopAudioStreamForPlayer
+- [ ] SetPlayerShopName
+- [ ] SetPlayerSkillLevel
+- [ ] GetPlayerSurfingVehicleID
+- [ ] GetPlayerSurfingObjectID
+- [ ] RemoveBuildingForPlayer
+- [ ] GetPlayerLastShotVectors
+- [ ] SetPlayerAttachedObject
+- [ ] RemovePlayerAttachedObject
+- [ ] IsPlayerAttachedObjectSlotUsed
+- [ ] EditAttachedObject
+- [ ] CreatePlayerTextDraw
+- [ ] PlayerTextDrawDestroy
+- [ ] PlayerTextDrawLetterSize
+- [ ] PlayerTextDrawTextSize
+- [ ] PlayerTextDrawAlignment
+- [ ] PlayerTextDrawColor
+- [ ] PlayerTextDrawUseBox
+- [ ] PlayerTextDrawBoxColor
+- [ ] PlayerTextDrawSetShadow
+- [ ] PlayerTextDrawSetOutline
+- [ ] PlayerTextDrawBackgroundColor
+- [ ] PlayerTextDrawFont
+- [ ] PlayerTextDrawSetProportional
+- [ ] PlayerTextDrawSetSelectable
+- [ ] PlayerTextDrawShow
+- [ ] PlayerTextDrawHide
+- [ ] PlayerTextDrawSetString
+- [ ] PlayerTextDrawSetPreviewModel
+- [ ] PlayerTextDrawSetPreviewRot
+- [ ] PlayerTextDrawSetPreviewVehCol
+- [ ] SetPlayerChatBubble
+- [ ] PutPlayerInVehicle
+- [ ] GetPlayerVehicleID
+- [ ] GetPlayerVehicleSeat
+- [ ] RemovePlayerFromVehicle
+- [ ] TogglePlayerControllable
+- [ ] PlayerPlaySound
+- [ ] ApplyAnimation
+- [ ] ClearAnimations
+- [ ] GetPlayerAnimationIndex
+- [ ] GetAnimationName
+- [ ] GetPlayerSpecialAction
+- [ ] SetPlayerSpecialAction
+- [ ] DisableRemoteVehicleCollisions
+- [ ] SetPlayerCheckpoint
+- [ ] DisablePlayerCheckpoint
+- [ ] SetPlayerRaceCheckpoint
+- [ ] DisablePlayerRaceCheckpoint
+- [ ] SetPlayerWorldBounds
+- [ ] SetPlayerMarkerForPlayer
+- [ ] ShowPlayerNameTagForPlayer
+- [ ] SetPlayerMapIcon
+- [ ] RemovePlayerMapIcon
+- [ ] AllowPlayerTeleport
+- [ ] SetPlayerCameraPos
+- [ ] SetPlayerCameraLookAt
+- [ ] SetCameraBehindPlayer
+- [ ] GetPlayerCameraPos
+- [ ] GetPlayerCameraFrontVector
+- [ ] GetPlayerCameraMode
+- [ ] EnablePlayerCameraTarget
+- [ ] GetPlayerCameraTargetObject
+- [ ] GetPlayerCameraTargetVehicle
+- [ ] GetPlayerCameraTargetPlayer
+- [ ] GetPlayerCameraTargetActor
+- [ ] GetPlayerCameraAspectRatio
+- [ ] GetPlayerCameraZoom
+- [ ] AttachCameraToObject
+- [ ] AttachCameraToPlayerObject
+- [ ] InterpolateCameraPos
+- [ ] InterpolateCameraLookAt
+- [ ] IsPlayerConnected
+- [ ] IsPlayerInVehicle
+- [ ] IsPlayerInAnyVehicle
+- [ ] IsPlayerInCheckpoint
+- [ ] IsPlayerInRaceCheckpoint
+- [ ] SetPlayerVirtualWorld
+- [ ] GetPlayerVirtualWorld
+- [ ] EnableStuntBonusForPlayer
+- [ ] EnableStuntBonusForAll
+- [ ] TogglePlayerSpectating
+- [ ] PlayerSpectatePlayer
+- [ ] PlayerSpectateVehicle
+- [ ] StartRecordingPlayerData
+- [ ] StopRecordingPlayerData
+- [ ] CreateExplosionForPlayer
