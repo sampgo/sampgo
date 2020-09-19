@@ -1,4 +1,3 @@
 /build/
 sampgo/sampgdk/build/*
 !/sampgo/sampgdk/build/bin
-main.go
