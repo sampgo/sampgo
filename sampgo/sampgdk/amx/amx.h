@@ -25,7 +25,11 @@
   #define __FreeBSD__
 #endif
 #if defined LINUX || defined __FreeBSD__ || defined __OpenBSD__
+  #ifndef GOLANG_APP
   #include <sclinux.h>
+  #else
+  #include "sclinux.h"
+  #endif
 #endif
 
 #ifndef AMX_H_INCLUDED

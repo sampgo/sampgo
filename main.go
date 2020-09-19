@@ -1,16 +1,28 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-/*
-#cgo LDFLAGS: -L. -l:sampgdk/build/bin/Release/libsampgdk.a
-#define GOLANG_APP
-#include "sampgdk/src/main.h"
-*/
+	"github.com/sampgo/sampgo/sampgo"
+)
 
-func goModeInit() bool {
-	fmt.Println("Hello From Go!")
-	return true
+func init() {
+	sampgo.Print("go init() called")
+
+	sampgo.On("goModeInit", func() bool {
+		sampgo.Print("Hello from Go!")
+		return true
+	})
+
+	sampgo.On("goModeExit", func() bool {
+		sampgo.Print("goModeExit!")
+		return true
+	})
+
+	sampgo.On("onPlayerConnect", func(p sampgo.Player) bool {
+		sampgo.Print(fmt.Sprintf("Player ID is %d", p.ID))
+		return true
+	})
 }
 
 func main() {}
