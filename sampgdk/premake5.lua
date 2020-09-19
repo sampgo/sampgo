@@ -19,7 +19,7 @@ project "sampgdk"
     filter { "toolset:gcc" }
         buildoptions { "-Wno-attributes", "-include stddef.h" }
 
-    filter { "toolset:gcc and system:windows" }
+    filter { "toolset:gcc", "system:windows" }
         buildoptions { "-include stdint.h" }
 
     filter { "toolset:clang" }
