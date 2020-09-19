@@ -1,5 +1,9 @@
 #include "main.h"
 
+#ifdef __GNUC__
+#error "GNUC defined"
+#endif
+
 /**
  * \ingroup callbacks
  * \see <a href="http://wiki.sa-mp.com/wiki/OnGameModeInit">OnGameModeInit on SA-MP Wiki</a>

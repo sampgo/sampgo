@@ -17,10 +17,7 @@ project "sampgdk"
         defines { "LINUX" }
         
     filter { "toolset:gcc or toolset:clang" }
-        buildoptions { "-Wno-attributes" }
-
-    filter { "toolset:gcc" }
-        buildoptions{ "-include stddef.h" }
+        buildoptions { "-Wno-attributes", "-include stddef.h" }
 
     filter { "configurations:Debug" }
         defines { "DEBUG" }
