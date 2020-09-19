@@ -16,8 +16,14 @@ project "sampgdk"
     filter { "system:linux" }
         defines { "LINUX" }
         
-    filter { "toolset:gcc or toolset:clang" }
+    filter { "toolset:gcc" }
         buildoptions { "-Wno-attributes", "-include stddef.h" }
+
+    filter { "toolset:gcc and system:windows" }
+        buildoptions { "-include stdint.h" }
+
+    filter { "toolset:clang" }
+        buildoptions { "-Wno-ignored-attributes", "-include stddef.h" }
 
     filter { "configurations:Debug" }
         defines { "DEBUG" }
