@@ -3,12 +3,12 @@ package sampgo
 /*
 #cgo CFLAGS: -Wno-attributes
 
-#cgo linux.386 CFLAGS: -DLINUX
-#cgo linux.386 LDFLAGS: -L. -l:sampgdk/lib/libsampgdk.a
-#cgo linux.386 LDFLAGS: -ldl
+#cgo linux CFLAGS: -DLINUX
+#cgo linux LDFLAGS: -L. -l:sampgdk/lib/libsampgdk.a
+#cgo linux LDFLAGS: -ldl
 
-#cgo windows.386 CFLAGS: -DWIN32
-#cgo windows.386 LDFLAGS: -L. -l:sampgdk/lib/sampgdk.lib
+#cgo windows CFLAGS: -DWIN32
+#cgo windows LDFLAGS: -L. -l:sampgdk/lib/sampgdk.lib
 
 #ifndef GOLANG_APP
 #define GOLANG_APP
