@@ -6,6 +6,8 @@ package sampgo
 #cgo linux LDFLAGS: -L. -l:sampgdk/lib/libsampgdk.a
 #cgo linux LDFLAGS: -ldl
 
+#cgo windows LDFLAGS: -L -l:sampgdk/lib/sampgdk.lib
+
 #ifndef GOLANG_APP
 #define GOLANG_APP
 
