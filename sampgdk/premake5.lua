@@ -12,6 +12,7 @@ project "sampgdk"
 
     filter { "system:windows" }
         defines { "WIN32" }
+        files { "main.def" }
 
     filter { "system:linux" }
         defines { "LINUX" }
