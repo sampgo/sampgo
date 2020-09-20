@@ -2,6 +2,7 @@
 <img src="https://github.com/sampgo/sampgo/blob/master/img/GTASAGOMP_Stylesheet_condensed@2x.png?raw=true"/>
 </p>
 <p align="center">sampgo is a SAMP gamemode SDK written in Go, based on Zeex's SAMPGDK.</p>
+<p align="center"><strong>Linux only— for the time being.</strong></p>
 
 
 ## Quickstart
