@@ -100,6 +100,6 @@ extern bool onPlayerRequestDownload(int playerid, int type, int crc);
 // All of the natives we want to export.
 extern void goLogprintf(char* text);
 extern char* constToNonConst(const char* text);
-const char* nonConstToConst(char* text);
+extern const char* nonConstToConst(char* text);
 
 #endif
