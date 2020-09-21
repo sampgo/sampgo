@@ -579,7 +579,7 @@ func BanEx(playerid int, reason string) bool {
 
 }*/
 
-// SendRconCommand implements
+// SendRconCommand allows you to send RCON commands to the server.
 func SendRconCommand(command string) bool {
 	cstr := C.CString(command)
 	defer C.free(unsafe.Pointer(cstr))
