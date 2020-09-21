@@ -577,13 +577,17 @@ func Ban(playerid int) bool {
 // BanEx implements
 func BanEx(playerid int, reason string) bool {
 
-}
+}*/
 
 // SendRconCommand implements
 func SendRconCommand(command string) bool {
+	cstr := C.CString(command)
+	defer C.free(unsafe.Pointer(cstr))
 
+	return bool(C.SendRconCommand(C.nonConstToConst(cstr)))
 }
 
+/*
 // GetPlayerNetworkStats implements
 func GetPlayerNetworkStats(playerid int, retstr string, size int) bool {
 
