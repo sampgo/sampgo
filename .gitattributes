@@ -1,2 +1,7 @@
 *.c linguist-generated=true
 *.h linguist-generated=true
+
+main.c linguist-generated=false
+main.h linguist-generated=false
+
+premake5.lua linguist-generated=true
