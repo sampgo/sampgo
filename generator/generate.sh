@@ -2,4 +2,6 @@
 
 git clone https://github.com/Zeex/sampgdk
 
-find sampgdk -name "*.idl" | xargs go run .
+# a_http.idl is cursed
+
+find sampgdk -name "*.idl" | grep -v 'a_http' | xargs go run .

@@ -20,8 +20,8 @@ extern bool onPlayerDeath(int playerid, int killerid, int reason);
 extern bool onVehicleSpawn(int vehicleid);
 extern bool onVehicleDeath(int vehicleid, int killerid);
 
-extern bool onPlayerText(int playerid, const char * text);
-extern bool onPlayerCommandText(int playerid, const char * cmdtext);
+extern bool onPlayerText(int playerid, const char* text);
+extern bool onPlayerCommandText(int playerid, const char* cmdtext);
 
 extern bool onPlayerRequestClass(int playerid, int classid);
 
@@ -36,7 +36,7 @@ extern bool onPlayerLeaveCheckpoint(int playerid);
 extern bool onPlayerEnterRaceCheckpoint(int playerid);
 extern bool onPlayerLeaveRaceCheckpoint(int playerid);
 
-extern bool onRconCommand(const char * cmd);
+extern bool onRconCommand(const char* cmd);
 extern bool onPlayerRequestSpawn(int playerid);
 
 extern bool onObjectMoved(int objectid);
@@ -58,7 +58,7 @@ extern bool onPlayerExitedMenu(int playerid);
 extern bool onPlayerInteriorChange(int playerid, int newinteriorid, int oldinteriorid);
 
 extern bool onPlayerKeyStateChange(int playerid, int newkeys, int oldkeys);
-extern bool onRconLoginAttempt(const char * ip, const char * password, bool success);
+extern bool onRconLoginAttempt(const char* ip, const char* password, bool success);
 
 extern bool onPlayerUpdate(int playerid);
 
@@ -71,7 +71,7 @@ extern bool onVehicleStreamOut(int vehicleid, int forplayerid);
 extern bool onActorStreamIn(int actorid, int forplayerid);
 extern bool onActorStreamOut(int actorid, int forplayerid);
 
-extern bool onDialogResponse(int playerid, int dialogid, int response, int listitem, const char * inputtext);
+extern bool onDialogResponse(int playerid, int dialogid, int response, int listitem, const char* inputtext);
 
 extern bool onPlayerTakeDamage(int playerid, int issuerid, float amount, int weaponid, int bodypart);
 extern bool onPlayerGiveDamage(int playerid, int damagedid, float amount, int weaponid, int bodypart);
@@ -82,7 +82,7 @@ extern bool onPlayerClickMap(int playerid, float fX, float fY, float fZ);
 extern bool onPlayerClickTextDraw(int playerid, int clickedid);
 extern bool onPlayerClickPlayerTextDraw(int playerid, int playertextid);
 
-extern bool onIncomingConnection(int playerid, const char * ip_address, int port);
+extern bool onIncomingConnection(int playerid, const char* ip_address, int port);
 extern bool onTrailerUpdate(int playerid, int vehicleid);
 
 extern bool onVehicleSirenStateChange(int playerid, int vehicleid, int newstate);
@@ -95,6 +95,8 @@ extern bool onPlayerSelectObject(int playerid, int type, int objectid, int model
 extern bool onPlayerWeaponShot(int playerid, int weaponid, int hittype, int hitid, float fX, float fY, float fZ);
 
 extern bool onPlayerRequestDownload(int playerid, int type, int crc);
+
+extern void onTick();
 #endif
 
 // All of the natives we want to export.

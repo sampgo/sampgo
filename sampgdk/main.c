@@ -6,7 +6,7 @@
  */
 PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
 {
-    goModeInit();
+    onGameModeInit();
     return true;
 }
 
@@ -16,7 +16,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
  */
 PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeExit()
 {
-    goModeExit();
+    onGameModeExit();
     return true;
 }
 
@@ -585,6 +585,7 @@ PLUGIN_EXPORT void PLUGIN_CALL Unload()
 
 PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 {
+    onTick();
     sampgdk_ProcessTick(0);
 }
 

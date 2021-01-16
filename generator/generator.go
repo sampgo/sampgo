@@ -141,6 +141,9 @@ func (idl *IDL) Parse(file string) {
 					if a.name == "range" {
 						a.name = "range_"
 					}
+					if a.name == "len" {
+						a.name = "len_"
+					}
 
 					println("\targ", a.T, a.name, "=", a.default_value, "out:", a.out, "in:", a.in)
 					n.args = append(n.args, a)
@@ -259,7 +262,7 @@ func (a *Arg) GoType() string {
 }
 
 func (a *Arg) SampGoType() string {
-	if a.name == "playerid" && a.T == "int" {
+	if (a.name == "playerid" || a.name == "killerid" || a.name == "issuerid") && a.T == "int" {
 		return "Player"
 	}
 	return a.GoType()
@@ -274,7 +277,7 @@ func (a *Arg) CType() string {
 
 func (a *Arg) ToGo() string {
 	if (a.name == "playerid" || a.name == "killerid" || a.name == "issuerid") && a.T == "int" {
-		return "Player{ID: int(playerid)}"
+		return "Player{ID: int(" + a.name + ")}"
 	}
 	if a.T == "string" {
 		return "C.GoString(C.constToNonConst(" + a.name + "))"
@@ -385,6 +388,9 @@ func (n *Native) GenGo() string {
 
 	b.WriteString(") ")
 	b.WriteString(n.ret)
+	if n.ret == "float" {
+		b.WriteString("32")
+	}
 
 	b.WriteString(" {\n")
 
@@ -393,38 +399,60 @@ func (n *Native) GenGo() string {
 			continue
 		}
 
-		b.WriteString("\tcs" + a.name + " := C.Cstring(" + a.name + ")\n")
-		b.WriteString("\tdefer C.free(unsafe.Pointer(" + a.name + "))\n")
+		b.WriteString("\tcs" + a.name + " := C.CString(" + a.name + ")\n")
+		b.WriteString("\tdefer C.free(unsafe.Pointer(cs" + a.name + "))\n")
 	}
 
 	if getter {
-		b.WriteString("\tvar ret C.int\n")
+		b.WriteString("\tvar ret " + n.ret)
+		if n.ret == "float" {
+			b.WriteString("32")
+		}
+		b.WriteRune('\n')
 
 		for _, a := range n.args {
 			if a.out {
 				b.WriteString("\tvar c")
 				b.WriteString(a.name)
 				b.WriteString(" ")
+
 				if a.T == "string" {
 					b.WriteString("*C.char")
 				} else {
-					b.WriteString(a.T)
+					b.WriteString(a.CType())
 				}
+
 				b.WriteRune('\n')
 				if a.T == "string" {
+
+					size := "size"
+
+					for i := range n.args {
+						if (n.args[i].name == (a.name + "_size")) || (n.args[i].name == (a.name + "_len")) || (strings.Contains(n.args[i].name, "len")) {
+							size = n.args[i].name
+							break
+						}
+					}
+
 					// make sure we can store strings safely
-					b.WriteString("\tc" + a.name + " = C.malloc(size)\n")
-					b.WriteString("\tdefer C.free(unsafe.Pointer(" + a.name + ")\n")
+					b.WriteString("\tc" + a.name + " = (*C.char)(C.malloc(C.uint(" + size + ")))\n")
+					b.WriteString("\tdefer C.free(unsafe.Pointer(c" + a.name + "))\n")
 				}
 			}
 		}
 
 		b.WriteString("\tret = ")
+
 	} else {
 		b.WriteString("\treturn ")
-		b.WriteString(n.ret)
-		b.WriteRune('(')
 	}
+
+	b.WriteString(n.ret)
+	if n.ret == "float" {
+		b.WriteString("32")
+	}
+
+	b.WriteRune('(')
 
 	b.WriteString("C.")
 	b.WriteString(n.name)
@@ -435,15 +463,14 @@ func (n *Native) GenGo() string {
 			b.WriteString(", ")
 		}
 		if a.out {
-			b.WriteString("&c")
+			if a.T != "string" {
+				b.WriteRune('&')
+			}
+
+			b.WriteRune('c')
 			b.WriteString(a.name)
 		} else {
 			b.WriteString(a.ToC())
-			//			b.WriteString("C.")
-			//			b.WriteString(a.T)
-			//			b.WriteRune('(')
-			//			b.WriteString(a.name)
-			//			b.WriteString(")")
 		}
 	}
 
@@ -452,16 +479,23 @@ func (n *Native) GenGo() string {
 		return b.String()
 	}
 
-	b.WriteString(")\n")
+	b.WriteString("))\n")
 
 	for _, a := range n.args {
 		if a.out {
 			b.WriteString("\t*")
 			b.WriteString(a.name)
 			b.WriteString(" = ")
-			b.WriteString(a.GoType())
+			if a.T == "string" {
+				b.WriteString("C.GoString(C.constToNonConst")
+			} else {
+				b.WriteString(a.GoType())
+			}
 			b.WriteString("(c")
 			b.WriteString(a.name)
+			if a.T == "string" {
+				b.WriteRune(')')
+			}
 			b.WriteString(")\n")
 		}
 	}
@@ -481,7 +515,6 @@ const cgoHeader = `package sampgo
 #endif
 */
 import "C"
-import "unsafe"
 
 
 `
@@ -500,6 +533,7 @@ func (idl *IDL) GenerateNatives() string {
 	var b strings.Builder
 
 	b.WriteString(cgoHeader)
+	b.WriteString("import \"unsafe\"\n\n")
 
 	for _, n := range idl.natives {
 		b.WriteString(n.GenGo())
@@ -542,5 +576,4 @@ func main() {
 	ioutil.WriteFile("../constants.go", []byte(idl.GenerateConstants()), 0666)
 	ioutil.WriteFile("../natives.go", []byte(idl.GenerateNatives()), 0666)
 	ioutil.WriteFile("../callbacks.go", []byte(idl.GenerateCallbacks()), 0666)
-
 }
