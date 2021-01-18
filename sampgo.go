@@ -3,7 +3,7 @@ package sampgo
 /*
 #cgo linux CFLAGS: -I./sampgdk -I./sampgdk/amx -DLINUX -D_GNU_SOURCE -Wno-implicit-function-declaration
 #cgo linux LDFLAGS: -ldl
-#cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWINDOWS
+#cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32
 
 #cgo CFLAGS: -Wno-attributes
 
