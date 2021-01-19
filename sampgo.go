@@ -29,6 +29,21 @@ type event struct {
 var events = make(map[string]event)
 var mainEvent func() = nil
 
+//export onTick
+func onTick() {
+	evt, ok := events["tick"]
+	if !ok {
+		return
+	}
+
+	fn, ok := evt.Handler.(func())
+	if !ok {
+		return
+	}
+	fn()
+	return
+}
+
 // On registers an event with a handler.
 func On(eventName string, handler interface{}) error {
 	_, ok := events[eventName]
