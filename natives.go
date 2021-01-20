@@ -9,7 +9,6 @@ package sampgo
 */
 import "C"
 
-
 import "unsafe"
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreateActor
@@ -69,7 +68,6 @@ func GetActorPos(actorid int, x *float32, y *float32, z *float32) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetActorFacingAngle
 func SetActorFacingAngle(actorid int, angle float32) bool {
 	return bool(C.SetActorFacingAngle(C.int(actorid), C.float(angle)))
@@ -84,7 +82,6 @@ func GetActorFacingAngle(actorid int, angle *float32) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetActorHealth
 func SetActorHealth(actorid int, health float32) bool {
 	return bool(C.SetActorHealth(C.int(actorid), C.float(health)))
@@ -98,7 +95,6 @@ func GetActorHealth(actorid int, health *float32) bool {
 	*health = float32(chealth)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetActorInvulnerable
 func SetActorInvulnerable(actorid int, invulnerable bool) bool {
@@ -148,7 +144,6 @@ func GetPlayerPos(playerid int, x *float32, y *float32, z *float32) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerFacingAngle
 func SetPlayerFacingAngle(playerid int, angle float32) bool {
 	return bool(C.SetPlayerFacingAngle(C.int(playerid), C.float(angle)))
@@ -162,7 +157,6 @@ func GetPlayerFacingAngle(playerid int, angle *float32) bool {
 	*angle = float32(cangle)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/IsPlayerInRangeOfPoint
 func IsPlayerInRangeOfPoint(playerid int, range_ float32, x float32, y float32, z float32) bool {
@@ -203,7 +197,6 @@ func GetPlayerHealth(playerid int, health *float32) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerArmour
 func SetPlayerArmour(playerid int, armour float32) bool {
 	return bool(C.SetPlayerArmour(C.int(playerid), C.float(armour)))
@@ -217,7 +210,6 @@ func GetPlayerArmour(playerid int, armour *float32) bool {
 	*armour = float32(carmour)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerAmmo
 func SetPlayerAmmo(playerid int, weaponid int, ammo int) bool {
@@ -320,7 +312,6 @@ func GetPlayerWeaponData(playerid int, slot int, weapon *int, ammo *int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GivePlayerMoney
 func GivePlayerMoney(playerid int, money int) bool {
 	return bool(C.GivePlayerMoney(C.int(playerid), C.int(money)))
@@ -359,7 +350,6 @@ func GetPlayerIp(playerid int, ip *string, size int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerPing
 func GetPlayerPing(playerid int) int {
 	return int(C.GetPlayerPing(C.int(playerid)))
@@ -383,7 +373,6 @@ func GetPlayerKeys(playerid int, keys *int, updown *int, leftright *int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerName
 func GetPlayerName(playerid int, name *string, size int) int {
 	var ret int
@@ -394,7 +383,6 @@ func GetPlayerName(playerid int, name *string, size int) int {
 	*name = C.GoString(C.constToNonConst(cname))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerTime
 func SetPlayerTime(playerid int, hour int, minute int) bool {
@@ -411,7 +399,6 @@ func GetPlayerTime(playerid int, hour *int, minute *int) bool {
 	*minute = int(cminute)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TogglePlayerClock
 func TogglePlayerClock(playerid int, toggle bool) bool {
@@ -465,7 +452,6 @@ func GetPlayerVelocity(playerid int, x *float32, y *float32, z *float32) bool {
 	*z = float32(cz)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayCrimeReportForPlayer
 func PlayCrimeReportForPlayer(playerid int, suspectid int, crime int) bool {
@@ -529,7 +515,6 @@ func GetPlayerLastShotVectors(playerid int, fOriginX *float32, fOriginY *float32
 	*fHitPosZ = float32(cfHitPosZ)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerAttachedObject
 func SetPlayerAttachedObject(playerid int, index int, modelid int, bone int, fOffsetX float32, fOffsetY float32, fOffsetZ float32, fRotX float32, fRotY float32, fRotZ float32, fScaleX float32, fScaleY float32, fScaleZ float32, materialcolor1 int, materialcolor2 int) bool {
@@ -691,7 +676,6 @@ func GetPVarString(playerid int, varname string, value *string, size int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPVarFloat
 func SetPVarFloat(playerid int, varname string, value float32) bool {
 	csvarname := C.CString(varname)
@@ -728,7 +712,6 @@ func GetPVarNameAtIndex(playerid int, index int, varname *string, size int) bool
 	*varname = C.GoString(C.constToNonConst(cvarname))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPVarType
 func GetPVarType(playerid int, varname string) int {
@@ -807,7 +790,6 @@ func GetAnimationName(index int, animlib *string, animlib_size int, animname *st
 	*animname = C.GoString(C.constToNonConst(canimname))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerSpecialAction
 func GetPlayerSpecialAction(playerid int) int {
@@ -902,7 +884,6 @@ func GetPlayerCameraPos(playerid int, x *float32, y *float32, z *float32) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerCameraFrontVector
 func GetPlayerCameraFrontVector(playerid int, x *float32, y *float32, z *float32) bool {
 	var ret bool
@@ -915,7 +896,6 @@ func GetPlayerCameraFrontVector(playerid int, x *float32, y *float32, z *float32
 	*z = float32(cz)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerCameraMode
 func GetPlayerCameraMode(playerid int) int {
@@ -1092,7 +1072,6 @@ func GetVehiclePos(vehicleid int, x *float32, y *float32, z *float32) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehiclePos
 func SetVehiclePos(vehicleid int, x float32, y float32, z float32) bool {
 	return bool(C.SetVehiclePos(C.int(vehicleid), C.float(x), C.float(y), C.float(z)))
@@ -1106,7 +1085,6 @@ func GetVehicleZAngle(vehicleid int, z_angle *float32) bool {
 	*z_angle = float32(cz_angle)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleRotationQuat
 func GetVehicleRotationQuat(vehicleid int, w *float32, x *float32, y *float32, z *float32) bool {
@@ -1122,7 +1100,6 @@ func GetVehicleRotationQuat(vehicleid int, w *float32, x *float32, y *float32, z
 	*z = float32(cz)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleZAngle
 func SetVehicleZAngle(vehicleid int, z_angle float32) bool {
@@ -1165,7 +1142,6 @@ func GetVehicleParamsEx(vehicleid int, engine *int, lights *int, alarm *int, doo
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleParamsSirenState
 func GetVehicleParamsSirenState(vehicleid int) int {
 	return int(C.GetVehicleParamsSirenState(C.int(vehicleid)))
@@ -1191,7 +1167,6 @@ func GetVehicleParamsCarDoors(vehicleid int, driver *int, passenger *int, backle
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleParamsCarWindows
 func SetVehicleParamsCarWindows(vehicleid int, driver int, passenger int, backleft int, backright int) bool {
 	return bool(C.SetVehicleParamsCarWindows(C.int(vehicleid), C.int(driver), C.int(passenger), C.int(backleft), C.int(backright)))
@@ -1211,7 +1186,6 @@ func GetVehicleParamsCarWindows(vehicleid int, driver *int, passenger *int, back
 	*backright = int(cbackright)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleToRespawn
 func SetVehicleToRespawn(vehicleid int) bool {
@@ -1256,7 +1230,6 @@ func GetVehicleHealth(vehicleid int, health *float32) bool {
 	*health = float32(chealth)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachTrailerToVehicle
 func AttachTrailerToVehicle(trailerid int, vehicleid int) bool {
@@ -1318,7 +1291,6 @@ func GetVehicleVelocity(vehicleid int, X *float32, Y *float32, Z *float32) bool 
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleVelocity
 func SetVehicleVelocity(vehicleid int, X float32, Y float32, Z float32) bool {
 	return bool(C.SetVehicleVelocity(C.int(vehicleid), C.float(X), C.float(Y), C.float(Z)))
@@ -1343,7 +1315,6 @@ func GetVehicleDamageStatus(vehicleid int, panels *int, doors *int, lights *int,
 	*tires = int(ctires)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/UpdateVehicleDamageStatus
 func UpdateVehicleDamageStatus(vehicleid int, panels int, doors int, lights int, tires int) bool {
@@ -1372,7 +1343,6 @@ func GetVehicleModelInfo(model int, infotype int, X *float32, Y *float32, Z *flo
 	*Z = float32(cZ)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SendClientMessage
 func SendClientMessage(playerid int, color int, message string) bool {
@@ -1471,7 +1441,6 @@ func SHA256_PassHash(password string, salt string, ret_hash *string, ret_hash_le
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetSVarInt
 func SetSVarInt(varname string, int_value int) bool {
 	csvarname := C.CString(varname)
@@ -1507,7 +1476,6 @@ func GetSVarString(varname string, string_return *string, len_ int) bool {
 	*string_return = C.GoString(C.constToNonConst(cstring_return))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetSVarFloat
 func SetSVarFloat(varname string, float_value float32) bool {
@@ -1545,7 +1513,6 @@ func GetSVarNameAtIndex(index int, ret_varname *string, ret_len int) bool {
 	*ret_varname = C.GoString(C.constToNonConst(cret_varname))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetSVarType
 func GetSVarType(varname string) int {
@@ -1631,7 +1598,6 @@ func GetWeaponName(weaponid int, name *string, size int) bool {
 	*name = C.GoString(C.constToNonConst(cname))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/EnableTirePopping
 func EnableTirePopping(enable bool) bool {
@@ -1767,7 +1733,6 @@ func GetPlayerNetworkStats(playerid int, retstr *string, size int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetNetworkStats
 func GetNetworkStats(retstr *string, size int) bool {
 	var ret bool
@@ -1779,7 +1744,6 @@ func GetNetworkStats(retstr *string, size int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerVersion
 func GetPlayerVersion(playerid int, version *string, len_ int) bool {
 	var ret bool
@@ -1790,7 +1754,6 @@ func GetPlayerVersion(playerid int, version *string, len_ int) bool {
 	*version = C.GoString(C.constToNonConst(cversion))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/BlockIpAddress
 func BlockIpAddress(ip_address string, timems int) bool {
@@ -1819,7 +1782,6 @@ func GetServerVarAsString(varname string, value *string, size int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetServerVarAsInt
 func GetServerVarAsInt(varname string) int {
 	csvarname := C.CString(varname)
@@ -1846,7 +1808,6 @@ func GetConsoleVarAsString(varname string, buffer *string, len_ int) bool {
 	*buffer = C.GoString(C.constToNonConst(cbuffer))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetConsoleVarAsInt
 func GetConsoleVarAsInt(varname string) int {
@@ -1917,7 +1878,6 @@ func NetStats_GetIpPort(playerid int, ip_port *string, ip_port_len int) bool {
 	*ip_port = C.GoString(C.constToNonConst(cip_port))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreateMenu
 func CreateMenu(title string, columns int, x float32, y float32, col1width float32, col2width float32) int {
@@ -2223,7 +2183,6 @@ func gpci(playerid int, buffer *string, size int) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddCharModel
 func AddCharModel(baseid int, newid int, dffname string, txdname string) int {
 	csdffname := C.CString(dffname)
@@ -2262,7 +2221,6 @@ func FindModelFileNameFromCRC(crc int, model_str *string, model_str_len int) boo
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/FindTextureFileNameFromCRC
 func FindTextureFileNameFromCRC(crc int, texture_str *string, texture_str_len int) bool {
 	var ret bool
@@ -2273,7 +2231,6 @@ func FindTextureFileNameFromCRC(crc int, texture_str *string, texture_str_len in
 	*texture_str = C.GoString(C.constToNonConst(ctexture_str))
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/RedirectDownload
 func RedirectDownload(playerid int, url string) bool {
@@ -2320,7 +2277,6 @@ func GetObjectPos(objectid int, x *float32, y *float32, z *float32) bool {
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetObjectRot
 func SetObjectRot(objectid int, rotX float32, rotY float32, rotZ float32) bool {
 	return bool(C.SetObjectRot(C.int(objectid), C.float(rotX), C.float(rotY), C.float(rotZ)))
@@ -2338,7 +2294,6 @@ func GetObjectRot(objectid int, rotX *float32, rotY *float32, rotZ *float32) boo
 	*rotZ = float32(crotZ)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetObjectModel
 func GetObjectModel(objectid int) int {
@@ -2428,7 +2383,6 @@ func GetPlayerObjectPos(playerid int, objectid int, x *float32, y *float32, z *f
 	return ret
 }
 
-
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerObjectRot
 func SetPlayerObjectRot(playerid int, objectid int, rotX float32, rotY float32, rotZ float32) bool {
 	return bool(C.SetPlayerObjectRot(C.int(playerid), C.int(objectid), C.float(rotX), C.float(rotY), C.float(rotZ)))
@@ -2446,7 +2400,6 @@ func GetPlayerObjectRot(playerid int, objectid int, rotX *float32, rotY *float32
 	*rotZ = float32(crotZ)
 	return ret
 }
-
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerObjectModel
 func GetPlayerObjectModel(playerid int, objectid int) int {
@@ -2523,4 +2476,3 @@ func SetPlayerObjectMaterialText(playerid int, objectid int, text string, materi
 func SetObjectsDefaultCameraCol(disable bool) bool {
 	return bool(C.SetObjectsDefaultCameraCol(C.bool(disable)))
 }
-
