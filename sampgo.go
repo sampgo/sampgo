@@ -1,10 +1,10 @@
 package sampgo
 
 /*
-#cgo linux CFLAGS: -I./sampgdk -I./sampgdk/amx -DLINUX -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-attributes
+#cgo linux CFLAGS: -I./sampgdk -I./sampgdk/amx -DLINUX -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-attributes -DSAMPGDK_GOLANG
 #cgo linux LDFLAGS: -ldl
 
-#cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32 -D_GNU_SOURCE -Wno-attributes
+#cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32 -D_GNU_SOURCE -Wno-attributes -DSAMPGDK_GOLANG -include stdint.h
 #cgo windows LDFLAGS: -ldl
 
 #ifndef UNITYBUILD_C
