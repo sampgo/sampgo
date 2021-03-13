@@ -30,9 +30,20 @@
   #else
 	#define PLUGIN_EXPORT PLUGIN_EXTERN_C
   #endif
-#elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
+#elif defined(WIN32) && defined(_GNU_SOURCE)
+	#pragma message "go env"
+  #define PLUGIN_CALL
+  #ifndef SAMPSVR
+	// Compile code with -fvisibility=hidden to hide non-exported functions.
+	#define PLUGIN_EXPORT PLUGIN_EXTERN_C __attribute__((visibility("default")))
+  #else
+	#define PLUGIN_EXPORT PLUGIN_EXTERN_C
+  #endif
+
+  #define PLUGIN_CALL __attribute__((stdcall))
+#elif (defined(WIN32) || defined(_WIN32) || defined(__WIN32__)) && !defined(_GNU_SOURCE)
   #ifndef _MSC_VER
-	#pragma message "Warning: Not using a VC++ compiler."
+		#pragma message "Warning: Not using a VC++ compiler."
   #endif
   #define PLUGIN_CALL __stdcall
   #define PLUGIN_EXPORT PLUGIN_EXTERN_C
