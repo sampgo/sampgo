@@ -1,16 +1,14 @@
 package sampgo
 
 /*
-#cgo linux CFLAGS: -I./sampgdk -I./sampgdk/amx -DLINUX -D_GNU_SOURCE -Wno-implicit-function-declaration
-#cgo linux LDFLAGS: -ldl
-#cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32
-
-#cgo CFLAGS: -Wno-attributes
-
+#cgo linux CFLAGS: -I./sampgdk -I./sampgdk/amx -DLINUX -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-attributes
 #cgo linux LDFLAGS: -ldl
 
-#ifndef GOLANG_APP
-#define GOLANG_APP
+#cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32 -D_GNU_SOURCE -Wno-attributes
+#cgo windows LDFLAGS: -ldl
+
+#ifndef UNITYBUILD_C
+#define UNITYBUILD_C
 
 #include "unitybuild.c"
 
@@ -52,7 +50,7 @@ func On(eventName string, handler interface{}) error {
 	}
 
 	events[eventName] = event{Handler: handler}
-	Print(fmt.Sprintf("Registered %s event", eventName))
+	_ = Print(fmt.Sprintf("Registered %s event", eventName))
 
 	return nil
 }
