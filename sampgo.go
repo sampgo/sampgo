@@ -8,8 +8,8 @@ package sampgo
 #cgo windows CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H
 #cgo windows LDFLAGS: -ldl
 
-#ifndef UNITYBUILD_C
-#define UNITYBUILD_C
+#ifndef GOLANG_APP
+#define GOLANG_APP
 
 #include "unitybuild.c"
 
