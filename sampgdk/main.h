@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include "stdint-cgo.h"
 #include "sampgdk.h"
 
 typedef const char char_t;
