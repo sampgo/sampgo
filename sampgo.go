@@ -5,7 +5,7 @@ package sampgo
 #cgo linux LDFLAGS: -ldl
 
 #cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32 -D_GNU_SOURCE -Wno-attributes -DSAMPGDK_GOLANG -include stdint.h
-#cgo windows CFLAGS: -DHAVE_ALLOCA_H -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H
+#cgo windows CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H
 #cgo windows LDFLAGS: -ldl
 
 #ifndef UNITYBUILD_C
