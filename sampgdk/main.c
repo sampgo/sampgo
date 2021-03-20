@@ -583,6 +583,7 @@ PLUGIN_EXPORT void PLUGIN_CALL Unload()
     sampgdk_Unload(0);
 }
 
+UNMANGLE(ProcessTick)
 PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 {
     onTick();
