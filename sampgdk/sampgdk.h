@@ -76,15 +76,13 @@ typedef int sizeof_bool_must_be_1[sizeof(bool) == 1 ? 1 : -1];
 
 // previous sampgdk macros.
 #if SAMPGDK_WINDOWS
-	#ifdef _MSC_VER
-		#define SAMPGDK_CDECL __cdecl
-		#define SAMPGDK_STDCALL __stdcall
-	#else
-		// sampgo related changes.
-		// we are still using gcc, regardless whether its on linux or windows. we need to fix calling conventions.
-		#define SAMPGDK_CDECL __attribute__((cdecl))
-        #define SAMPGDK_STDCALL __attribute__((stdcall))
-	#endif
+  #ifdef _MSC_VER
+    #define SAMPGDK_CDECL __cdecl
+    #define SAMPGDK_STDCALL __stdcall
+  #else
+    #define SAMPGDK_CDECL __attribute__((cdecl))
+    #define SAMPGDK_STDCALL __attribute__((stdcall))
+  #endif
 #elif SAMPGDK_LINUX
 #define SAMPGDK_CDECL __attribute__((cdecl))
 #define SAMPGDK_STDCALL __attribute__((stdcall))
