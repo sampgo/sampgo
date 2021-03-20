@@ -6,7 +6,7 @@ package sampgo
 
 #cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32 -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-attributes
 #cgo windows CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H
-#cgo windows LDFLAGS: -Wl -k
+#cgo windows LDFLAGS: --kill-at
 
 #ifndef GOLANG_APP
 #define GOLANG_APP
