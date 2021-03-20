@@ -3,6 +3,10 @@
 
 #include "sampgdk.h"
 
+#define UNMANGLE(func) \
+  asm (".section .drectve"); \
+  asm (".ascii \"-export:##func\"");
+
 typedef const char char_t;
 
 #ifndef GOLANG_APP
