@@ -1,10 +1,18 @@
 package sampgo
 
 /*
-#cgo CFLAGS: -I./sampgdk
+#cgo linux CFLAGS: -I./sampgdk -I./sampgdk/amx -DLINUX -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-attributes -DSAMPGDK_GOLANG
+#cgo linux LDFLAGS: -ldl
+
+#cgo windows CFLAGS: -I./sampgdk -I./sampgdk/amx -DWIN32 -D_GNU_SOURCE -Wno-implicit-function-declaration -Wno-attributes
+#cgo windows CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H
+
 #ifndef GOLANG_APP
 #define GOLANG_APP
+
+#include "unitybuild.c"
 #include "main.h"
+
 #endif
 */
 import "C"
@@ -1398,7 +1406,7 @@ func GameTextForPlayer(playerid int, text string, time int, style int) bool {
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetTickCount
 func GetTickCount() int {
-	return int(C.GetTickCount())
+	return int(C.sampgdk_GetTickCount())
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetMaxPlayers
@@ -1883,12 +1891,12 @@ func NetStats_GetIpPort(playerid int, ip_port *string, ip_port_len int) bool {
 func CreateMenu(title string, columns int, x float32, y float32, col1width float32, col2width float32) int {
 	cstitle := C.CString(title)
 	defer C.free(unsafe.Pointer(cstitle))
-	return int(C.CreateMenu(C.nonConstToConst(cstitle), C.int(columns), C.float(x), C.float(y), C.float(col1width), C.float(col2width)))
+	return int(C.sampgdk_CreateMenu(C.nonConstToConst(cstitle), C.int(columns), C.float(x), C.float(y), C.float(col1width), C.float(col2width)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/DestroyMenu
 func DestroyMenu(menuid int) bool {
-	return bool(C.DestroyMenu(C.int(menuid)))
+	return bool(C.sampgdk_DestroyMenu(C.int(menuid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddMenuItem
@@ -2342,7 +2350,7 @@ func EditPlayerObject(playerid int, objectid int) bool {
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SelectObject
 func SelectObject(playerid int) bool {
-	return bool(C.SelectObject(C.int(playerid)))
+	return bool(C.sampgdk_SelectObject(C.int(playerid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CancelEdit
