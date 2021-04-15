@@ -1,12 +1,12 @@
 package sampgo
 
 /*
-#cgo CFLAGS: -I./vendor/sdk -I./vendor/gdk -I./interop
+#cgo CFLAGS: -I{SRCDIR}/vendor/sdk -I{SRCDIR}/vendor/gdk -I{SRCDIR}/interop
 
 #ifndef GOLANG_APP
 #define GOLANG_APP
 
-#include <interop.h>
+#include "interop.h"
 
 #endif
 */
