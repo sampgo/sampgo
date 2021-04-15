@@ -590,6 +590,14 @@ PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
     sampgdk_ProcessTick(0);
 }
 
+PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx) {
+  return AMX_ERR_NONE;
+}
+
+PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx) {
+  return AMX_ERR_NONE;
+}
+
 void goLogprintf(char* text)
 {
     sampgdk_logprintf((const char*)text);
