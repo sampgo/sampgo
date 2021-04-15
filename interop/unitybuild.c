@@ -6,5 +6,5 @@
 // clang-format off
 #include "amxplugin.c"
 #include "sampgdk.c"
-#include "main.c"
+#include "interop.c"
 // clang-format on

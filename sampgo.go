@@ -1,14 +1,12 @@
 package sampgo
 
 /*
-#cgo linux CFLAGS: -I./sampgdk
-
-#cgo windows CFLAGS: -I./sampgdk
+#cgo CFLAGS: -I./vendor/sdk -I./vendor/gdk -I./interop
 
 #ifndef GOLANG_APP
 #define GOLANG_APP
 
-#include "main.h"
+#include <interop.h>
 
 #endif
 */

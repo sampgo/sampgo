@@ -1,11 +1,12 @@
-#ifndef MAIN_H
-#define MAIN_H
+// -
+// sampgo
+// interop.h
+// -
 
-#include "sampgdk.h"
+#ifndef SAMPGO_INTEROP_H
+#define SAMPGO_INTEROP_H
 
-#define UNMANGLE(func) \
-  asm (".section .drectve"); \
-  asm (".ascii \"-export:##func\"");
+#include <sampgdk.h>
 
 typedef const char char_t;
 

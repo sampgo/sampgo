@@ -1,4 +1,9 @@
-#include "main.h"
+// -
+// sampgo
+// interop.h
+// -
+
+#include <interop.h>
 
 /**
  * \ingroup callbacks
@@ -583,7 +588,6 @@ PLUGIN_EXPORT void PLUGIN_CALL Unload()
     sampgdk_Unload(0);
 }
 
-UNMANGLE(ProcessTick)
 PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 {
     onTick();
@@ -591,11 +595,11 @@ PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx) {
-  return AMX_ERR_NONE;
+    return AMX_ERR_NONE;
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx) {
-  return AMX_ERR_NONE;
+    return AMX_ERR_NONE;
 }
 
 void goLogprintf(char* text)

@@ -1,10 +1,13 @@
 package sampgo
 
 /*
-#cgo CFLAGS: -I./sampgdk
+#cgo CFLAGS: -I./vendor/sdk -I./vendor/gdk -I./interop
+
 #ifndef GOLANG_APP
 #define GOLANG_APP
-#include "main.h"
+
+#include <interop.h>
+
 #endif
 */
 import "C"
