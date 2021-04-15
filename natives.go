@@ -1,7 +1,7 @@
 package sampgo
 
 /*
-#cgo CFLAGS: -I{SRCDIR}/vendor/sdk -I{SRCDIR}/vendor/gdk -I{SRCDIR}/interop -Wno-attributes -Wno-implicit-function-declaration -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H
+#cgo CFLAGS: -I./vendor/sdk -I./vendor/gdk -I./interop -Wno-attributes -Wno-implicit-function-declaration -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H
 
 #cgo linux CFLAGS: -DLINUX
 #cgo linux LDFLAGS: -ldl
