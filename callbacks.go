@@ -1,7 +1,12 @@
 package sampgo
 
 /*
-#cgo CFLAGS: -I./vendor
+#cgo windows CFLAGS: -I./vendor -I./vendor/amx -Wno-attributes -Wno-implicit-function-declaration
+#cgo windows CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H -DWIN32
+
+#cgo linux CFLAGS: -I./vendor -I./vendor/amx -Wno-attributes -Wno-implicit-function-declaration
+#cgo linux CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H -DLINUX
+#cgo linux LDFLAGS: -ldl
 
 #ifndef GOLANG_APP
 #define GOLANG_APP
