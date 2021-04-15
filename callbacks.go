@@ -1,7 +1,7 @@
 package sampgo
 
 /*
-#cgo CFLAGS: -I./vendor/sdk -I./vendor/gdk -I./interop
+#cgo CFLAGS: -I./vendor
 
 #ifndef GOLANG_APP
 #define GOLANG_APP
