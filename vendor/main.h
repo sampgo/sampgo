@@ -6,7 +6,7 @@
 #ifndef SAMPGO_INTEROP_H
 #define SAMPGO_INTEROP_H
 
-#include "sampgdk.h"
+#include <sampgdk.h>
 
 typedef const char char_t;
 

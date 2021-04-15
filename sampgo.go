@@ -11,7 +11,7 @@ package sampgo
 #ifndef GOLANG_APP
 #define GOLANG_APP
 
-#include "interop.h"
+#include "main.h"
 
 #endif
 */
