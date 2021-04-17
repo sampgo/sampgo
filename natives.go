@@ -21,7 +21,7 @@ import "C"
 import "unsafe"
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreateActor
-func CreateActor(modelid int, x float32, y float32, z float32, rotation float32) int {
+func CreateActor(modelid int, x, y, z, rotation float32) int {
 	return int(C.CreateActor(C.int(modelid), C.float(x), C.float(y), C.float(z), C.float(rotation)))
 }
 
@@ -31,12 +31,12 @@ func DestroyActor(actorid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/IsActorStreamedIn
-func IsActorStreamedIn(actorid int, forplayerid int) bool {
+func IsActorStreamedIn(actorid, forplayerid int) bool {
 	return bool(C.IsActorStreamedIn(C.int(actorid), C.int(forplayerid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetActorVirtualWorld
-func SetActorVirtualWorld(actorid int, vworld int) bool {
+func SetActorVirtualWorld(actorid, vworld int) bool {
 	return bool(C.SetActorVirtualWorld(C.int(actorid), C.int(vworld)))
 }
 
@@ -46,7 +46,7 @@ func GetActorVirtualWorld(actorid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ApplyActorAnimation
-func ApplyActorAnimation(actorid int, animlib string, animname string, fDelta float32, loop bool, lockx bool, locky bool, freeze bool, time int) bool {
+func ApplyActorAnimation(actorid int, animlib, animname string, fDelta float32, loop, lockx, locky, freeze bool, time int) bool {
 	csanimlib := C.CString(animlib)
 	defer C.free(unsafe.Pointer(csanimlib))
 	csanimname := C.CString(animname)
@@ -60,12 +60,12 @@ func ClearActorAnimations(actorid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetActorPos
-func SetActorPos(actorid int, x float32, y float32, z float32) bool {
+func SetActorPos(actorid int, x, y, z float32) bool {
 	return bool(C.SetActorPos(C.int(actorid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetActorPos
-func GetActorPos(actorid int, x *float32, y *float32, z *float32) bool {
+func GetActorPos(actorid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -121,7 +121,7 @@ func IsValidActor(actorid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetSpawnInfo
-func SetSpawnInfo(playerid int, team int, skin int, x float32, y float32, z float32, rotation float32, weapon1 int, weapon1_ammo int, weapon2 int, weapon2_ammo int, weapon3 int, weapon3_ammo int) bool {
+func SetSpawnInfo(playerid, team, skin int, x, y, z, rotation float32, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo int) bool {
 	return bool(C.SetSpawnInfo(C.int(playerid), C.int(team), C.int(skin), C.float(x), C.float(y), C.float(z), C.float(rotation), C.int(weapon1), C.int(weapon1_ammo), C.int(weapon2), C.int(weapon2_ammo), C.int(weapon3), C.int(weapon3_ammo)))
 }
 
@@ -131,17 +131,17 @@ func SpawnPlayer(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerPos
-func SetPlayerPos(playerid int, x float32, y float32, z float32) bool {
+func SetPlayerPos(playerid int, x, y, z float32) bool {
 	return bool(C.SetPlayerPos(C.int(playerid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerPosFindZ
-func SetPlayerPosFindZ(playerid int, x float32, y float32, z float32) bool {
+func SetPlayerPosFindZ(playerid int, x, y, z float32) bool {
 	return bool(C.SetPlayerPosFindZ(C.int(playerid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerPos
-func GetPlayerPos(playerid int, x *float32, y *float32, z *float32) bool {
+func GetPlayerPos(playerid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -168,12 +168,12 @@ func GetPlayerFacingAngle(playerid int, angle *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/IsPlayerInRangeOfPoint
-func IsPlayerInRangeOfPoint(playerid int, range_ float32, x float32, y float32, z float32) bool {
+func IsPlayerInRangeOfPoint(playerid int, range_, x, y, z float32) bool {
 	return bool(C.IsPlayerInRangeOfPoint(C.int(playerid), C.float(range_), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerDistanceFromPoint
-func GetPlayerDistanceFromPoint(playerid int, x float32, y float32, z float32) float32 {
+func GetPlayerDistanceFromPoint(playerid int, x, y, z float32) float32 {
 	return float32(C.GetPlayerDistanceFromPoint(C.int(playerid), C.float(x), C.float(y), C.float(z)))
 }
 
@@ -221,7 +221,7 @@ func GetPlayerArmour(playerid int, armour *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerAmmo
-func SetPlayerAmmo(playerid int, weaponid int, ammo int) bool {
+func SetPlayerAmmo(playerid, weaponid, ammo int) bool {
 	return bool(C.SetPlayerAmmo(C.int(playerid), C.int(weaponid), C.int(ammo)))
 }
 
@@ -246,7 +246,7 @@ func GetPlayerTargetActor(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerTeam
-func SetPlayerTeam(playerid int, teamid int) bool {
+func SetPlayerTeam(playerid, teamid int) bool {
 	return bool(C.SetPlayerTeam(C.int(playerid), C.int(teamid)))
 }
 
@@ -256,7 +256,7 @@ func GetPlayerTeam(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerScore
-func SetPlayerScore(playerid int, score int) bool {
+func SetPlayerScore(playerid, score int) bool {
 	return bool(C.SetPlayerScore(C.int(playerid), C.int(score)))
 }
 
@@ -271,12 +271,12 @@ func GetPlayerDrunkLevel(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerDrunkLevel
-func SetPlayerDrunkLevel(playerid int, level int) bool {
+func SetPlayerDrunkLevel(playerid, level int) bool {
 	return bool(C.SetPlayerDrunkLevel(C.int(playerid), C.int(level)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerColor
-func SetPlayerColor(playerid int, color int) bool {
+func SetPlayerColor(playerid, color int) bool {
 	return bool(C.SetPlayerColor(C.int(playerid), C.int(color)))
 }
 
@@ -286,7 +286,7 @@ func GetPlayerColor(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerSkin
-func SetPlayerSkin(playerid int, skinid int) bool {
+func SetPlayerSkin(playerid, skinid int) bool {
 	return bool(C.SetPlayerSkin(C.int(playerid), C.int(skinid)))
 }
 
@@ -296,7 +296,7 @@ func GetPlayerSkin(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GivePlayerWeapon
-func GivePlayerWeapon(playerid int, weaponid int, ammo int) bool {
+func GivePlayerWeapon(playerid, weaponid, ammo int) bool {
 	return bool(C.GivePlayerWeapon(C.int(playerid), C.int(weaponid), C.int(ammo)))
 }
 
@@ -306,12 +306,12 @@ func ResetPlayerWeapons(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerArmedWeapon
-func SetPlayerArmedWeapon(playerid int, weaponid int) bool {
+func SetPlayerArmedWeapon(playerid, weaponid int) bool {
 	return bool(C.SetPlayerArmedWeapon(C.int(playerid), C.int(weaponid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerWeaponData
-func GetPlayerWeaponData(playerid int, slot int, weapon *int, ammo *int) bool {
+func GetPlayerWeaponData(playerid, slot int, weapon, ammo *int) bool {
 	var ret bool
 	var cweapon C.int
 	var cammo C.int
@@ -370,7 +370,7 @@ func GetPlayerWeapon(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerKeys
-func GetPlayerKeys(playerid int, keys *int, updown *int, leftright *int) bool {
+func GetPlayerKeys(playerid int, keys, updown, leftright *int) bool {
 	var ret bool
 	var ckeys C.int
 	var cupdown C.int
@@ -394,7 +394,7 @@ func GetPlayerName(playerid int, name *string, size int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerTime
-func SetPlayerTime(playerid int, hour int, minute int) bool {
+func SetPlayerTime(playerid, hour, minute int) bool {
 	return bool(C.SetPlayerTime(C.int(playerid), C.int(hour), C.int(minute)))
 }
 
@@ -415,7 +415,7 @@ func TogglePlayerClock(playerid int, toggle bool) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerWeather
-func SetPlayerWeather(playerid int, weather int) bool {
+func SetPlayerWeather(playerid, weather int) bool {
 	return bool(C.SetPlayerWeather(C.int(playerid), C.int(weather)))
 }
 
@@ -425,7 +425,7 @@ func ForceClassSelection(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerWantedLevel
-func SetPlayerWantedLevel(playerid int, level int) bool {
+func SetPlayerWantedLevel(playerid, level int) bool {
 	return bool(C.SetPlayerWantedLevel(C.int(playerid), C.int(level)))
 }
 
@@ -435,7 +435,7 @@ func GetPlayerWantedLevel(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerFightingStyle
-func SetPlayerFightingStyle(playerid int, style int) bool {
+func SetPlayerFightingStyle(playerid, style int) bool {
 	return bool(C.SetPlayerFightingStyle(C.int(playerid), C.int(style)))
 }
 
@@ -445,12 +445,12 @@ func GetPlayerFightingStyle(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerVelocity
-func SetPlayerVelocity(playerid int, x float32, y float32, z float32) bool {
+func SetPlayerVelocity(playerid int, x, y, z float32) bool {
 	return bool(C.SetPlayerVelocity(C.int(playerid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerVelocity
-func GetPlayerVelocity(playerid int, x *float32, y *float32, z *float32) bool {
+func GetPlayerVelocity(playerid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -463,12 +463,12 @@ func GetPlayerVelocity(playerid int, x *float32, y *float32, z *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayCrimeReportForPlayer
-func PlayCrimeReportForPlayer(playerid int, suspectid int, crime int) bool {
+func PlayCrimeReportForPlayer(playerid, suspectid, crime int) bool {
 	return bool(C.PlayCrimeReportForPlayer(C.int(playerid), C.int(suspectid), C.int(crime)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayAudioStreamForPlayer
-func PlayAudioStreamForPlayer(playerid int, url string, posX float32, posY float32, posZ float32, distance float32, usepos bool) bool {
+func PlayAudioStreamForPlayer(playerid int, url string, posX, posY, posZ, distance float32, usepos bool) bool {
 	csurl := C.CString(url)
 	defer C.free(unsafe.Pointer(csurl))
 	return bool(C.PlayAudioStreamForPlayer(C.int(playerid), C.nonConstToConst(csurl), C.float(posX), C.float(posY), C.float(posZ), C.float(distance), C.bool(usepos)))
@@ -487,7 +487,7 @@ func SetPlayerShopName(playerid int, shopname string) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerSkillLevel
-func SetPlayerSkillLevel(playerid int, skill int, level int) bool {
+func SetPlayerSkillLevel(playerid int, skill, level int) bool {
 	return bool(C.SetPlayerSkillLevel(C.int(playerid), C.int(skill), C.int(level)))
 }
 
@@ -502,12 +502,12 @@ func GetPlayerSurfingObjectID(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/RemoveBuildingForPlayer
-func RemoveBuildingForPlayer(playerid int, modelid int, fX float32, fY float32, fZ float32, fRadius float32) bool {
+func RemoveBuildingForPlayer(playerid, modelid int, fX, fY, fZ, fRadius float32) bool {
 	return bool(C.RemoveBuildingForPlayer(C.int(playerid), C.int(modelid), C.float(fX), C.float(fY), C.float(fZ), C.float(fRadius)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerLastShotVectors
-func GetPlayerLastShotVectors(playerid int, fOriginX *float32, fOriginY *float32, fOriginZ *float32, fHitPosX *float32, fHitPosY *float32, fHitPosZ *float32) bool {
+func GetPlayerLastShotVectors(playerid int, fOriginX, fOriginY, fOriginZ, fHitPosX, fHitPosY, fHitPosZ *float32) bool {
 	var ret bool
 	var cfOriginX C.float
 	var cfOriginY C.float
@@ -526,127 +526,127 @@ func GetPlayerLastShotVectors(playerid int, fOriginX *float32, fOriginY *float32
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerAttachedObject
-func SetPlayerAttachedObject(playerid int, index int, modelid int, bone int, fOffsetX float32, fOffsetY float32, fOffsetZ float32, fRotX float32, fRotY float32, fRotZ float32, fScaleX float32, fScaleY float32, fScaleZ float32, materialcolor1 int, materialcolor2 int) bool {
+func SetPlayerAttachedObject(playerid, index, modelid, bone int, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, fRotZ, fScaleX, fScaleY, fScaleZ float32, materialcolor1, materialcolor2 int) bool {
 	return bool(C.SetPlayerAttachedObject(C.int(playerid), C.int(index), C.int(modelid), C.int(bone), C.float(fOffsetX), C.float(fOffsetY), C.float(fOffsetZ), C.float(fRotX), C.float(fRotY), C.float(fRotZ), C.float(fScaleX), C.float(fScaleY), C.float(fScaleZ), C.int(materialcolor1), C.int(materialcolor2)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/RemovePlayerAttachedObject
-func RemovePlayerAttachedObject(playerid int, index int) bool {
+func RemovePlayerAttachedObject(playerid, index int) bool {
 	return bool(C.RemovePlayerAttachedObject(C.int(playerid), C.int(index)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/IsPlayerAttachedObjectSlotUsed
-func IsPlayerAttachedObjectSlotUsed(playerid int, index int) bool {
+func IsPlayerAttachedObjectSlotUsed(playerid, index int) bool {
 	return bool(C.IsPlayerAttachedObjectSlotUsed(C.int(playerid), C.int(index)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/EditAttachedObject
-func EditAttachedObject(playerid int, index int) bool {
+func EditAttachedObject(playerid, index int) bool {
 	return bool(C.EditAttachedObject(C.int(playerid), C.int(index)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreatePlayerTextDraw
-func CreatePlayerTextDraw(playerid int, x float32, y float32, text string) int {
+func CreatePlayerTextDraw(playerid int, x, y float32, text string) int {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return int(C.CreatePlayerTextDraw(C.int(playerid), C.float(x), C.float(y), C.nonConstToConst(cstext)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawDestroy
-func PlayerTextDrawDestroy(playerid int, text int) bool {
-	return bool(C.PlayerTextDrawDestroy(C.int(playerid), C.int(text)))
+func PlayerTextDrawDestroy(playerid int, textid int) bool {
+	return bool(C.PlayerTextDrawDestroy(C.int(playerid), C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawLetterSize
-func PlayerTextDrawLetterSize(playerid int, text int, x float32, y float32) bool {
-	return bool(C.PlayerTextDrawLetterSize(C.int(playerid), C.int(text), C.float(x), C.float(y)))
+func PlayerTextDrawLetterSize(playerid, textid int, x, y float32) bool {
+	return bool(C.PlayerTextDrawLetterSize(C.int(playerid), C.int(textid), C.float(x), C.float(y)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawTextSize
-func PlayerTextDrawTextSize(playerid int, text int, x float32, y float32) bool {
-	return bool(C.PlayerTextDrawTextSize(C.int(playerid), C.int(text), C.float(x), C.float(y)))
+func PlayerTextDrawTextSize(playerid, textid int, x, y float32) bool {
+	return bool(C.PlayerTextDrawTextSize(C.int(playerid), C.int(textid), C.float(x), C.float(y)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawAlignment
-func PlayerTextDrawAlignment(playerid int, text int, alignment int) bool {
-	return bool(C.PlayerTextDrawAlignment(C.int(playerid), C.int(text), C.int(alignment)))
+func PlayerTextDrawAlignment(playerid, textid, alignment int) bool {
+	return bool(C.PlayerTextDrawAlignment(C.int(playerid), C.int(textid), C.int(alignment)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawColor
-func PlayerTextDrawColor(playerid int, text int, color int) bool {
-	return bool(C.PlayerTextDrawColor(C.int(playerid), C.int(text), C.int(color)))
+func PlayerTextDrawColor(playerid, textid, color int) bool {
+	return bool(C.PlayerTextDrawColor(C.int(playerid), C.int(textid), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawUseBox
-func PlayerTextDrawUseBox(playerid int, text int, use bool) bool {
-	return bool(C.PlayerTextDrawUseBox(C.int(playerid), C.int(text), C.bool(use)))
+func PlayerTextDrawUseBox(playerid, textid int, use bool) bool {
+	return bool(C.PlayerTextDrawUseBox(C.int(playerid), C.int(textid), C.bool(use)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawBoxColor
-func PlayerTextDrawBoxColor(playerid int, text int, color int) bool {
-	return bool(C.PlayerTextDrawBoxColor(C.int(playerid), C.int(text), C.int(color)))
+func PlayerTextDrawBoxColor(playerid, textid, color int) bool {
+	return bool(C.PlayerTextDrawBoxColor(C.int(playerid), C.int(textid), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetShadow
-func PlayerTextDrawSetShadow(playerid int, text int, size int) bool {
-	return bool(C.PlayerTextDrawSetShadow(C.int(playerid), C.int(text), C.int(size)))
+func PlayerTextDrawSetShadow(playerid, textid, size int) bool {
+	return bool(C.PlayerTextDrawSetShadow(C.int(playerid), C.int(textid), C.int(size)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetOutline
-func PlayerTextDrawSetOutline(playerid int, text int, size int) bool {
-	return bool(C.PlayerTextDrawSetOutline(C.int(playerid), C.int(text), C.int(size)))
+func PlayerTextDrawSetOutline(playerid, textid, size int) bool {
+	return bool(C.PlayerTextDrawSetOutline(C.int(playerid), C.int(textid), C.int(size)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawBackgroundColor
-func PlayerTextDrawBackgroundColor(playerid int, text int, color int) bool {
-	return bool(C.PlayerTextDrawBackgroundColor(C.int(playerid), C.int(text), C.int(color)))
+func PlayerTextDrawBackgroundColor(playerid, textid, color int) bool {
+	return bool(C.PlayerTextDrawBackgroundColor(C.int(playerid), C.int(textid), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawFont
-func PlayerTextDrawFont(playerid int, text int, font int) bool {
-	return bool(C.PlayerTextDrawFont(C.int(playerid), C.int(text), C.int(font)))
+func PlayerTextDrawFont(playerid, textid, font int) bool {
+	return bool(C.PlayerTextDrawFont(C.int(playerid), C.int(textid), C.int(font)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetProportional
-func PlayerTextDrawSetProportional(playerid int, text int, set bool) bool {
-	return bool(C.PlayerTextDrawSetProportional(C.int(playerid), C.int(text), C.bool(set)))
+func PlayerTextDrawSetProportional(playerid, textid int, set bool) bool {
+	return bool(C.PlayerTextDrawSetProportional(C.int(playerid), C.int(textid), C.bool(set)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetSelectable
-func PlayerTextDrawSetSelectable(playerid int, text int, set bool) bool {
-	return bool(C.PlayerTextDrawSetSelectable(C.int(playerid), C.int(text), C.bool(set)))
+func PlayerTextDrawSetSelectable(playerid, textid int, set bool) bool {
+	return bool(C.PlayerTextDrawSetSelectable(C.int(playerid), C.int(textid), C.bool(set)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawShow
-func PlayerTextDrawShow(playerid int, text int) bool {
-	return bool(C.PlayerTextDrawShow(C.int(playerid), C.int(text)))
+func PlayerTextDrawShow(playerid, textid int) bool {
+	return bool(C.PlayerTextDrawShow(C.int(playerid), C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawHide
-func PlayerTextDrawHide(playerid int, text int) bool {
-	return bool(C.PlayerTextDrawHide(C.int(playerid), C.int(text)))
+func PlayerTextDrawHide(playerid, textid int) bool {
+	return bool(C.PlayerTextDrawHide(C.int(playerid), C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetString
-func PlayerTextDrawSetString(playerid int, text int, string string) bool {
-	csstring := C.CString(string)
-	defer C.free(unsafe.Pointer(csstring))
-	return bool(C.PlayerTextDrawSetString(C.int(playerid), C.int(text), C.nonConstToConst(csstring)))
+func PlayerTextDrawSetString(playerid, textid int, text string) bool {
+	cstring := C.CString(text)
+	defer C.free(unsafe.Pointer(cstring))
+	return bool(C.PlayerTextDrawSetString(C.int(playerid), C.int(textid), C.nonConstToConst(cstring)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetPreviewModel
-func PlayerTextDrawSetPreviewModel(playerid int, text int, modelindex int) bool {
-	return bool(C.PlayerTextDrawSetPreviewModel(C.int(playerid), C.int(text), C.int(modelindex)))
+func PlayerTextDrawSetPreviewModel(playerid, textid, modelindex int) bool {
+	return bool(C.PlayerTextDrawSetPreviewModel(C.int(playerid), C.int(textid), C.int(modelindex)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetPreviewRot
-func PlayerTextDrawSetPreviewRot(playerid int, text int, fRotX float32, fRotY float32, fRotZ float32, fZoom float32) bool {
-	return bool(C.PlayerTextDrawSetPreviewRot(C.int(playerid), C.int(text), C.float(fRotX), C.float(fRotY), C.float(fRotZ), C.float(fZoom)))
+func PlayerTextDrawSetPreviewRot(playerid, textid int, fRotX, fRotY, fRotZ, fZoom float32) bool {
+	return bool(C.PlayerTextDrawSetPreviewRot(C.int(playerid), C.int(textid), C.float(fRotX), C.float(fRotY), C.float(fRotZ), C.float(fZoom)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawSetPreviewVehCol
-func PlayerTextDrawSetPreviewVehCol(playerid int, text int, color1 int, color2 int) bool {
-	return bool(C.PlayerTextDrawSetPreviewVehCol(C.int(playerid), C.int(text), C.int(color1), C.int(color2)))
+func PlayerTextDrawSetPreviewVehCol(playerid, textid, color1, color2 int) bool {
+	return bool(C.PlayerTextDrawSetPreviewVehCol(C.int(playerid), C.int(textid), C.int(color1), C.int(color2)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPVarInt
@@ -664,7 +664,7 @@ func GetPVarInt(playerid int, varname string) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPVarString
-func SetPVarString(playerid int, varname string, value string) bool {
+func SetPVarString(playerid int, varname, value string) bool {
 	csvarname := C.CString(varname)
 	defer C.free(unsafe.Pointer(csvarname))
 	csvalue := C.CString(value)
@@ -712,7 +712,7 @@ func GetPVarsUpperIndex(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPVarNameAtIndex
-func GetPVarNameAtIndex(playerid int, index int, varname *string, size int) bool {
+func GetPVarNameAtIndex(playerid, index int, varname *string, size int) bool {
 	var ret bool
 	var cvarname *C.char
 	cvarname = (*C.char)(C.malloc(C.uint(size)))
@@ -737,7 +737,7 @@ func SetPlayerChatBubble(playerid int, text string, color int, drawdistance floa
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PutPlayerInVehicle
-func PutPlayerInVehicle(playerid int, vehicleid int, seatid int) bool {
+func PutPlayerInVehicle(playerid, vehicleid, seatid int) bool {
 	return bool(C.PutPlayerInVehicle(C.int(playerid), C.int(vehicleid), C.int(seatid)))
 }
 
@@ -762,12 +762,12 @@ func TogglePlayerControllable(playerid int, toggle bool) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerPlaySound
-func PlayerPlaySound(playerid int, soundid int, x float32, y float32, z float32) bool {
+func PlayerPlaySound(playerid, soundid int, x, y, z float32) bool {
 	return bool(C.PlayerPlaySound(C.int(playerid), C.int(soundid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ApplyAnimation
-func ApplyAnimation(playerid int, animlib string, animname string, fDelta float32, loop bool, lockx bool, locky bool, freeze bool, time int, forcesync bool) bool {
+func ApplyAnimation(playerid int, animlib, animname string, fDelta float32, loop, lockx, locky, freeze bool, time int, forcesync bool) bool {
 	csanimlib := C.CString(animlib)
 	defer C.free(unsafe.Pointer(csanimlib))
 	csanimname := C.CString(animname)
@@ -816,7 +816,7 @@ func DisableRemoteVehicleCollisions(playerid int, disable bool) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerCheckpoint
-func SetPlayerCheckpoint(playerid int, x float32, y float32, z float32, size float32) bool {
+func SetPlayerCheckpoint(playerid int, x, y, z, size float32) bool {
 	return bool(C.SetPlayerCheckpoint(C.int(playerid), C.float(x), C.float(y), C.float(z), C.float(size)))
 }
 
@@ -826,7 +826,7 @@ func DisablePlayerCheckpoint(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerRaceCheckpoint
-func SetPlayerRaceCheckpoint(playerid int, type_ int, x float32, y float32, z float32, nextx float32, nexty float32, nextz float32, size float32) bool {
+func SetPlayerRaceCheckpoint(playerid, type_ int, x, y, z, nextx, nexty, nextz, size float32) bool {
 	return bool(C.SetPlayerRaceCheckpoint(C.int(playerid), C.int(type_), C.float(x), C.float(y), C.float(z), C.float(nextx), C.float(nexty), C.float(nextz), C.float(size)))
 }
 
@@ -836,27 +836,27 @@ func DisablePlayerRaceCheckpoint(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerWorldBounds
-func SetPlayerWorldBounds(playerid int, x_max float32, x_min float32, y_max float32, y_min float32) bool {
+func SetPlayerWorldBounds(playerid int, x_max, x_min, y_max, y_min float32) bool {
 	return bool(C.SetPlayerWorldBounds(C.int(playerid), C.float(x_max), C.float(x_min), C.float(y_max), C.float(y_min)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerMarkerForPlayer
-func SetPlayerMarkerForPlayer(playerid int, showplayerid int, color int) bool {
+func SetPlayerMarkerForPlayer(playerid, showplayerid, color int) bool {
 	return bool(C.SetPlayerMarkerForPlayer(C.int(playerid), C.int(showplayerid), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ShowPlayerNameTagForPlayer
-func ShowPlayerNameTagForPlayer(playerid int, showplayerid int, show bool) bool {
+func ShowPlayerNameTagForPlayer(playerid, showplayerid int, show bool) bool {
 	return bool(C.ShowPlayerNameTagForPlayer(C.int(playerid), C.int(showplayerid), C.bool(show)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerMapIcon
-func SetPlayerMapIcon(playerid int, iconid int, x float32, y float32, z float32, markertype int, color int, style int) bool {
+func SetPlayerMapIcon(playerid, iconid int, x, y, z float32, markertype, color, style int) bool {
 	return bool(C.SetPlayerMapIcon(C.int(playerid), C.int(iconid), C.float(x), C.float(y), C.float(z), C.int(markertype), C.int(color), C.int(style)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/RemovePlayerMapIcon
-func RemovePlayerMapIcon(playerid int, iconid int) bool {
+func RemovePlayerMapIcon(playerid, iconid int) bool {
 	return bool(C.RemovePlayerMapIcon(C.int(playerid), C.int(iconid)))
 }
 
@@ -866,12 +866,12 @@ func AllowPlayerTeleport(playerid int, allow bool) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerCameraPos
-func SetPlayerCameraPos(playerid int, x float32, y float32, z float32) bool {
+func SetPlayerCameraPos(playerid int, x, y, z float32) bool {
 	return bool(C.SetPlayerCameraPos(C.int(playerid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerCameraLookAt
-func SetPlayerCameraLookAt(playerid int, x float32, y float32, z float32, cut int) bool {
+func SetPlayerCameraLookAt(playerid int, x, y, z float32, cut int) bool {
 	return bool(C.SetPlayerCameraLookAt(C.int(playerid), C.float(x), C.float(y), C.float(z), C.int(cut)))
 }
 
@@ -881,7 +881,7 @@ func SetCameraBehindPlayer(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerCameraPos
-func GetPlayerCameraPos(playerid int, x *float32, y *float32, z *float32) bool {
+func GetPlayerCameraPos(playerid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -894,7 +894,7 @@ func GetPlayerCameraPos(playerid int, x *float32, y *float32, z *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerCameraFrontVector
-func GetPlayerCameraFrontVector(playerid int, x *float32, y *float32, z *float32) bool {
+func GetPlayerCameraFrontVector(playerid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -947,22 +947,22 @@ func GetPlayerCameraZoom(playerid int) float32 {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachCameraToObject
-func AttachCameraToObject(playerid int, objectid int) bool {
+func AttachCameraToObject(playerid, objectid int) bool {
 	return bool(C.AttachCameraToObject(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachCameraToPlayerObject
-func AttachCameraToPlayerObject(playerid int, playerobjectid int) bool {
+func AttachCameraToPlayerObject(playerid, playerobjectid int) bool {
 	return bool(C.AttachCameraToPlayerObject(C.int(playerid), C.int(playerobjectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/InterpolateCameraPos
-func InterpolateCameraPos(playerid int, FromX float32, FromY float32, FromZ float32, ToX float32, ToY float32, ToZ float32, time int, cut int) bool {
+func InterpolateCameraPos(playerid int, FromX, FromY, FromZ, ToX, ToY, ToZ float32, time, cut int) bool {
 	return bool(C.InterpolateCameraPos(C.int(playerid), C.float(FromX), C.float(FromY), C.float(FromZ), C.float(ToX), C.float(ToY), C.float(ToZ), C.int(time), C.int(cut)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/InterpolateCameraLookAt
-func InterpolateCameraLookAt(playerid int, FromX float32, FromY float32, FromZ float32, ToX float32, ToY float32, ToZ float32, time int, cut int) bool {
+func InterpolateCameraLookAt(playerid int, FromX, FromY, FromZ, ToX, ToY, ToZ float32, time, cut int) bool {
 	return bool(C.InterpolateCameraLookAt(C.int(playerid), C.float(FromX), C.float(FromY), C.float(FromZ), C.float(ToX), C.float(ToY), C.float(ToZ), C.int(time), C.int(cut)))
 }
 
@@ -1017,17 +1017,17 @@ func TogglePlayerSpectating(playerid int, toggle bool) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerSpectatePlayer
-func PlayerSpectatePlayer(playerid int, targetplayerid int, mode int) bool {
+func PlayerSpectatePlayer(playerid, targetplayerid, mode int) bool {
 	return bool(C.PlayerSpectatePlayer(C.int(playerid), C.int(targetplayerid), C.int(mode)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerSpectateVehicle
-func PlayerSpectateVehicle(playerid int, targetvehicleid int, mode int) bool {
+func PlayerSpectateVehicle(playerid, targetvehicleid, mode int) bool {
 	return bool(C.PlayerSpectateVehicle(C.int(playerid), C.int(targetvehicleid), C.int(mode)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/StartRecordingPlayerData
-func StartRecordingPlayerData(playerid int, recordtype int, recordname string) bool {
+func StartRecordingPlayerData(playerid, recordtype int, recordname string) bool {
 	csrecordname := C.CString(recordname)
 	defer C.free(unsafe.Pointer(csrecordname))
 	return bool(C.StartRecordingPlayerData(C.int(playerid), C.int(recordtype), C.nonConstToConst(csrecordname)))
@@ -1039,7 +1039,7 @@ func StopRecordingPlayerData(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreateExplosionForPlayer
-func CreateExplosionForPlayer(playerid int, X float32, Y float32, Z float32, type_ int, Radius float32) bool {
+func CreateExplosionForPlayer(playerid int, X, Y, Z float32, type_ int, Radius float32) bool {
 	return bool(C.CreateExplosionForPlayer(C.int(playerid), C.float(X), C.float(Y), C.float(Z), C.int(type_), C.float(Radius)))
 }
 
@@ -1049,12 +1049,12 @@ func IsValidVehicle(vehicleid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleDistanceFromPoint
-func GetVehicleDistanceFromPoint(vehicleid int, x float32, y float32, z float32) float32 {
+func GetVehicleDistanceFromPoint(vehicleid int, x, y, z float32) float32 {
 	return float32(C.GetVehicleDistanceFromPoint(C.int(vehicleid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreateVehicle
-func CreateVehicle(vehicletype int, x float32, y float32, z float32, rotation float32, color1 int, color2 int, respawn_delay int, addsiren bool) int {
+func CreateVehicle(vehicletype int, x, y, z, rotation float32, color1, color2, respawn_delay int, addsiren bool) int {
 	return int(C.CreateVehicle(C.int(vehicletype), C.float(x), C.float(y), C.float(z), C.float(rotation), C.int(color1), C.int(color2), C.int(respawn_delay), C.bool(addsiren)))
 }
 
@@ -1064,12 +1064,12 @@ func DestroyVehicle(vehicleid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/IsVehicleStreamedIn
-func IsVehicleStreamedIn(vehicleid int, forplayerid int) bool {
+func IsVehicleStreamedIn(vehicleid, forplayerid int) bool {
 	return bool(C.IsVehicleStreamedIn(C.int(vehicleid), C.int(forplayerid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehiclePos
-func GetVehiclePos(vehicleid int, x *float32, y *float32, z *float32) bool {
+func GetVehiclePos(vehicleid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -1082,7 +1082,7 @@ func GetVehiclePos(vehicleid int, x *float32, y *float32, z *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehiclePos
-func SetVehiclePos(vehicleid int, x float32, y float32, z float32) bool {
+func SetVehiclePos(vehicleid int, x, y, z float32) bool {
 	return bool(C.SetVehiclePos(C.int(vehicleid), C.float(x), C.float(y), C.float(z)))
 }
 
@@ -1096,7 +1096,7 @@ func GetVehicleZAngle(vehicleid int, z_angle *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleRotationQuat
-func GetVehicleRotationQuat(vehicleid int, w *float32, x *float32, y *float32, z *float32) bool {
+func GetVehicleRotationQuat(vehicleid int, w, x, y, z *float32) bool {
 	var ret bool
 	var cw C.float
 	var cx C.float
@@ -1116,7 +1116,7 @@ func SetVehicleZAngle(vehicleid int, z_angle float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleParamsForPlayer
-func SetVehicleParamsForPlayer(vehicleid int, playerid int, objective int, doorslocked int) bool {
+func SetVehicleParamsForPlayer(vehicleid, playerid, objective, doorslocked int) bool {
 	return bool(C.SetVehicleParamsForPlayer(C.int(vehicleid), C.int(playerid), C.int(objective), C.int(doorslocked)))
 }
 
@@ -1126,12 +1126,12 @@ func ManualVehicleEngineAndLights() bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleParamsEx
-func SetVehicleParamsEx(vehicleid int, engine int, lights int, alarm int, doors int, bonnet int, boot int, objective int) bool {
+func SetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective int) bool {
 	return bool(C.SetVehicleParamsEx(C.int(vehicleid), C.int(engine), C.int(lights), C.int(alarm), C.int(doors), C.int(bonnet), C.int(boot), C.int(objective)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleParamsEx
-func GetVehicleParamsEx(vehicleid int, engine *int, lights *int, alarm *int, doors *int, bonnet *int, boot *int, objective *int) bool {
+func GetVehicleParamsEx(vehicleid int, engine, lights, alarm, doors, bonnet, boot, objective *int) bool {
 	var ret bool
 	var cengine C.int
 	var clights C.int
@@ -1157,12 +1157,12 @@ func GetVehicleParamsSirenState(vehicleid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleParamsCarDoors
-func SetVehicleParamsCarDoors(vehicleid int, driver int, passenger int, backleft int, backright int) bool {
+func SetVehicleParamsCarDoors(vehicleid, driver, passenger, backleft, backright int) bool {
 	return bool(C.SetVehicleParamsCarDoors(C.int(vehicleid), C.int(driver), C.int(passenger), C.int(backleft), C.int(backright)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleParamsCarDoors
-func GetVehicleParamsCarDoors(vehicleid int, driver *int, passenger *int, backleft *int, backright *int) bool {
+func GetVehicleParamsCarDoors(vehicleid int, driver, passenger, backleft, backright *int) bool {
 	var ret bool
 	var cdriver C.int
 	var cpassenger C.int
@@ -1177,12 +1177,12 @@ func GetVehicleParamsCarDoors(vehicleid int, driver *int, passenger *int, backle
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleParamsCarWindows
-func SetVehicleParamsCarWindows(vehicleid int, driver int, passenger int, backleft int, backright int) bool {
+func SetVehicleParamsCarWindows(vehicleid, driver, passenger, backleft, backright int) bool {
 	return bool(C.SetVehicleParamsCarWindows(C.int(vehicleid), C.int(driver), C.int(passenger), C.int(backleft), C.int(backright)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleParamsCarWindows
-func GetVehicleParamsCarWindows(vehicleid int, driver *int, passenger *int, backleft *int, backright *int) bool {
+func GetVehicleParamsCarWindows(vehicleid int, driver, passenger, backleft, backright *int) bool {
 	var ret bool
 	var cdriver C.int
 	var cpassenger C.int
@@ -1202,27 +1202,27 @@ func SetVehicleToRespawn(vehicleid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/LinkVehicleToInterior
-func LinkVehicleToInterior(vehicleid int, interiorid int) bool {
+func LinkVehicleToInterior(vehicleid, interiorid int) bool {
 	return bool(C.LinkVehicleToInterior(C.int(vehicleid), C.int(interiorid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddVehicleComponent
-func AddVehicleComponent(vehicleid int, componentid int) bool {
+func AddVehicleComponent(vehicleid, componentid int) bool {
 	return bool(C.AddVehicleComponent(C.int(vehicleid), C.int(componentid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/RemoveVehicleComponent
-func RemoveVehicleComponent(vehicleid int, componentid int) bool {
+func RemoveVehicleComponent(vehicleid, componentid int) bool {
 	return bool(C.RemoveVehicleComponent(C.int(vehicleid), C.int(componentid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ChangeVehicleColor
-func ChangeVehicleColor(vehicleid int, color1 int, color2 int) bool {
+func ChangeVehicleColor(vehicleid, color1, color2 int) bool {
 	return bool(C.ChangeVehicleColor(C.int(vehicleid), C.int(color1), C.int(color2)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ChangeVehiclePaintjob
-func ChangeVehiclePaintjob(vehicleid int, paintjobid int) bool {
+func ChangeVehiclePaintjob(vehicleid, paintjobid int) bool {
 	return bool(C.ChangeVehiclePaintjob(C.int(vehicleid), C.int(paintjobid)))
 }
 
@@ -1241,7 +1241,7 @@ func GetVehicleHealth(vehicleid int, health *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachTrailerToVehicle
-func AttachTrailerToVehicle(trailerid int, vehicleid int) bool {
+func AttachTrailerToVehicle(trailerid, vehicleid int) bool {
 	return bool(C.AttachTrailerToVehicle(C.int(trailerid), C.int(vehicleid)))
 }
 
@@ -1273,7 +1273,7 @@ func GetVehicleModel(vehicleid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleComponentInSlot
-func GetVehicleComponentInSlot(vehicleid int, slot int) int {
+func GetVehicleComponentInSlot(vehicleid, slot int) int {
 	return int(C.GetVehicleComponentInSlot(C.int(vehicleid), C.int(slot)))
 }
 
@@ -1288,7 +1288,7 @@ func RepairVehicle(vehicleid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleVelocity
-func GetVehicleVelocity(vehicleid int, X *float32, Y *float32, Z *float32) bool {
+func GetVehicleVelocity(vehicleid int, X, Y, Z *float32) bool {
 	var ret bool
 	var cX C.float
 	var cY C.float
@@ -1301,17 +1301,17 @@ func GetVehicleVelocity(vehicleid int, X *float32, Y *float32, Z *float32) bool 
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleVelocity
-func SetVehicleVelocity(vehicleid int, X float32, Y float32, Z float32) bool {
+func SetVehicleVelocity(vehicleid int, X, Y, Z float32) bool {
 	return bool(C.SetVehicleVelocity(C.int(vehicleid), C.float(X), C.float(Y), C.float(Z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleAngularVelocity
-func SetVehicleAngularVelocity(vehicleid int, X float32, Y float32, Z float32) bool {
+func SetVehicleAngularVelocity(vehicleid int, X, Y, Z float32) bool {
 	return bool(C.SetVehicleAngularVelocity(C.int(vehicleid), C.float(X), C.float(Y), C.float(Z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleDamageStatus
-func GetVehicleDamageStatus(vehicleid int, panels *int, doors *int, lights *int, tires *int) bool {
+func GetVehicleDamageStatus(vehicleid int, panels, doors, lights, tires *int) bool {
 	var ret bool
 	var cpanels C.int
 	var cdoors C.int
@@ -1326,12 +1326,12 @@ func GetVehicleDamageStatus(vehicleid int, panels *int, doors *int, lights *int,
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/UpdateVehicleDamageStatus
-func UpdateVehicleDamageStatus(vehicleid int, panels int, doors int, lights int, tires int) bool {
+func UpdateVehicleDamageStatus(vehicleid, panels, doors, lights, tires int) bool {
 	return bool(C.UpdateVehicleDamageStatus(C.int(vehicleid), C.int(panels), C.int(doors), C.int(lights), C.int(tires)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetVehicleVirtualWorld
-func SetVehicleVirtualWorld(vehicleid int, worldid int) bool {
+func SetVehicleVirtualWorld(vehicleid, worldid int) bool {
 	return bool(C.SetVehicleVirtualWorld(C.int(vehicleid), C.int(worldid)))
 }
 
@@ -1341,7 +1341,7 @@ func GetVehicleVirtualWorld(vehicleid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetVehicleModelInfo
-func GetVehicleModelInfo(model int, infotype int, X *float32, Y *float32, Z *float32) bool {
+func GetVehicleModelInfo(model, infotype int, X, Y, Z *float32) bool {
 	var ret bool
 	var cX C.float
 	var cY C.float
@@ -1354,7 +1354,7 @@ func GetVehicleModelInfo(model int, infotype int, X *float32, Y *float32, Z *flo
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SendClientMessage
-func SendClientMessage(playerid int, color int, message string) bool {
+func SendClientMessage(playerid, color int, message string) bool {
 	csmessage := C.CString(message)
 	defer C.free(unsafe.Pointer(csmessage))
 	return bool(C.SendClientMessage(C.int(playerid), C.int(color), C.nonConstToConst(csmessage)))
@@ -1368,7 +1368,7 @@ func SendClientMessageToAll(color int, message string) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SendPlayerMessageToPlayer
-func SendPlayerMessageToPlayer(playerid int, senderid int, message string) bool {
+func SendPlayerMessageToPlayer(playerid, senderid int, message string) bool {
 	csmessage := C.CString(message)
 	defer C.free(unsafe.Pointer(csmessage))
 	return bool(C.SendPlayerMessageToPlayer(C.int(playerid), C.int(senderid), C.nonConstToConst(csmessage)))
@@ -1382,24 +1382,24 @@ func SendPlayerMessageToAll(senderid int, message string) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SendDeathMessage
-func SendDeathMessage(killer int, killee int, weapon int) bool {
+func SendDeathMessage(killer, killee, weapon int) bool {
 	return bool(C.SendDeathMessage(C.int(killer), C.int(killee), C.int(weapon)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SendDeathMessageToPlayer
-func SendDeathMessageToPlayer(playerid int, killer int, killee int, weapon int) bool {
+func SendDeathMessageToPlayer(playerid, killer, killee, weapon int) bool {
 	return bool(C.SendDeathMessageToPlayer(C.int(playerid), C.int(killer), C.int(killee), C.int(weapon)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GameTextForAll
-func GameTextForAll(text string, time int, style int) bool {
+func GameTextForAll(text string, time, style int) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return bool(C.GameTextForAll(C.nonConstToConst(cstext), C.int(time), C.int(style)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GameTextForPlayer
-func GameTextForPlayer(playerid int, text string, time int, style int) bool {
+func GameTextForPlayer(playerid int, text string, time, style int) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return bool(C.GameTextForPlayer(C.int(playerid), C.nonConstToConst(cstext), C.int(time), C.int(style)))
@@ -1416,7 +1416,7 @@ func GetMaxPlayers() int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/VectorSize
-func VectorSize(x float32, y float32, z float32) float32 {
+func VectorSize(x, y, z float32) float32 {
 	return float32(C.VectorSize(C.float(x), C.float(y), C.float(z)))
 }
 
@@ -1436,7 +1436,7 @@ func GetActorPoolSize() int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SHA256_PassHash
-func SHA256_PassHash(password string, salt string, ret_hash *string, ret_hash_len int) bool {
+func SHA256_PassHash(password, salt string, ret_hash *string, ret_hash_len int) bool {
 	cspassword := C.CString(password)
 	defer C.free(unsafe.Pointer(cspassword))
 	cssalt := C.CString(salt)
@@ -1465,16 +1465,16 @@ func GetSVarInt(varname string) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetSVarString
-func SetSVarString(varname string, string_value string) bool {
+func SetSVarString(varname, string_value string) bool {
 	csvarname := C.CString(varname)
 	defer C.free(unsafe.Pointer(csvarname))
-	csstring_value := C.CString(string_value)
-	defer C.free(unsafe.Pointer(csstring_value))
-	return bool(C.SetSVarString(C.nonConstToConst(csvarname), C.nonConstToConst(csstring_value)))
+	cstring_value := C.CString(string_value)
+	defer C.free(unsafe.Pointer(cstring_value))
+	return bool(C.SetSVarString(C.nonConstToConst(csvarname), C.nonConstToConst(cstring_value)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetSVarString
-func GetSVarString(varname string, string_return *string, len_ int) bool {
+func GetSVarString(varname, string_return *string, len_ int) bool {
 	csvarname := C.CString(varname)
 	defer C.free(unsafe.Pointer(csvarname))
 	var ret bool
@@ -1487,7 +1487,7 @@ func GetSVarString(varname string, string_return *string, len_ int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetSVarFloat
-func SetSVarFloat(varname string, float_value float32) bool {
+func SetSVarFloat(varname, float_value float32) bool {
 	csvarname := C.CString(varname)
 	defer C.free(unsafe.Pointer(csvarname))
 	return bool(C.SetSVarFloat(C.nonConstToConst(csvarname), C.float(float_value)))
@@ -1543,32 +1543,32 @@ func SetTeamCount(count int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddPlayerClass
-func AddPlayerClass(modelid int, spawn_x float32, spawn_y float32, spawn_z float32, z_angle float32, weapon1 int, weapon1_ammo int, weapon2 int, weapon2_ammo int, weapon3 int, weapon3_ammo int) int {
+func AddPlayerClass(modelid int, spawn_x, spawn_y, spawn_z, z_angle float32, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo int) int {
 	return int(C.AddPlayerClass(C.int(modelid), C.float(spawn_x), C.float(spawn_y), C.float(spawn_z), C.float(z_angle), C.int(weapon1), C.int(weapon1_ammo), C.int(weapon2), C.int(weapon2_ammo), C.int(weapon3), C.int(weapon3_ammo)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddPlayerClassEx
-func AddPlayerClassEx(teamid int, modelid int, spawn_x float32, spawn_y float32, spawn_z float32, z_angle float32, weapon1 int, weapon1_ammo int, weapon2 int, weapon2_ammo int, weapon3 int, weapon3_ammo int) int {
+func AddPlayerClassEx(teamid, modelid int, spawn_x, spawn_y, spawn_z, z_angle float32, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo int) int {
 	return int(C.AddPlayerClassEx(C.int(teamid), C.int(modelid), C.float(spawn_x), C.float(spawn_y), C.float(spawn_z), C.float(z_angle), C.int(weapon1), C.int(weapon1_ammo), C.int(weapon2), C.int(weapon2_ammo), C.int(weapon3), C.int(weapon3_ammo)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddStaticVehicle
-func AddStaticVehicle(modelid int, spawn_x float32, spawn_y float32, spawn_z float32, z_angle float32, color1 int, color2 int) int {
+func AddStaticVehicle(modelid int, spawn_x, spawn_y, spawn_z, z_angle float32, color1, color2 int) int {
 	return int(C.AddStaticVehicle(C.int(modelid), C.float(spawn_x), C.float(spawn_y), C.float(spawn_z), C.float(z_angle), C.int(color1), C.int(color2)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddStaticVehicleEx
-func AddStaticVehicleEx(modelid int, spawn_x float32, spawn_y float32, spawn_z float32, z_angle float32, color1 int, color2 int, respawn_delay int, addsiren bool) int {
+func AddStaticVehicleEx(modelid int, spawn_x, spawn_y, spawn_z, z_angle float32, color1, color2, respawn_delay int, addsiren bool) int {
 	return int(C.AddStaticVehicleEx(C.int(modelid), C.float(spawn_x), C.float(spawn_y), C.float(spawn_z), C.float(z_angle), C.int(color1), C.int(color2), C.int(respawn_delay), C.bool(addsiren)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddStaticPickup
-func AddStaticPickup(model int, type_ int, x float32, y float32, z float32, virtualworld int) int {
+func AddStaticPickup(model, type_ int, x, y, z float32, virtualworld int) int {
 	return int(C.AddStaticPickup(C.int(model), C.int(type_), C.float(x), C.float(y), C.float(z), C.int(virtualworld)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreatePickup
-func CreatePickup(model int, type_ int, x float32, y float32, z float32, virtualworld int) int {
+func CreatePickup(model, type_ int, x, y, z float32, virtualworld int) int {
 	return int(C.CreatePickup(C.int(model), C.int(type_), C.float(x), C.float(y), C.float(z), C.int(virtualworld)))
 }
 
@@ -1649,7 +1649,7 @@ func SetDeathDropAmount(amount int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreateExplosion
-func CreateExplosion(x float32, y float32, z float32, type_ int, radius float32) bool {
+func CreateExplosion(x, y, z float32, type_ int, radius float32) bool {
 	return bool(C.CreateExplosion(C.float(x), C.float(y), C.float(z), C.int(type_), C.float(radius)))
 }
 
@@ -1689,7 +1689,7 @@ func LimitPlayerMarkerRadius(marker_radius float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ConnectNPC
-func ConnectNPC(name string, script string) bool {
+func ConnectNPC(name, script string) bool {
 	csname := C.CString(name)
 	defer C.free(unsafe.Pointer(csname))
 	csscript := C.CString(script)
@@ -1901,26 +1901,26 @@ func DestroyMenu(menuid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddMenuItem
-func AddMenuItem(menuid int, column int, menutext string) int {
+func AddMenuItem(menuid, column int, menutext string) int {
 	csmenutext := C.CString(menutext)
 	defer C.free(unsafe.Pointer(csmenutext))
 	return int(C.AddMenuItem(C.int(menuid), C.int(column), C.nonConstToConst(csmenutext)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetMenuColumnHeader
-func SetMenuColumnHeader(menuid int, column int, columnheader string) bool {
+func SetMenuColumnHeader(menuid, column int, columnheader string) bool {
 	cscolumnheader := C.CString(columnheader)
 	defer C.free(unsafe.Pointer(cscolumnheader))
 	return bool(C.SetMenuColumnHeader(C.int(menuid), C.int(column), C.nonConstToConst(cscolumnheader)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ShowMenuForPlayer
-func ShowMenuForPlayer(menuid int, playerid int) bool {
+func ShowMenuForPlayer(menuid, playerid int) bool {
 	return bool(C.ShowMenuForPlayer(C.int(menuid), C.int(playerid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/HideMenuForPlayer
-func HideMenuForPlayer(menuid int, playerid int) bool {
+func HideMenuForPlayer(menuid, playerid int) bool {
 	return bool(C.HideMenuForPlayer(C.int(menuid), C.int(playerid)))
 }
 
@@ -1935,7 +1935,7 @@ func DisableMenu(menuid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/DisableMenuRow
-func DisableMenuRow(menuid int, row int) bool {
+func DisableMenuRow(menuid, row int) bool {
 	return bool(C.DisableMenuRow(C.int(menuid), C.int(row)))
 }
 
@@ -1945,121 +1945,121 @@ func GetPlayerMenu(playerid int) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawCreate
-func TextDrawCreate(x float32, y float32, text string) int {
+func TextDrawCreate(x, y float32, text string) int {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return int(C.TextDrawCreate(C.float(x), C.float(y), C.nonConstToConst(cstext)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawDestroy
-func TextDrawDestroy(text int) bool {
-	return bool(C.TextDrawDestroy(C.int(text)))
+func TextDrawDestroy(textid int) bool {
+	return bool(C.TextDrawDestroy(C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawLetterSize
-func TextDrawLetterSize(text int, x float32, y float32) bool {
-	return bool(C.TextDrawLetterSize(C.int(text), C.float(x), C.float(y)))
+func TextDrawLetterSize(textid int, x, y float32) bool {
+	return bool(C.TextDrawLetterSize(C.int(textid), C.float(x), C.float(y)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawTextSize
-func TextDrawTextSize(text int, x float32, y float32) bool {
-	return bool(C.TextDrawTextSize(C.int(text), C.float(x), C.float(y)))
+func TextDrawTextSize(textid int, x, y float32) bool {
+	return bool(C.TextDrawTextSize(C.int(textid), C.float(x), C.float(y)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawAlignment
-func TextDrawAlignment(text int, alignment int) bool {
-	return bool(C.TextDrawAlignment(C.int(text), C.int(alignment)))
+func TextDrawAlignment(textid, alignment int) bool {
+	return bool(C.TextDrawAlignment(C.int(textid), C.int(alignment)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawColor
-func TextDrawColor(text int, color int) bool {
-	return bool(C.TextDrawColor(C.int(text), C.int(color)))
+func TextDrawColor(textid, color int) bool {
+	return bool(C.TextDrawColor(C.int(textid), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawUseBox
-func TextDrawUseBox(text int, use bool) bool {
-	return bool(C.TextDrawUseBox(C.int(text), C.bool(use)))
+func TextDrawUseBox(textid int, use bool) bool {
+	return bool(C.TextDrawUseBox(C.int(textid), C.bool(use)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawBoxColor
-func TextDrawBoxColor(text int, color int) bool {
-	return bool(C.TextDrawBoxColor(C.int(text), C.int(color)))
+func TextDrawBoxColor(textid, color int) bool {
+	return bool(C.TextDrawBoxColor(C.int(textid), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetShadow
-func TextDrawSetShadow(text int, size int) bool {
-	return bool(C.TextDrawSetShadow(C.int(text), C.int(size)))
+func TextDrawSetShadow(textid, size int) bool {
+	return bool(C.TextDrawSetShadow(C.int(textid), C.int(size)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetOutline
-func TextDrawSetOutline(text int, size int) bool {
-	return bool(C.TextDrawSetOutline(C.int(text), C.int(size)))
+func TextDrawSetOutline(textid, size int) bool {
+	return bool(C.TextDrawSetOutline(C.int(textid), C.int(size)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawBackgroundColor
-func TextDrawBackgroundColor(text int, color int) bool {
-	return bool(C.TextDrawBackgroundColor(C.int(text), C.int(color)))
+func TextDrawBackgroundColor(textid, color int) bool {
+	return bool(C.TextDrawBackgroundColor(C.int(textid), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawFont
-func TextDrawFont(text int, font int) bool {
-	return bool(C.TextDrawFont(C.int(text), C.int(font)))
+func TextDrawFont(textid, font int) bool {
+	return bool(C.TextDrawFont(C.int(textid), C.int(font)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetProportional
-func TextDrawSetProportional(text int, set bool) bool {
-	return bool(C.TextDrawSetProportional(C.int(text), C.bool(set)))
+func TextDrawSetProportional(textid int, set bool) bool {
+	return bool(C.TextDrawSetProportional(C.int(textid), C.bool(set)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetSelectable
-func TextDrawSetSelectable(text int, set bool) bool {
-	return bool(C.TextDrawSetSelectable(C.int(text), C.bool(set)))
+func TextDrawSetSelectable(textid int, set bool) bool {
+	return bool(C.TextDrawSetSelectable(C.int(textid), C.bool(set)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawShowForPlayer
-func TextDrawShowForPlayer(playerid int, text int) bool {
-	return bool(C.TextDrawShowForPlayer(C.int(playerid), C.int(text)))
+func TextDrawShowForPlayer(playerid, textid int) bool {
+	return bool(C.TextDrawShowForPlayer(C.int(playerid), C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawHideForPlayer
-func TextDrawHideForPlayer(playerid int, text int) bool {
-	return bool(C.TextDrawHideForPlayer(C.int(playerid), C.int(text)))
+func TextDrawHideForPlayer(playerid, textid int) bool {
+	return bool(C.TextDrawHideForPlayer(C.int(playerid), C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawShowForAll
-func TextDrawShowForAll(text int) bool {
-	return bool(C.TextDrawShowForAll(C.int(text)))
+func TextDrawShowForAll(textid int) bool {
+	return bool(C.TextDrawShowForAll(C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawHideForAll
-func TextDrawHideForAll(text int) bool {
-	return bool(C.TextDrawHideForAll(C.int(text)))
+func TextDrawHideForAll(textid int) bool {
+	return bool(C.TextDrawHideForAll(C.int(textid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetString
-func TextDrawSetString(text int, string string) bool {
-	csstring := C.CString(string)
-	defer C.free(unsafe.Pointer(csstring))
-	return bool(C.TextDrawSetString(C.int(text), C.nonConstToConst(csstring)))
+func TextDrawSetString(textid int, text string) bool {
+	cstring := C.CString(text)
+	defer C.free(unsafe.Pointer(cstring))
+	return bool(C.TextDrawSetString(C.int(textid), C.nonConstToConst(cstring)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetPreviewModel
-func TextDrawSetPreviewModel(text int, modelindex int) bool {
-	return bool(C.TextDrawSetPreviewModel(C.int(text), C.int(modelindex)))
+func TextDrawSetPreviewModel(textid int, modelindex int) bool {
+	return bool(C.TextDrawSetPreviewModel(C.int(textid), C.int(modelindex)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetPreviewRot
-func TextDrawSetPreviewRot(text int, fRotX float32, fRotY float32, fRotZ float32, fZoom float32) bool {
-	return bool(C.TextDrawSetPreviewRot(C.int(text), C.float(fRotX), C.float(fRotY), C.float(fRotZ), C.float(fZoom)))
+func TextDrawSetPreviewRot(textid int, fRotX, fRotY, fRotZ, fZoom float32) bool {
+	return bool(C.TextDrawSetPreviewRot(C.int(textid), C.float(fRotX), C.float(fRotY), C.float(fRotZ), C.float(fZoom)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawSetPreviewVehCol
-func TextDrawSetPreviewVehCol(text int, color1 int, color2 int) bool {
-	return bool(C.TextDrawSetPreviewVehCol(C.int(text), C.int(color1), C.int(color2)))
+func TextDrawSetPreviewVehCol(textid, color1, color2 int) bool {
+	return bool(C.TextDrawSetPreviewVehCol(C.int(textid), C.int(color1), C.int(color2)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SelectTextDraw
-func SelectTextDraw(playerid int, hovercolor int) bool {
+func SelectTextDraw(playerid, hovercolor int) bool {
 	return bool(C.SelectTextDraw(C.int(playerid), C.int(hovercolor)))
 }
 
@@ -2069,7 +2069,15 @@ func CancelSelectTextDraw(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneCreate
-func GangZoneCreate(minx float32, miny float32, maxx float32, maxy float32) int {
+func GangZoneCreate(minx, miny, maxx, maxy float32) int {
+	if minx > maxx {
+		minx, maxx = maxx, minx
+	}
+
+	if miny > maxy {
+		miny, maxy = maxy, miny
+	}
+
 	return int(C.GangZoneCreate(C.float(minx), C.float(miny), C.float(maxx), C.float(maxy)))
 }
 
@@ -2079,17 +2087,17 @@ func GangZoneDestroy(zone int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneShowForPlayer
-func GangZoneShowForPlayer(playerid int, zone int, color int) bool {
+func GangZoneShowForPlayer(playerid, zone, color int) bool {
 	return bool(C.GangZoneShowForPlayer(C.int(playerid), C.int(zone), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneShowForAll
-func GangZoneShowForAll(zone int, color int) bool {
+func GangZoneShowForAll(zone, color int) bool {
 	return bool(C.GangZoneShowForAll(C.int(zone), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneHideForPlayer
-func GangZoneHideForPlayer(playerid int, zone int) bool {
+func GangZoneHideForPlayer(playerid, zone int) bool {
 	return bool(C.GangZoneHideForPlayer(C.int(playerid), C.int(zone)))
 }
 
@@ -2099,17 +2107,17 @@ func GangZoneHideForAll(zone int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneFlashForPlayer
-func GangZoneFlashForPlayer(playerid int, zone int, flashcolor int) bool {
+func GangZoneFlashForPlayer(playerid, zone, flashcolor int) bool {
 	return bool(C.GangZoneFlashForPlayer(C.int(playerid), C.int(zone), C.int(flashcolor)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneFlashForAll
-func GangZoneFlashForAll(zone int, flashcolor int) bool {
+func GangZoneFlashForAll(zone, flashcolor int) bool {
 	return bool(C.GangZoneFlashForAll(C.int(zone), C.int(flashcolor)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneStopFlashForPlayer
-func GangZoneStopFlashForPlayer(playerid int, zone int) bool {
+func GangZoneStopFlashForPlayer(playerid, zone int) bool {
 	return bool(C.GangZoneStopFlashForPlayer(C.int(playerid), C.int(zone)))
 }
 
@@ -2119,7 +2127,7 @@ func GangZoneStopFlashForAll(zone int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/Create3DTextLabel
-func Create3DTextLabel(text string, color int, x float32, y float32, z float32, DrawDistance float32, virtualworld int, testLOS bool) int {
+func Create3DTextLabel(text string, color int, x, y, z, DrawDistance float32, virtualworld int, testLOS bool) int {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return int(C.Create3DTextLabel(C.nonConstToConst(cstext), C.int(color), C.float(x), C.float(y), C.float(z), C.float(DrawDistance), C.int(virtualworld), C.bool(testLOS)))
@@ -2131,43 +2139,43 @@ func Delete3DTextLabel(id int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/Attach3DTextLabelToPlayer
-func Attach3DTextLabelToPlayer(id int, playerid int, OffsetX float32, OffsetY float32, OffsetZ float32) bool {
+func Attach3DTextLabelToPlayer(id, playerid int, OffsetX, OffsetY, OffsetZ float32) bool {
 	return bool(C.Attach3DTextLabelToPlayer(C.int(id), C.int(playerid), C.float(OffsetX), C.float(OffsetY), C.float(OffsetZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/Attach3DTextLabelToVehicle
-func Attach3DTextLabelToVehicle(id int, vehicleid int, OffsetX float32, OffsetY float32, OffsetZ float32) bool {
+func Attach3DTextLabelToVehicle(id, vehicleid int, OffsetX, OffsetY, OffsetZ float32) bool {
 	return bool(C.Attach3DTextLabelToVehicle(C.int(id), C.int(vehicleid), C.float(OffsetX), C.float(OffsetY), C.float(OffsetZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/Update3DTextLabelText
-func Update3DTextLabelText(id int, color int, text string) bool {
+func Update3DTextLabelText(id, color int, text string) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return bool(C.Update3DTextLabelText(C.int(id), C.int(color), C.nonConstToConst(cstext)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreatePlayer3DTextLabel
-func CreatePlayer3DTextLabel(playerid int, text string, color int, x float32, y float32, z float32, DrawDistance float32, attachedplayer int, attachedvehicle int, testLOS bool) int {
+func CreatePlayer3DTextLabel(playerid int, text string, color int, x, y, z, DrawDistance float32, attachedplayer, attachedvehicle int, testLOS bool) int {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return int(C.CreatePlayer3DTextLabel(C.int(playerid), C.nonConstToConst(cstext), C.int(color), C.float(x), C.float(y), C.float(z), C.float(DrawDistance), C.int(attachedplayer), C.int(attachedvehicle), C.bool(testLOS)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/DeletePlayer3DTextLabel
-func DeletePlayer3DTextLabel(playerid int, id int) bool {
+func DeletePlayer3DTextLabel(playerid, id int) bool {
 	return bool(C.DeletePlayer3DTextLabel(C.int(playerid), C.int(id)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/UpdatePlayer3DTextLabelText
-func UpdatePlayer3DTextLabelText(playerid int, id int, color int, text string) bool {
+func UpdatePlayer3DTextLabelText(playerid, id, color int, text string) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return bool(C.UpdatePlayer3DTextLabelText(C.int(playerid), C.int(id), C.int(color), C.nonConstToConst(cstext)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/ShowPlayerDialog
-func ShowPlayerDialog(playerid int, dialogid int, style int, caption string, info string, button1 string, button2 string) bool {
+func ShowPlayerDialog(playerid, dialogid, style int, caption, info, button1, button2 string) bool {
 	cscaption := C.CString(caption)
 	defer C.free(unsafe.Pointer(cscaption))
 	csinfo := C.CString(info)
@@ -2193,7 +2201,7 @@ func gpci(playerid int, buffer *string, size int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddCharModel
-func AddCharModel(baseid int, newid int, dffname string, txdname string) int {
+func AddCharModel(baseid, newid int, dffname, txdname string) int {
 	csdffname := C.CString(dffname)
 	defer C.free(unsafe.Pointer(csdffname))
 	cstxdname := C.CString(txdname)
@@ -2202,7 +2210,7 @@ func AddCharModel(baseid int, newid int, dffname string, txdname string) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddSimpleModel
-func AddSimpleModel(virtualworld int, baseid int, newid int, dffname string, txdname string) int {
+func AddSimpleModel(virtualworld, baseid, newid int, dffname, txdname string) int {
 	csdffname := C.CString(dffname)
 	defer C.free(unsafe.Pointer(csdffname))
 	cstxdname := C.CString(txdname)
@@ -2211,7 +2219,7 @@ func AddSimpleModel(virtualworld int, baseid int, newid int, dffname string, txd
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AddSimpleModelTimed
-func AddSimpleModelTimed(virtualworld int, baseid int, newid int, dffname string, txdname string, timeon int, timeoff int) int {
+func AddSimpleModelTimed(virtualworld, baseid, newid int, dffname, txdname string, timeon, timeoff int) int {
 	csdffname := C.CString(dffname)
 	defer C.free(unsafe.Pointer(csdffname))
 	cstxdname := C.CString(txdname)
@@ -2249,32 +2257,32 @@ func RedirectDownload(playerid int, url string) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreateObject
-func CreateObject(modelid int, x float32, y float32, z float32, rX float32, rY float32, rZ float32, DrawDistance float32) int {
+func CreateObject(modelid int, x, y, z, rX, rY, rZ, DrawDistance float32) int {
 	return int(C.CreateObject(C.int(modelid), C.float(x), C.float(y), C.float(z), C.float(rX), C.float(rY), C.float(rZ), C.float(DrawDistance)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachObjectToVehicle
-func AttachObjectToVehicle(objectid int, vehicleid int, fOffsetX float32, fOffsetY float32, fOffsetZ float32, fRotX float32, fRotY float32, fRotZ float32) bool {
+func AttachObjectToVehicle(objectid, vehicleid int, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, fRotZ float32) bool {
 	return bool(C.AttachObjectToVehicle(C.int(objectid), C.int(vehicleid), C.float(fOffsetX), C.float(fOffsetY), C.float(fOffsetZ), C.float(fRotX), C.float(fRotY), C.float(fRotZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachObjectToObject
-func AttachObjectToObject(objectid int, attachtoid int, fOffsetX float32, fOffsetY float32, fOffsetZ float32, fRotX float32, fRotY float32, fRotZ float32, SyncRotation bool) bool {
+func AttachObjectToObject(objectid, attachtoid int, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, fRotZ float32, SyncRotation bool) bool {
 	return bool(C.AttachObjectToObject(C.int(objectid), C.int(attachtoid), C.float(fOffsetX), C.float(fOffsetY), C.float(fOffsetZ), C.float(fRotX), C.float(fRotY), C.float(fRotZ), C.bool(SyncRotation)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachObjectToPlayer
-func AttachObjectToPlayer(objectid int, playerid int, fOffsetX float32, fOffsetY float32, fOffsetZ float32, fRotX float32, fRotY float32, fRotZ float32) bool {
+func AttachObjectToPlayer(objectid, playerid int, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, fRotZ float32) bool {
 	return bool(C.AttachObjectToPlayer(C.int(objectid), C.int(playerid), C.float(fOffsetX), C.float(fOffsetY), C.float(fOffsetZ), C.float(fRotX), C.float(fRotY), C.float(fRotZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetObjectPos
-func SetObjectPos(objectid int, x float32, y float32, z float32) bool {
+func SetObjectPos(objectid int, x, y, z float32) bool {
 	return bool(C.SetObjectPos(C.int(objectid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetObjectPos
-func GetObjectPos(objectid int, x *float32, y *float32, z *float32) bool {
+func GetObjectPos(objectid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -2287,12 +2295,12 @@ func GetObjectPos(objectid int, x *float32, y *float32, z *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetObjectRot
-func SetObjectRot(objectid int, rotX float32, rotY float32, rotZ float32) bool {
+func SetObjectRot(objectid int, rotX, rotY, rotZ float32) bool {
 	return bool(C.SetObjectRot(C.int(objectid), C.float(rotX), C.float(rotY), C.float(rotZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetObjectRot
-func GetObjectRot(objectid int, rotX *float32, rotY *float32, rotZ *float32) bool {
+func GetObjectRot(objectid int, rotX, rotY, rotZ *float32) bool {
 	var ret bool
 	var crotX C.float
 	var crotY C.float
@@ -2325,7 +2333,7 @@ func DestroyObject(objectid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/MoveObject
-func MoveObject(objectid int, X float32, Y float32, Z float32, Speed float32, RotX float32, RotY float32, RotZ float32) int {
+func MoveObject(objectid int, X, Y, Z, Speed, RotX, RotY, RotZ float32) int {
 	return int(C.MoveObject(C.int(objectid), C.float(X), C.float(Y), C.float(Z), C.float(Speed), C.float(RotX), C.float(RotY), C.float(RotZ)))
 }
 
@@ -2340,12 +2348,12 @@ func IsObjectMoving(objectid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/EditObject
-func EditObject(playerid int, objectid int) bool {
+func EditObject(playerid, objectid int) bool {
 	return bool(C.EditObject(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/EditPlayerObject
-func EditPlayerObject(playerid int, objectid int) bool {
+func EditPlayerObject(playerid, objectid int) bool {
 	return bool(C.EditPlayerObject(C.int(playerid), C.int(objectid)))
 }
 
@@ -2360,27 +2368,27 @@ func CancelEdit(playerid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreatePlayerObject
-func CreatePlayerObject(playerid int, modelid int, x float32, y float32, z float32, rX float32, rY float32, rZ float32, DrawDistance float32) int {
+func CreatePlayerObject(playerid, modelid int, x, y, z, rX, rY, rZ, DrawDistance float32) int {
 	return int(C.CreatePlayerObject(C.int(playerid), C.int(modelid), C.float(x), C.float(y), C.float(z), C.float(rX), C.float(rY), C.float(rZ), C.float(DrawDistance)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachPlayerObjectToPlayer
-func AttachPlayerObjectToPlayer(objectplayer int, objectid int, attachplayer int, OffsetX float32, OffsetY float32, OffsetZ float32, rX float32, rY float32, rZ float32) bool {
+func AttachPlayerObjectToPlayer(objectplayer, objectid, attachplayer int, OffsetX, OffsetY, OffsetZ, rX, rY, rZ float32) bool {
 	return bool(C.AttachPlayerObjectToPlayer(C.int(objectplayer), C.int(objectid), C.int(attachplayer), C.float(OffsetX), C.float(OffsetY), C.float(OffsetZ), C.float(rX), C.float(rY), C.float(rZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/AttachPlayerObjectToVehicle
-func AttachPlayerObjectToVehicle(playerid int, objectid int, vehicleid int, fOffsetX float32, fOffsetY float32, fOffsetZ float32, fRotX float32, fRotY float32, RotZ float32) bool {
+func AttachPlayerObjectToVehicle(playerid, objectid, vehicleid int, fOffsetX, fOffsetY, fOffsetZ, fRotX, fRotY, RotZ float32) bool {
 	return bool(C.AttachPlayerObjectToVehicle(C.int(playerid), C.int(objectid), C.int(vehicleid), C.float(fOffsetX), C.float(fOffsetY), C.float(fOffsetZ), C.float(fRotX), C.float(fRotY), C.float(RotZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerObjectPos
-func SetPlayerObjectPos(playerid int, objectid int, x float32, y float32, z float32) bool {
+func SetPlayerObjectPos(playerid, objectid int, x, y, z float32) bool {
 	return bool(C.SetPlayerObjectPos(C.int(playerid), C.int(objectid), C.float(x), C.float(y), C.float(z)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerObjectPos
-func GetPlayerObjectPos(playerid int, objectid int, x *float32, y *float32, z *float32) bool {
+func GetPlayerObjectPos(playerid, objectid int, x, y, z *float32) bool {
 	var ret bool
 	var cx C.float
 	var cy C.float
@@ -2393,12 +2401,12 @@ func GetPlayerObjectPos(playerid int, objectid int, x *float32, y *float32, z *f
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerObjectRot
-func SetPlayerObjectRot(playerid int, objectid int, rotX float32, rotY float32, rotZ float32) bool {
+func SetPlayerObjectRot(playerid, objectid int, rotX, rotY, rotZ float32) bool {
 	return bool(C.SetPlayerObjectRot(C.int(playerid), C.int(objectid), C.float(rotX), C.float(rotY), C.float(rotZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerObjectRot
-func GetPlayerObjectRot(playerid int, objectid int, rotX *float32, rotY *float32, rotZ *float32) bool {
+func GetPlayerObjectRot(playerid, objectid int, rotX, rotY, rotZ *float32) bool {
 	var ret bool
 	var crotX C.float
 	var crotY C.float
@@ -2411,42 +2419,42 @@ func GetPlayerObjectRot(playerid int, objectid int, rotX *float32, rotY *float32
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetPlayerObjectModel
-func GetPlayerObjectModel(playerid int, objectid int) int {
+func GetPlayerObjectModel(playerid, objectid int) int {
 	return int(C.GetPlayerObjectModel(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerObjectNoCameraCol
-func SetPlayerObjectNoCameraCol(playerid int, objectid int) bool {
+func SetPlayerObjectNoCameraCol(playerid, objectid int) bool {
 	return bool(C.SetPlayerObjectNoCameraCol(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/IsValidPlayerObject
-func IsValidPlayerObject(playerid int, objectid int) bool {
+func IsValidPlayerObject(playerid, objectid int) bool {
 	return bool(C.IsValidPlayerObject(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/DestroyPlayerObject
-func DestroyPlayerObject(playerid int, objectid int) bool {
+func DestroyPlayerObject(playerid, objectid int) bool {
 	return bool(C.DestroyPlayerObject(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/MovePlayerObject
-func MovePlayerObject(playerid int, objectid int, x float32, y float32, z float32, Speed float32, RotX float32, RotY float32, RotZ float32) int {
+func MovePlayerObject(playerid, objectid int, x, y, z, Speed, RotX, RotY, RotZ float32) int {
 	return int(C.MovePlayerObject(C.int(playerid), C.int(objectid), C.float(x), C.float(y), C.float(z), C.float(Speed), C.float(RotX), C.float(RotY), C.float(RotZ)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/StopPlayerObject
-func StopPlayerObject(playerid int, objectid int) bool {
+func StopPlayerObject(playerid, objectid int) bool {
 	return bool(C.StopPlayerObject(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/IsPlayerObjectMoving
-func IsPlayerObjectMoving(playerid int, objectid int) bool {
+func IsPlayerObjectMoving(playerid, objectid int) bool {
 	return bool(C.IsPlayerObjectMoving(C.int(playerid), C.int(objectid)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetObjectMaterial
-func SetObjectMaterial(objectid int, materialindex int, modelid int, txdname string, texturename string, materialcolor int) bool {
+func SetObjectMaterial(objectid, materialindex, modelid int, txdname, texturename string, materialcolor int) bool {
 	cstxdname := C.CString(txdname)
 	defer C.free(unsafe.Pointer(cstxdname))
 	cstexturename := C.CString(texturename)
@@ -2455,7 +2463,7 @@ func SetObjectMaterial(objectid int, materialindex int, modelid int, txdname str
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerObjectMaterial
-func SetPlayerObjectMaterial(playerid int, objectid int, materialindex int, modelid int, txdname string, texturename string, materialcolor int) bool {
+func SetPlayerObjectMaterial(playerid, objectid, materialindex, modelid int, txdname, texturename string, materialcolor int) bool {
 	cstxdname := C.CString(txdname)
 	defer C.free(unsafe.Pointer(cstxdname))
 	cstexturename := C.CString(texturename)
@@ -2464,7 +2472,7 @@ func SetPlayerObjectMaterial(playerid int, objectid int, materialindex int, mode
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetObjectMaterialText
-func SetObjectMaterialText(objectid int, text string, materialindex int, materialsize int, fontface string, fontsize int, bold bool, fontcolor int, backcolor int, textalignment int) bool {
+func SetObjectMaterialText(objectid int, text string, materialindex, materialsize int, fontface string, fontsize int, bold bool, fontcolor, backcolor, textalignment int) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	csfontface := C.CString(fontface)
@@ -2473,7 +2481,7 @@ func SetObjectMaterialText(objectid int, text string, materialindex int, materia
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerObjectMaterialText
-func SetPlayerObjectMaterialText(playerid int, objectid int, text string, materialindex int, materialsize int, fontface string, fontsize int, bold bool, fontcolor int, backcolor int, textalignment int) bool {
+func SetPlayerObjectMaterialText(playerid, objectid int, text string, materialindex, materialsize int, fontface string, fontsize int, bold bool, fontcolor, backcolor, textalignment int) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	csfontface := C.CString(fontface)

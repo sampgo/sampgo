@@ -76,7 +76,7 @@ func (p *Player) Spawn() error {
 	return nil
 }
 
-func (p *Player) ShowDialog(dialogid int, style int, caption string, info string, button1 string, button2 string) error {
+func (p *Player) ShowDialog(dialogid, style int, caption, info, button1, button2 string) error {
 	if !ShowPlayerDialog(p.ID, dialogid, style, caption, info, button1, button2) {
 		return fmt.Errorf("couldn't show dialog")
 	}
