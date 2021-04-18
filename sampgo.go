@@ -1,10 +1,11 @@
 package sampgo
 
 /*
-#cgo windows CFLAGS: -I./vendor -I./vendor/amx -Wno-attributes -Wno-implicit-function-declaration
+#cgo windows CFLAGS: -I./lib -I./lib/amx -Wno-attributes -Wno-implicit-function-declaration
 #cgo windows CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H -DWIN32
+#cgo windows LDFLAGS: -Wl,--subsystem,windows,--kill-at
 
-#cgo linux CFLAGS: -I./vendor -I./vendor/amx -Wno-attributes -Wno-implicit-function-declaration
+#cgo linux CFLAGS: -I./lib -I./lib/amx -Wno-attributes -Wno-implicit-function-declaration
 #cgo linux CFLAGS: -DHAVE_INTTYPES_H -DHAVE_MALLOC_H -DHAVE_STDINT_H -DLINUX
 #cgo linux LDFLAGS: -ldl
 

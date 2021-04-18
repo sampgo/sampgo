@@ -55,9 +55,7 @@ func (p *PlayerTextDraw) SetAlignment(align int) {
 
 func (p *PlayerTextDraw) SetTextSize(x, y float32) {
 	if p.align == 2 {
-		tmp := x
-		x = y
-		y = tmp
+		x, y = y, x
 	}
 	PlayerTextDrawTextSize(p.player.ID, p.textDraw, x, y)
 }
@@ -66,10 +64,16 @@ func (p *PlayerTextDraw) SetColor(color int) {
 	PlayerTextDrawColor(p.player.ID, p.textDraw, color)
 }
 
+var SetColour = (*PlayerTextDraw).SetColor
+
 func (p *PlayerTextDraw) SetBoxColor(color int) {
 	PlayerTextDrawBoxColor(p.player.ID, p.textDraw, color)
 }
 
+var SetBoxColour = (*PlayerTextDraw).SetBoxColor
+
 func (p *PlayerTextDraw) SetBackgroundColor(color int) {
 	PlayerTextDrawBackgroundColor(p.player.ID, p.textDraw, color)
 }
+
+var SetBackgroundColour = (*PlayerTextDraw).SetBackgroundColor

@@ -26,7 +26,7 @@ type VehicleParams struct {
 	Objective int
 }
 
-func NewVehicle(modelid int, x, y, z, rotation float32, color1 uint8, color2 uint8, respawn_delay int, addsiren bool) (Vehicle, error) {
+func NewVehicle(modelid int, x, y, z, rotation float32, color1, color2 uint8, respawn_delay int, addsiren bool) (Vehicle, error) {
 	var v Vehicle
 	if !IsValidVehicleModel(modelid) {
 		return v, fmt.Errorf("invalid vehicle model")
