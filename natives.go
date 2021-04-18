@@ -1474,24 +1474,24 @@ func SetSVarString(varname, string_value string) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetSVarString
-// func GetSVarString(varname, string_return *string, len_ int) bool {
-// 	csvarname := C.CString(varname)
-// 	defer C.free(unsafe.Pointer(csvarname))
-// 	var ret bool
-// 	var cstring_return *C.char
-// 	cstring_return = (*C.char)(C.malloc(C.uint(len_)))
-// 	defer C.free(unsafe.Pointer(cstring_return))
-// 	ret = bool(C.GetSVarString(C.nonConstToConst(csvarname), cstring_return, C.int(len_)))
-// 	*string_return = C.GoString(C.constToNonConst(cstring_return))
-// 	return ret
-// }
+func GetSVarString(varname string, string_return *string, len_ int) bool {
+	csvarname := C.CString(varname)
+	defer C.free(unsafe.Pointer(csvarname))
+	var ret bool
+	var cstring_return *C.char
+	cstring_return = (*C.char)(C.malloc(C.uint(len_)))
+	defer C.free(unsafe.Pointer(cstring_return))
+	ret = bool(C.GetSVarString(C.nonConstToConst(csvarname), cstring_return, C.int(len_)))
+	*string_return = C.GoString(C.constToNonConst(cstring_return))
+	return ret
+}
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetSVarFloat
-// func SetSVarFloat(varname, float_value float32) bool {
-// 	csvarname := C.CString(varname)
-// 	defer C.free(unsafe.Pointer(csvarname))
-// 	return bool(C.SetSVarFloat(C.nonConstToConst(csvarname), C.float(float_value)))
-// }
+func SetSVarFloat(varname string, float_value float32) bool {
+	csvarname := C.CString(varname)
+	defer C.free(unsafe.Pointer(csvarname))
+	return bool(C.SetSVarFloat(C.nonConstToConst(csvarname), C.float(float_value)))
+}
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GetSVarFloat
 func GetSVarFloat(varname string) float32 {
