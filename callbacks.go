@@ -20,7 +20,7 @@ import "C"
 
 //export onGameModeInit
 func onGameModeInit() bool {
-	evt, ok := events["gameModeInit"]
+	evt, ok := events["goModeInit"]
 	if !ok {
 		return false
 	}
@@ -35,7 +35,7 @@ func onGameModeInit() bool {
 
 //export onGameModeExit
 func onGameModeExit() bool {
-	evt, ok := events["gameModeExit"]
+	evt, ok := events["goModeExit"]
 	if !ok {
 		return false
 	}
