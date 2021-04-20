@@ -13,7 +13,6 @@ package sampgo
 #define GOLANG_APP
 
 #include "main.h"
-#include "unitybuild.c"
 
 #endif
 */
