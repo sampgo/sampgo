@@ -22,8 +22,16 @@ import (
 	"unsafe"
 )
 
+type EventType int
+
+const (
+	Repeat EventType = iota
+	OnceOnly
+)
+
 type event struct {
 	Handler interface{}
+	Type    EventType
 }
 
 var events = make(map[string]event)
@@ -41,6 +49,12 @@ func onTick() {
 		return
 	}
 	fn()
+
+	if evt.Type == OnceOnly {
+		// If this event was registered only once, then reassign this event to a new blank struct.
+		// PoC code. Still needs to be implemented completely.
+	}
+
 	return
 }
 
@@ -51,7 +65,20 @@ func On(eventName string, handler interface{}) error {
 		return fmt.Errorf("this handler already exists")
 	}
 
-	events[eventName] = event{Handler: handler}
+	events[eventName] = event{Handler: handler, Type: Repeat}
+	_ = Print(fmt.Sprintf("Registered %s event", eventName))
+
+	return nil
+}
+
+// Once registers an event with a handler one time only.
+func Once(eventName string, handler interface{}) error {
+	_, ok := events[eventName]
+	if ok {
+		return fmt.Errorf("this handler already exists")
+	}
+
+	events[eventName] = event{Handler: handler, Type: OnceOnly}
 	_ = Print(fmt.Sprintf("Registered %s event", eventName))
 
 	return nil
