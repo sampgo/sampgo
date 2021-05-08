@@ -1,4 +1,4 @@
-package sampgo
+package native
 
 /*
 #cgo windows CFLAGS: -I./lib -I./lib/amx -Wno-attributes -Wno-implicit-function-declaration

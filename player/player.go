@@ -3,6 +3,7 @@ package player
 import (
 	"fmt"
 	"github.com/sampgo/sampgo"
+	"github.com/sampgo/sampgo/native"
 )
 
 // Player implements OO players.
@@ -13,7 +14,7 @@ type Player struct {
 // GetName returns the players name.
 func (p *Player) GetName() string {
 	var name string
-	sampgo.GetPlayerName(p.ID, &name, sampgo.MaxPlayerName)
+	native.GetPlayerName(p.ID, &name, sampgo.MaxPlayerName)
 	return name
 }
 
@@ -23,7 +24,7 @@ func (p *Player) SetName(name string) error {
 		return fmt.Errorf("name length above 24 chars")
 	}
 
-	ret := sampgo.SetPlayerName(p.ID, name)
+	ret := native.SetPlayerName(p.ID, name)
 
 	switch ret {
 	case 1:
@@ -46,7 +47,7 @@ func (p *Player) SendMessage(colour int, msg string) error {
 		return fmt.Errorf("message too long")
 	}
 
-	if !sampgo.SendClientMessage(p.ID, colour, msg) {
+	if !native.SendClientMessage(p.ID, colour, msg) {
 		return fmt.Errorf("the player is not connected")
 	}
 	return nil
@@ -55,7 +56,7 @@ func (p *Player) SendMessage(colour int, msg string) error {
 // GetPos gets the player's current position.
 func (p *Player) GetPos() (float32, float32, float32, error) {
 	var x, y, z float32
-	if !sampgo.GetPlayerPos(p.ID, &x, &y, &z) {
+	if !native.GetPlayerPos(p.ID, &x, &y, &z) {
 		return x, y, z, fmt.Errorf("GetPlayerPos failure (i.e. player not connected)")
 	}
 	return x, y, z, nil
@@ -63,7 +64,7 @@ func (p *Player) GetPos() (float32, float32, float32, error) {
 
 // SetPos sets the player's current position.
 func (p *Player) SetPos(x, y, z float32) error {
-	if !sampgo.SetPlayerPos(p.ID, x, y, z) {
+	if !native.SetPlayerPos(p.ID, x, y, z) {
 		return fmt.Errorf("player not found")
 	}
 	return nil
@@ -71,14 +72,14 @@ func (p *Player) SetPos(x, y, z float32) error {
 
 // Spawn spawns the player.
 func (p *Player) Spawn() error {
-	if !sampgo.SpawnPlayer(p.ID) {
+	if !native.SpawnPlayer(p.ID) {
 		return fmt.Errorf("player was unable to be spawned")
 	}
 	return nil
 }
 
 func (p *Player) ShowDialog(dialogid, style int, caption, info, button1, button2 string) error {
-	if !sampgo.ShowPlayerDialog(p.ID, dialogid, style, caption, info, button1, button2) {
+	if !native.ShowPlayerDialog(p.ID, dialogid, style, caption, info, button1, button2) {
 		return fmt.Errorf("couldn't show dialog")
 	}
 	return nil
@@ -86,7 +87,7 @@ func (p *Player) ShowDialog(dialogid, style int, caption, info, button1, button2
 
 func (p *Player) GetFacingAngle() (float32, error) {
 	var a float32
-	if !sampgo.GetPlayerFacingAngle(p.ID, &a) {
+	if !native.GetPlayerFacingAngle(p.ID, &a) {
 		return a, fmt.Errorf("invalid player")
 	}
 	return a, nil
