@@ -17,7 +17,8 @@ const (
 )
 
 type Vehicle struct {
-	ID int
+	ID    int
+	Model Model
 }
 
 type Params struct {
@@ -36,6 +37,7 @@ func NewVehicle(model Model, x, y, z, rotation float32, color1, color2 uint8, re
 		return v, fmt.Errorf("invalid vehicle model")
 	}
 	v.ID = sampgo.CreateVehicle(int(model), x, y, z, rotation, int(color1), int(color2), respawn_delay, addsiren)
+	v.Model = model
 	if v.ID == sampgo.InvalidVehicleId {
 		return v, fmt.Errorf("couldn't create vehicle")
 	}
@@ -79,4 +81,12 @@ func (v *Vehicle) GetParams() Params {
 
 func (v *Vehicle) SetParams(params Params) bool {
 	return sampgo.SetVehicleParamsEx(v.ID, params.Engine, params.Lights, params.Alarm, params.Doors, params.Bonnet, params.Boot, params.Objective)
+}
+
+func (v *Vehicle) GetModel() Model {
+	return v.Model
+}
+
+func (v *Vehicle) GetModelName() string {
+	return GetVehicleModelName(v.Model)
 }
