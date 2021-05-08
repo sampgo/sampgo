@@ -165,8 +165,7 @@ func onPlayerCommandText(playerid C.int, cmdtext *C.char_t) bool {
 	if !ok {
 		return true
 	}
-	fn(player.Player{ID: int(playerid)}, C.GoString(C.constToNonConst(cmdtext)))
-	return false
+	return fn(player.Player{ID: int(playerid)}, C.GoString(C.constToNonConst(cmdtext)))
 }
 
 //export onPlayerRequestClass
