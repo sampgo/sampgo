@@ -1,7 +1,9 @@
-package sampgo
+package vehicle
+
+type Model int
 
 const (
-	firstInvalidVehicleModel = iota + 399
+	firstInvalidVehicleModel Model = iota + 399
 	Landstalker
 	Bravura
 	Buffalo
@@ -217,8 +219,8 @@ const (
 	lastInvalidVehicleModel
 )
 
-func IsValidVehicleModel(modelid int) bool {
-	return modelid > firstInvalidVehicleModel && modelid < lastInvalidVehicleModel
+func IsValidVehicleModel(model Model) bool {
+	return model > firstInvalidVehicleModel && model < lastInvalidVehicleModel
 }
 
 func IsValidVehicleModelName(model string) bool {
@@ -226,12 +228,12 @@ func IsValidVehicleModelName(model string) bool {
 		return false
 	}
 
-	vehicleMap := map[string]int{
-		"Landstalker":               400,
-		"Bravura":                   401,
-		"Buffalo":                   402,
-		"Linerunner":                403,
-		"Perennial":                 404,
+	vehicleMap := map[string]Model{
+		"Landstalker":               Landstalker,
+		"Bravura":                   Bravura,
+		"Buffalo":                   Buffalo,
+		"Linerunner":                Linerunner,
+		"Perennial":                 Perennial,
 		"Sentinel":                  405,
 		"Dumper":                    406,
 		"Firetruck":                 407,
@@ -445,8 +447,8 @@ func IsValidVehicleModelName(model string) bool {
 	return ok
 }
 
-func GetVehicleModelName(modelid int) string {
-	switch modelid {
+func GetVehicleModelName(model Model) string {
+	switch model {
 	case Landstalker:
 		return "Landstalker"
 	case Bravura:
