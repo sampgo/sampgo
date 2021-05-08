@@ -12,7 +12,7 @@ package native
 #ifndef GOLANG_APP
 #define GOLANG_APP
 
-#include "unitybuild.c"
+#include "../unitybuild.c"
 #include "main.h"
 
 #endif
