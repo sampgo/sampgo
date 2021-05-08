@@ -2,8 +2,8 @@ package player
 
 import (
 	"fmt"
-	"github.com/sampgo/sampgo"
 	"github.com/sampgo/sampgo/native"
+	"github.com/sampgo/sampgo/samp"
 )
 
 var (
@@ -20,7 +20,7 @@ type PlayerTextDraw struct {
 
 func (p *Player) NewTextDraw(x, y float32, text string) (PlayerTextDraw, error) {
 	td := PlayerTextDraw{player: p, textDraw: native.CreatePlayerTextDraw(p.ID, x, y, text)}
-	if td.textDraw == sampgo.InvalidTextDraw {
+	if td.textDraw == samp.InvalidTextDraw {
 		return td, fmt.Errorf("invalid playertextdraw")
 	}
 	return td, nil

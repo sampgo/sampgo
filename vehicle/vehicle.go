@@ -2,9 +2,9 @@ package vehicle
 
 import (
 	"fmt"
-	"github.com/sampgo/sampgo"
 	"github.com/sampgo/sampgo/native"
 	"github.com/sampgo/sampgo/player"
+	"github.com/sampgo/sampgo/samp"
 	"math"
 )
 
@@ -39,7 +39,7 @@ func NewVehicle(model Model, x, y, z, rotation float32, color1, color2 uint8, re
 	}
 	v.ID = native.CreateVehicle(int(model), x, y, z, rotation, int(color1), int(color2), respawn_delay, addsiren)
 	v.Model = model
-	if v.ID == sampgo.InvalidVehicleId {
+	if v.ID == samp.InvalidVehicleId {
 		return v, fmt.Errorf("couldn't create vehicle")
 	}
 	return v, nil

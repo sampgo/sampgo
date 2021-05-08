@@ -1,4 +1,4 @@
-package sampgo
+package samp
 
 const (
 	SpecialActionNone                int = 0

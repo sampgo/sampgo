@@ -2,8 +2,8 @@ package player
 
 import (
 	"fmt"
-	"github.com/sampgo/sampgo"
 	"github.com/sampgo/sampgo/native"
+	"github.com/sampgo/sampgo/samp"
 )
 
 // Player implements OO players.
@@ -14,7 +14,7 @@ type Player struct {
 // GetName returns the players name.
 func (p *Player) GetName() string {
 	var name string
-	native.GetPlayerName(p.ID, &name, sampgo.MaxPlayerName)
+	native.GetPlayerName(p.ID, &name, samp.MaxPlayerName)
 	return name
 }
 
