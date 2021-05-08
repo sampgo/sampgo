@@ -17,6 +17,7 @@ package sampgo
 #endif
 */
 import "C"
+import "github.com/sampgo/sampgo/player"
 
 //export onGameModeInit
 func onGameModeInit() bool {
@@ -55,11 +56,11 @@ func onPlayerConnect(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -70,11 +71,11 @@ func onPlayerDisconnect(playerid C.int, reason C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(reason))
+	fn(player.Player{ID: int(playerid)}, int(reason))
 	return true
 }
 
@@ -85,11 +86,11 @@ func onPlayerSpawn(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -100,11 +101,11 @@ func onPlayerDeath(playerid C.int, killerid C.int, reason C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, Player{ID: int(killerid)}, int(reason))
+	fn(player.Player{ID: int(playerid)}, player.Player{ID: int(killerid)}, int(reason))
 	return true
 }
 
@@ -130,11 +131,11 @@ func onVehicleDeath(vehicleid C.int, killerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(int, Player) bool)
+	fn, ok := evt.Handler.(func(int, player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(int(vehicleid), Player{ID: int(killerid)})
+	fn(int(vehicleid), player.Player{ID: int(killerid)})
 	return true
 }
 
@@ -145,11 +146,11 @@ func onPlayerText(playerid C.int, text *C.char_t) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, string) bool)
+	fn, ok := evt.Handler.(func(player.Player, string) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, C.GoString(C.constToNonConst(text)))
+	fn(player.Player{ID: int(playerid)}, C.GoString(C.constToNonConst(text)))
 	return true
 }
 
@@ -160,11 +161,11 @@ func onPlayerCommandText(playerid C.int, cmdtext *C.char_t) bool {
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, string) bool)
+	fn, ok := evt.Handler.(func(player.Player, string) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, C.GoString(C.constToNonConst(cmdtext)))
+	fn(player.Player{ID: int(playerid)}, C.GoString(C.constToNonConst(cmdtext)))
 	return false
 }
 
@@ -175,11 +176,11 @@ func onPlayerRequestClass(playerid C.int, classid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(classid))
+	fn(player.Player{ID: int(playerid)}, int(classid))
 	return true
 }
 
@@ -190,11 +191,11 @@ func onPlayerEnterVehicle(playerid C.int, vehicleid C.int, ispassenger C.bool) b
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, bool) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, bool) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), bool(ispassenger))
+	fn(player.Player{ID: int(playerid)}, int(vehicleid), bool(ispassenger))
 	return true
 }
 
@@ -205,11 +206,11 @@ func onPlayerExitVehicle(playerid C.int, vehicleid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid))
+	fn(player.Player{ID: int(playerid)}, int(vehicleid))
 	return true
 }
 
@@ -220,11 +221,11 @@ func onPlayerStateChange(playerid C.int, newstate C.int, oldstate C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(newstate), int(oldstate))
+	fn(player.Player{ID: int(playerid)}, int(newstate), int(oldstate))
 	return true
 }
 
@@ -235,11 +236,11 @@ func onPlayerEnterCheckpoint(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -250,11 +251,11 @@ func onPlayerLeaveCheckpoint(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -265,11 +266,11 @@ func onPlayerEnterRaceCheckpoint(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -280,11 +281,11 @@ func onPlayerLeaveRaceCheckpoint(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -310,11 +311,11 @@ func onPlayerRequestSpawn(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -340,11 +341,11 @@ func onPlayerObjectMoved(playerid C.int, objectid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(objectid))
+	fn(player.Player{ID: int(playerid)}, int(objectid))
 	return true
 }
 
@@ -355,11 +356,11 @@ func onPlayerPickUpPickup(playerid C.int, pickupid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(pickupid))
+	fn(player.Player{ID: int(playerid)}, int(pickupid))
 	return true
 }
 
@@ -370,11 +371,11 @@ func onVehicleMod(playerid C.int, vehicleid C.int, componentid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(componentid))
+	fn(player.Player{ID: int(playerid)}, int(vehicleid), int(componentid))
 	return true
 }
 
@@ -385,11 +386,11 @@ func onEnterExitModShop(playerid C.int, enterexit C.bool, interiorid C.int) bool
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, bool, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, bool, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, bool(enterexit), int(interiorid))
+	fn(player.Player{ID: int(playerid)}, bool(enterexit), int(interiorid))
 	return true
 }
 
@@ -400,11 +401,11 @@ func onVehiclePaintjob(playerid C.int, vehicleid C.int, paintjobid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(paintjobid))
+	fn(player.Player{ID: int(playerid)}, int(vehicleid), int(paintjobid))
 	return true
 }
 
@@ -415,11 +416,11 @@ func onVehicleRespray(playerid C.int, vehicleid C.int, color1 C.int, color2 C.in
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(color1), int(color2))
+	fn(player.Player{ID: int(playerid)}, int(vehicleid), int(color1), int(color2))
 	return true
 }
 
@@ -430,11 +431,11 @@ func onVehicleDamageStatusUpdate(vehicleid C.int, playerid C.int) bool {
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(int, Player) bool)
+	fn, ok := evt.Handler.(func(int, player.Player) bool)
 	if !ok {
 		return true
 	}
-	fn(int(vehicleid), Player{ID: int(playerid)})
+	fn(int(vehicleid), player.Player{ID: int(playerid)})
 	return false
 }
 
@@ -445,11 +446,11 @@ func onUnoccupiedVehicleUpdate(vehicleid C.int, playerid C.int, passenger_seat C
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(int, Player, int, float32, float32, float32, float32, float32, float32) bool)
+	fn, ok := evt.Handler.(func(int, player.Player, int, float32, float32, float32, float32, float32, float32) bool)
 	if !ok {
 		return false
 	}
-	fn(int(vehicleid), Player{ID: int(playerid)}, int(passenger_seat), float32(new_x), float32(new_y), float32(new_z), float32(vel_x), float32(vel_y), float32(vel_z))
+	fn(int(vehicleid), player.Player{ID: int(playerid)}, int(passenger_seat), float32(new_x), float32(new_y), float32(new_z), float32(vel_x), float32(vel_y), float32(vel_z))
 	return true
 }
 
@@ -460,11 +461,11 @@ func onPlayerSelectedMenuRow(playerid C.int, row C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(row))
+	fn(player.Player{ID: int(playerid)}, int(row))
 	return true
 }
 
@@ -475,11 +476,11 @@ func onPlayerExitedMenu(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -490,11 +491,11 @@ func onPlayerInteriorChange(playerid C.int, newinteriorid C.int, oldinteriorid C
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(newinteriorid), int(oldinteriorid))
+	fn(player.Player{ID: int(playerid)}, int(newinteriorid), int(oldinteriorid))
 	return true
 }
 
@@ -505,11 +506,11 @@ func onPlayerKeyStateChange(playerid C.int, newkeys C.int, oldkeys C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(newkeys), int(oldkeys))
+	fn(player.Player{ID: int(playerid)}, int(newkeys), int(oldkeys))
 	return true
 }
 
@@ -535,11 +536,11 @@ func onPlayerUpdate(playerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player) bool)
+	fn, ok := evt.Handler.(func(player.Player) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
+	fn(player.Player{ID: int(playerid)})
 	return true
 }
 
@@ -550,11 +551,11 @@ func onPlayerStreamIn(playerid C.int, forplayerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(forplayerid))
+	fn(player.Player{ID: int(playerid)}, int(forplayerid))
 	return true
 }
 
@@ -565,11 +566,11 @@ func onPlayerStreamOut(playerid C.int, forplayerid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(forplayerid))
+	fn(player.Player{ID: int(playerid)}, int(forplayerid))
 	return true
 }
 
@@ -640,11 +641,11 @@ func onDialogResponse(playerid C.int, dialogid C.int, response C.int, listitem C
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int, int, string) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int, int, string) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(dialogid), int(response), int(listitem), C.GoString(C.constToNonConst(inputtext)))
+	fn(player.Player{ID: int(playerid)}, int(dialogid), int(response), int(listitem), C.GoString(C.constToNonConst(inputtext)))
 	return false
 }
 
@@ -655,11 +656,11 @@ func onPlayerTakeDamage(playerid C.int, issuerid C.int, amount C.float, weaponid
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, Player, float32, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, player.Player, float32, int, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, Player{ID: int(issuerid)}, float32(amount), int(weaponid), int(bodypart))
+	fn(player.Player{ID: int(playerid)}, player.Player{ID: int(issuerid)}, float32(amount), int(weaponid), int(bodypart))
 	return false
 }
 
@@ -670,11 +671,11 @@ func onPlayerGiveDamage(playerid C.int, damagedid C.int, amount C.float, weaponi
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, float32, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, float32, int, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(damagedid), float32(amount), int(weaponid), int(bodypart))
+	fn(player.Player{ID: int(playerid)}, int(damagedid), float32(amount), int(weaponid), int(bodypart))
 	return false
 }
 
@@ -685,11 +686,11 @@ func onPlayerGiveDamageActor(playerid C.int, damaged_actorid C.int, amount C.flo
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, float32, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, float32, int, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(damaged_actorid), float32(amount), int(weaponid), int(bodypart))
+	fn(player.Player{ID: int(playerid)}, int(damaged_actorid), float32(amount), int(weaponid), int(bodypart))
 	return false
 }
 
@@ -700,11 +701,11 @@ func onPlayerClickMap(playerid C.int, fX C.float, fY C.float, fZ C.float) bool {
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, float32, float32, float32) bool)
+	fn, ok := evt.Handler.(func(player.Player, float32, float32, float32) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, float32(fX), float32(fY), float32(fZ))
+	fn(player.Player{ID: int(playerid)}, float32(fX), float32(fY), float32(fZ))
 	return false
 }
 
@@ -715,11 +716,11 @@ func onPlayerClickTextDraw(playerid C.int, clickedid C.int) bool {
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(clickedid))
+	fn(player.Player{ID: int(playerid)}, int(clickedid))
 	return false
 }
 
@@ -730,11 +731,11 @@ func onPlayerClickPlayerTextDraw(playerid C.int, playertextid C.int) bool {
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(playertextid))
+	fn(player.Player{ID: int(playerid)}, int(playertextid))
 	return false
 }
 
@@ -745,11 +746,11 @@ func onIncomingConnection(playerid C.int, ip_address *C.char_t, port C.int) bool
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, string, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, string, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, C.GoString(C.constToNonConst(ip_address)), int(port))
+	fn(player.Player{ID: int(playerid)}, C.GoString(C.constToNonConst(ip_address)), int(port))
 	return false
 }
 
@@ -760,11 +761,11 @@ func onTrailerUpdate(playerid C.int, vehicleid C.int) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid))
+	fn(player.Player{ID: int(playerid)}, int(vehicleid))
 	return true
 }
 
@@ -775,11 +776,11 @@ func onVehicleSirenStateChange(playerid C.int, vehicleid C.int, newstate C.int) 
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(newstate))
+	fn(player.Player{ID: int(playerid)}, int(vehicleid), int(newstate))
 	return true
 }
 
@@ -790,11 +791,11 @@ func onPlayerClickPlayer(playerid C.int, clickedplayerid C.int, source C.int) bo
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(clickedplayerid), int(source))
+	fn(player.Player{ID: int(playerid)}, int(clickedplayerid), int(source))
 	return false
 }
 
@@ -805,11 +806,11 @@ func onPlayerEditObject(playerid C.int, playerobject C.bool, objectid C.int, res
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, bool, int, int, float32, float32, float32, float32, float32, float32) bool)
+	fn, ok := evt.Handler.(func(player.Player, bool, int, int, float32, float32, float32, float32, float32, float32) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, bool(playerobject), int(objectid), int(response), float32(fX), float32(fY), float32(fZ), float32(fRotX), float32(fRotY), float32(fRotZ))
+	fn(player.Player{ID: int(playerid)}, bool(playerobject), int(objectid), int(response), float32(fX), float32(fY), float32(fZ), float32(fRotX), float32(fRotY), float32(fRotZ))
 	return false
 }
 
@@ -820,11 +821,11 @@ func onPlayerEditAttachedObject(playerid C.int, response C.int, index C.int, mod
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int, int, int, float32, float32, float32, float32, float32, float32, float32, float32, float32) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int, int, int, float32, float32, float32, float32, float32, float32, float32, float32, float32) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(response), int(index), int(modelid), int(boneid), float32(fOffsetX), float32(fOffsetY), float32(fOffsetZ), float32(fRotX), float32(fRotY), float32(fRotZ), float32(fScaleX), float32(fScaleY), float32(fScaleZ))
+	fn(player.Player{ID: int(playerid)}, int(response), int(index), int(modelid), int(boneid), float32(fOffsetX), float32(fOffsetY), float32(fOffsetZ), float32(fRotX), float32(fRotY), float32(fRotZ), float32(fScaleX), float32(fScaleY), float32(fScaleZ))
 	return false
 }
 
@@ -835,11 +836,11 @@ func onPlayerSelectObject(playerid C.int, type_ C.int, objectid C.int, modelid C
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int, int, float32, float32, float32) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int, int, float32, float32, float32) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(type_), int(objectid), int(modelid), float32(fX), float32(fY), float32(fZ))
+	fn(player.Player{ID: int(playerid)}, int(type_), int(objectid), int(modelid), float32(fX), float32(fY), float32(fZ))
 	return false
 }
 
@@ -850,11 +851,11 @@ func onPlayerWeaponShot(playerid C.int, weaponid C.int, hittype C.int, hitid C.i
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int, int, float32, float32, float32) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int, int, float32, float32, float32) bool)
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(weaponid), int(hittype), int(hitid), float32(fX), float32(fY), float32(fZ))
+	fn(player.Player{ID: int(playerid)}, int(weaponid), int(hittype), int(hitid), float32(fX), float32(fY), float32(fZ))
 	return true
 }
 
@@ -865,10 +866,10 @@ func onPlayerRequestDownload(playerid C.int, type_ C.int, crc C.int) bool {
 		return true
 	}
 
-	fn, ok := evt.Handler.(func(Player, int, int) bool)
+	fn, ok := evt.Handler.(func(player.Player, int, int) bool)
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(type_), int(crc))
+	fn(player.Player{ID: int(playerid)}, int(type_), int(crc))
 	return false
 }
