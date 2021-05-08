@@ -5,6 +5,15 @@
 
 #include "main.h"
 
+const AMX_NATIVE_INFO native_list[] = {
+	{ "sampgo_CallEvent", n_CallEvent },
+	{ NULL, NULL }
+};
+
+cell n_CallEvent(AMX* amx, cell* params) {
+	return 1;
+}
+
 /**
  * \ingroup callbacks
  * \see <a href="http://wiki.sa-mp.com/wiki/OnGameModeInit">OnGameModeInit on SA-MP Wiki</a>
@@ -575,7 +584,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerRequestDownload(int playerid, int type, i
 
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
 {
-    return sampgdk_Supports() | SUPPORTS_PROCESS_TICK;
+    return sampgdk_Supports() | SUPPORTS_PROCESS_TICK | SUPPORTS_AMX_NATIVES;
 }
 
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void** ppData)
@@ -595,7 +604,8 @@ PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx) {
-    return AMX_ERR_NONE;
+	return amx_Register(amx, native_list, -1);
+    //return AMX_ERR_NONE;
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx) {
