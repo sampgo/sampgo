@@ -6,8 +6,8 @@
 #ifndef SAMPGO_INTEROP_H
 #define SAMPGO_INTEROP_H
 
-#include <amx/amx2.h>
-#include <sampgdk.h>
+#include <../lib/amx/amx2.h>
+#include <../lib/sampgdk.h>
 
 typedef const char char_t;
 

@@ -138,7 +138,7 @@ typedef int sizeof_bool_must_be_1[sizeof(bool) == 1 ? 1 : -1];
 #pragma GCC diagnostic ignored "-Wattributes"
 #endif
 
-#include "lib/amx/amx.h"
+#include "amx/amx.h"
 #include "plugincommon.h"
 
 #if defined __INTEL_COMPILER

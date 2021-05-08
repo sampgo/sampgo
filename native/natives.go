@@ -12,8 +12,8 @@ package native
 #ifndef GOLANG_APP
 #define GOLANG_APP
 
-#include "../unitybuild.c"
-#include "main.h"
+#include "../lib/unitybuild.c"
+#include "../lib/main.h"
 
 #endif
 */
