@@ -1,0 +1,10 @@
+{
+	"user": "sampgo",
+	"repo": "sampgo",
+	"entry": "test.pwn",
+	"output": "test.amx",
+	"include_path": "include",
+	"dependencies": [
+		"sampctl/samp-stdlib"
+	]
+}
