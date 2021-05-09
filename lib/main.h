@@ -105,6 +105,8 @@ extern bool onPlayerRequestDownload(int playerid, int type, int crc);
 extern void onTick();
 #endif
 
+extern cell n_CallEvent(AMX* amx, cell* params);
+
 // All of the natives we want to export.
 extern void goLogprintf(char* text);
 extern char* constToNonConst(const char* text);
