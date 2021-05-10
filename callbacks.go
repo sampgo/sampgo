@@ -16,7 +16,48 @@ package sampgo
 
 #endif
 */
-import "C"
+import (
+	"C"
+	"reflect"
+)
+
+//export callEvent
+func callEvent(funcName string, params []string) bool {
+	const CallbackMaxParams = 32
+
+	evt, ok := events[funcName]
+	if !ok {
+		Print("Called an event that is not registered by sampgo.")
+		return false
+	}
+
+	fn, ok := evt.Handler.(func(event))
+	_ = fn
+	if !ok {
+		Print("Failed to handle an event that is registered by sampgo.")
+		return false
+	}
+
+	f := reflect.ValueOf(events[funcName])
+	if len(params) > CallbackMaxParams {
+		Print("The number of maximum parameters is 32.")
+		return false
+	}
+
+	if len(params) != f.Type().NumIn() {
+		Print("The number of parameters is out of index.")
+		return false
+	}
+
+	in := make([]reflect.Value, len(params))
+	for k, param := range params {
+		in[k] = reflect.ValueOf(param)
+	}
+
+	f.Call(in)
+	// fn(event{Handler: params})
+	return true
+}
 
 //export onGameModeInit
 func onGameModeInit() bool {

@@ -5,6 +5,40 @@
 
 #include "main.h"
 
+AMX_NATIVE_INFO native_list[] = {
+	{ "sampgo_CallEvent", n_CallEvent },
+	{ NULL, NULL }
+};
+
+PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
+{
+    // Credits: Y_Less
+    const int
+        paramCount = ((int)params[1] / 4) + 1;
+
+    if (paramCount < (2 + 1)) {
+        sampgdk_logprintf("sampgo error: Missing required parameters.");
+        return 0;
+    }
+
+    cell* addr = NULL;
+    int len = (int) NULL;
+
+    amx_GetAddr(amx, params[1], &addr);
+    amx_StrLen(addr, &len);
+
+    if (len) {
+        len ++;
+
+        char* function = NULL;
+        amx_GetString(function, addr, 0, len);
+        sampgdk_logprintf(function);
+
+        callEvent(function, &params[2]);
+    }
+    return 1;
+}
+
 /**
  * \ingroup callbacks
  * \see <a href="http://wiki.sa-mp.com/wiki/OnGameModeInit">OnGameModeInit on SA-MP Wiki</a>
@@ -576,7 +610,7 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerRequestDownload(int playerid, int type, i
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
 {
     sampgdk_logprintf("Supports");
-    return sampgdk_Supports() | SUPPORTS_PROCESS_TICK;
+    return sampgdk_Supports() | SUPPORTS_PROCESS_TICK | SUPPORTS_AMX_NATIVES;
 }
 
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void** ppData)
@@ -594,14 +628,13 @@ PLUGIN_EXPORT void PLUGIN_CALL Unload()
 
 PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 {
-    sampgdk_logprintf("ProcessTick");
     onTick();
     sampgdk_ProcessTick(0);
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx) {
     sampgdk_logprintf("AmxLoad");
-    return AMX_ERR_NONE;
+    return amx_Register(amx, native_list, -1);
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx) {
