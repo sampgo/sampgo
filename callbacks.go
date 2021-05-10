@@ -17,26 +17,29 @@ package sampgo
 #endif
 */
 import "C"
-import "reflect"
+import (
+	"reflect"
+)
 
 //export callEvent
-func callEvent(funcName string, params []interface{}) bool {
+func callEvent(funcName *C.char_t, params []interface{}) bool {
 	const CallbackMaxParams = 32
 
-	evt, ok := events[funcName]
+	name := C.GoString(C.constToNonConst(funcName))
+	evt, ok := events[name]
 	if !ok {
 		Print("Called an event that is not registered by sampgo.")
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(event))
+	fn, ok := evt.Handler.(func(event) bool)
 	_ = fn
 	if !ok {
 		Print("Failed to handle an event that is registered by sampgo.")
 		return false
 	}
 
-	f := reflect.ValueOf(events[funcName])
+	f := reflect.ValueOf(events[name])
 	if len(params) > CallbackMaxParams {
 		Print("The number of maximum parameters is 32.")
 		return false
