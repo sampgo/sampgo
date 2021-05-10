@@ -12,10 +12,8 @@ AMX_NATIVE_INFO native_list[] = {
 
 PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
-    char*
-        function = NULL,
-        format = NULL
-    ;
+    char* function = NULL;
+    char* format = NULL;
 
     amx_StrParam(amx, params[1], function);
     amx_StrParam(amx, params[2], format);
