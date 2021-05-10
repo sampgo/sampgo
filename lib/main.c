@@ -26,13 +26,13 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
         return false;
     }
 
-    char* event = new char[++ event_len];
+    char* event = malloc( sizeof(*event) * ( event_len + 1 ) );
     amx_GetString(event, addr, 0, event_len);
     sampgdk_logprintf(event);
 
     amx_GetAddr(amx, params[2], &addr);
     amx_StrLen(addr, &format_len);
-    char* format = new char[++ format_len];
+    char* format = malloc( sizeof(*format) * ( format_len + 1) );
     sampgdk_logprintf(format);
 
     // POC
@@ -61,8 +61,8 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 
     callEvent(event, goparams);
 
-    delete[] event;
-    delete[] format;
+    free(event);
+    free(format);
     return true;
 }
 
