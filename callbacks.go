@@ -32,12 +32,12 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 		return false
 	}
 
-	fn, ok := evt.Handler.(func(event) bool)
-	_ = fn
-	if !ok {
-		Print("Failed to handle an event that is registered by sampgo.")
-		return false
-	}
+	// fn, ok := evt.Handler.(func(event) bool)
+	// _ = fn
+	// if !ok {
+	// 	Print("Failed to handle an event that is registered by sampgo.")
+	// 	return false
+	// }
 
 	f := reflect.ValueOf(events[name])
 	if len(params) > CallbackMaxParams {
