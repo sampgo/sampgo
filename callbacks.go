@@ -133,8 +133,7 @@ func onPlayerConnect(playerid C.int) bool {
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)})
-	return true
+	return fn(Player{ID: int(playerid)})
 }
 
 //export onPlayerDisconnect
@@ -148,23 +147,21 @@ func onPlayerDisconnect(playerid C.int, reason C.int) bool {
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(reason))
-	return true
+	return fn(Player{ID: int(playerid)}, int(reason))
 }
 
 //export onPlayerSpawn
 func onPlayerSpawn(playerid C.int) bool {
 	evt, ok := events["playerSpawn"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)})
-	return true
+	return fn(Player{ID: int(playerid)})
 }
 
 //export onPlayerDeath
@@ -178,23 +175,21 @@ func onPlayerDeath(playerid C.int, killerid C.int, reason C.int) bool {
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, Player{ID: int(killerid)}, int(reason))
-	return true
+	return fn(Player{ID: int(playerid)}, Player{ID: int(killerid)}, int(reason))
 }
 
 //export onVehicleSpawn
 func onVehicleSpawn(vehicleid C.int) bool {
 	evt, ok := events["vehicleSpawn"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(int) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(int(vehicleid))
-	return true
+	return fn(int(vehicleid))
 }
 
 //export onVehicleDeath
@@ -216,15 +211,14 @@ func onVehicleDeath(vehicleid C.int, killerid C.int) bool {
 func onPlayerText(playerid C.int, text *C.char_t) bool {
 	evt, ok := events["playerText"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player, string) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)}, C.GoString(C.constToNonConst(text)))
-	return true
+	return fn(Player{ID: int(playerid)}, C.GoString(C.constToNonConst(text)))
 }
 
 //export onPlayerCommandText
@@ -365,30 +359,28 @@ func onPlayerLeaveRaceCheckpoint(playerid C.int) bool {
 func onRconCommand(cmd *C.char_t) bool {
 	evt, ok := events["rconCommand"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(string) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(C.GoString(C.constToNonConst(cmd)))
-	return false
+	return fn(C.GoString(C.constToNonConst(cmd)))
 }
 
 //export onPlayerRequestSpawn
 func onPlayerRequestSpawn(playerid C.int) bool {
 	evt, ok := events["playerRequestSpawn"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)})
-	return true
+	return fn(Player{ID: int(playerid)})
 }
 
 //export onObjectMoved
@@ -440,15 +432,14 @@ func onPlayerPickUpPickup(playerid C.int, pickupid C.int) bool {
 func onVehicleMod(playerid C.int, vehicleid C.int, componentid C.int) bool {
 	evt, ok := events["vehicleMod"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, int) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(componentid))
-	return true
+	return fn(Player{ID: int(playerid)}, int(vehicleid), int(componentid))
 }
 
 //export onEnterExitModShop
@@ -470,60 +461,56 @@ func onEnterExitModShop(playerid C.int, enterexit C.bool, interiorid C.int) bool
 func onVehiclePaintjob(playerid C.int, vehicleid C.int, paintjobid C.int) bool {
 	evt, ok := events["vehiclePaintjob"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, int) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(paintjobid))
-	return true
+	return fn(Player{ID: int(playerid)}, int(vehicleid), int(paintjobid))
 }
 
 //export onVehicleRespray
 func onVehicleRespray(playerid C.int, vehicleid C.int, color1 C.int, color2 C.int) bool {
 	evt, ok := events["vehicleRespray"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, int, int) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(color1), int(color2))
-	return true
+	return fn(Player{ID: int(playerid)}, int(vehicleid), int(color1), int(color2))
 }
 
 //export onVehicleDamageStatusUpdate
 func onVehicleDamageStatusUpdate(vehicleid C.int, playerid C.int) bool {
 	evt, ok := events["vehicleDamageStatusUpdate"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(int, Player) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(int(vehicleid), Player{ID: int(playerid)})
-	return false
+	return fn(int(vehicleid), Player{ID: int(playerid)})
 }
 
 //export onUnoccupiedVehicleUpdate
 func onUnoccupiedVehicleUpdate(vehicleid C.int, playerid C.int, passenger_seat C.int, new_x C.float, new_y C.float, new_z C.float, vel_x C.float, vel_y C.float, vel_z C.float) bool {
 	evt, ok := events["unoccupiedVehicleUpdate"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(int, Player, int, float32, float32, float32, float32, float32, float32) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(int(vehicleid), Player{ID: int(playerid)}, int(passenger_seat), float32(new_x), float32(new_y), float32(new_z), float32(vel_x), float32(vel_y), float32(vel_z))
-	return true
+	return fn(int(vehicleid), Player{ID: int(playerid)}, int(passenger_seat), float32(new_x), float32(new_y), float32(new_z), float32(vel_x), float32(vel_y), float32(vel_z))
 }
 
 //export onPlayerSelectedMenuRow
@@ -605,15 +592,14 @@ func onRconLoginAttempt(ip *C.char_t, password *C.char_t, success C.bool) bool {
 func onPlayerUpdate(playerid C.int) bool {
 	evt, ok := events["playerUpdate"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)})
-	return true
+	return fn(Player{ID: int(playerid)})
 }
 
 //export onPlayerStreamIn
@@ -710,135 +696,126 @@ func onActorStreamOut(actorid C.int, forplayerid C.int) bool {
 func onDialogResponse(playerid C.int, dialogid C.int, response C.int, listitem C.int, inputtext *C.char_t) bool {
 	evt, ok := events["dialogResponse"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, int, int, string) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, int(dialogid), int(response), int(listitem), C.GoString(C.constToNonConst(inputtext)))
-	return false
+	return fn(Player{ID: int(playerid)}, int(dialogid), int(response), int(listitem), C.GoString(C.constToNonConst(inputtext)))
 }
 
 //export onPlayerTakeDamage
 func onPlayerTakeDamage(playerid C.int, issuerid C.int, amount C.float, weaponid C.int, bodypart C.int) bool {
 	evt, ok := events["playerTakeDamage"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, Player, float32, int, int) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, Player{ID: int(issuerid)}, float32(amount), int(weaponid), int(bodypart))
-	return false
+	return fn(Player{ID: int(playerid)}, Player{ID: int(issuerid)}, float32(amount), int(weaponid), int(bodypart))
 }
 
 //export onPlayerGiveDamage
 func onPlayerGiveDamage(playerid C.int, damagedid C.int, amount C.float, weaponid C.int, bodypart C.int) bool {
 	evt, ok := events["playerGiveDamage"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, float32, int, int) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, int(damagedid), float32(amount), int(weaponid), int(bodypart))
-	return false
+	return fn(Player{ID: int(playerid)}, int(damagedid), float32(amount), int(weaponid), int(bodypart))
 }
 
 //export onPlayerGiveDamageActor
 func onPlayerGiveDamageActor(playerid C.int, damaged_actorid C.int, amount C.float, weaponid C.int, bodypart C.int) bool {
 	evt, ok := events["playerGiveDamageActor"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, float32, int, int) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, int(damaged_actorid), float32(amount), int(weaponid), int(bodypart))
-	return false
+	return fn(Player{ID: int(playerid)}, int(damaged_actorid), float32(amount), int(weaponid), int(bodypart))
 }
 
 //export onPlayerClickMap
 func onPlayerClickMap(playerid C.int, fX C.float, fY C.float, fZ C.float) bool {
 	evt, ok := events["playerClickMap"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, float32, float32, float32) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, float32(fX), float32(fY), float32(fZ))
-	return false
+	return fn(Player{ID: int(playerid)}, float32(fX), float32(fY), float32(fZ))
 }
 
 //export onPlayerClickTextDraw
 func onPlayerClickTextDraw(playerid C.int, clickedid C.int) bool {
 	evt, ok := events["playerClickTextDraw"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, int) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, int(clickedid))
-	return false
+	return fn(Player{ID: int(playerid)}, int(clickedid))
 }
 
 //export onPlayerClickPlayerTextDraw
 func onPlayerClickPlayerTextDraw(playerid C.int, playertextid C.int) bool {
 	evt, ok := events["playerClickPlayerTextDraw"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, int) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, int(playertextid))
-	return false
+	return fn(Player{ID: int(playerid)}, int(playertextid))
 }
 
 //export onIncomingConnection
 func onIncomingConnection(playerid C.int, ip_address *C.char_t, port C.int) bool {
 	evt, ok := events["incomingConnection"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, string, int) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, C.GoString(C.constToNonConst(ip_address)), int(port))
-	return false
+	return fn(Player{ID: int(playerid)}, C.GoString(C.constToNonConst(ip_address)), int(port))
 }
 
 //export onTrailerUpdate
 func onTrailerUpdate(playerid C.int, vehicleid C.int) bool {
 	evt, ok := events["trailerUpdate"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player, int) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid))
-	return true
+	return fn(Player{ID: int(playerid)}, int(vehicleid))
 }
 
 //export onVehicleSirenStateChange
@@ -852,8 +829,7 @@ func onVehicleSirenStateChange(playerid C.int, vehicleid C.int, newstate C.int) 
 	if !ok {
 		return false
 	}
-	fn(Player{ID: int(playerid)}, int(vehicleid), int(newstate))
-	return true
+	return fn(Player{ID: int(playerid)}, int(vehicleid), int(newstate))
 }
 
 //export onPlayerClickPlayer
@@ -875,60 +851,56 @@ func onPlayerClickPlayer(playerid C.int, clickedplayerid C.int, source C.int) bo
 func onPlayerEditObject(playerid C.int, playerobject C.bool, objectid C.int, response C.int, fX C.float, fY C.float, fZ C.float, fRotX C.float, fRotY C.float, fRotZ C.float) bool {
 	evt, ok := events["playerEditObject"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, bool, int, int, float32, float32, float32, float32, float32, float32) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, bool(playerobject), int(objectid), int(response), float32(fX), float32(fY), float32(fZ), float32(fRotX), float32(fRotY), float32(fRotZ))
-	return false
+	return fn(Player{ID: int(playerid)}, bool(playerobject), int(objectid), int(response), float32(fX), float32(fY), float32(fZ), float32(fRotX), float32(fRotY), float32(fRotZ))
 }
 
 //export onPlayerEditAttachedObject
 func onPlayerEditAttachedObject(playerid C.int, response C.int, index C.int, modelid C.int, boneid C.int, fOffsetX C.float, fOffsetY C.float, fOffsetZ C.float, fRotX C.float, fRotY C.float, fRotZ C.float, fScaleX C.float, fScaleY C.float, fScaleZ C.float) bool {
 	evt, ok := events["playerEditAttachedObject"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, int, int, int, float32, float32, float32, float32, float32, float32, float32, float32, float32) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, int(response), int(index), int(modelid), int(boneid), float32(fOffsetX), float32(fOffsetY), float32(fOffsetZ), float32(fRotX), float32(fRotY), float32(fRotZ), float32(fScaleX), float32(fScaleY), float32(fScaleZ))
-	return false
+	return fn(Player{ID: int(playerid)}, int(response), int(index), int(modelid), int(boneid), float32(fOffsetX), float32(fOffsetY), float32(fOffsetZ), float32(fRotX), float32(fRotY), float32(fRotZ), float32(fScaleX), float32(fScaleY), float32(fScaleZ))
 }
 
 //export onPlayerSelectObject
 func onPlayerSelectObject(playerid C.int, type_ C.int, objectid C.int, modelid C.int, fX C.float, fY C.float, fZ C.float) bool {
 	evt, ok := events["playerSelectObject"]
 	if !ok {
-		return true
+		return false
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, int, int, float32, float32, float32) bool)
 	if !ok {
-		return true
+		return false
 	}
-	fn(Player{ID: int(playerid)}, int(type_), int(objectid), int(modelid), float32(fX), float32(fY), float32(fZ))
-	return false
+	return fn(Player{ID: int(playerid)}, int(type_), int(objectid), int(modelid), float32(fX), float32(fY), float32(fZ))
 }
 
 //export onPlayerWeaponShot
 func onPlayerWeaponShot(playerid C.int, weaponid C.int, hittype C.int, hitid C.int, fX C.float, fY C.float, fZ C.float) bool {
 	evt, ok := events["playerWeaponShot"]
 	if !ok {
-		return false
+		return true
 	}
 
 	fn, ok := evt.Handler.(func(Player, int, int, int, float32, float32, float32) bool)
 	if !ok {
-		return false
+		return true
 	}
-	fn(Player{ID: int(playerid)}, int(weaponid), int(hittype), int(hitid), float32(fX), float32(fY), float32(fZ))
-	return true
+	return fn(Player{ID: int(playerid)}, int(weaponid), int(hittype), int(hitid), float32(fX), float32(fY), float32(fZ))
 }
 
 //export onPlayerRequestDownload
@@ -942,6 +914,5 @@ func onPlayerRequestDownload(playerid C.int, type_ C.int, crc C.int) bool {
 	if !ok {
 		return true
 	}
-	fn(Player{ID: int(playerid)}, int(type_), int(crc))
-	return false
+	return fn(Player{ID: int(playerid)}, int(type_), int(crc))
 }
