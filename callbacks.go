@@ -26,11 +26,13 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 	const CallbackMaxParams = 32
 
 	name := C.GoString(C.constToNonConst(funcName))
-	evt, ok := events[name]
+	_, ok := events[name]
 	if !ok {
 		Print("Called an event that is not registered by sampgo.")
 		return false
 	}
+
+	Print("callEvent (1)")
 
 	// fn, ok := evt.Handler.(func(event) bool)
 	// _ = fn
@@ -39,24 +41,34 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 	// 	return false
 	// }
 
+	Print("callEvent (2)")
+
 	f := reflect.ValueOf(events[name])
 	if len(params) > CallbackMaxParams {
 		Print("The number of maximum parameters is 32.")
 		return false
 	}
 
+	Print("callEvent (2)")
+
 	if len(params) != f.Type().NumIn() {
 		Print("The number of parameters is out of index.")
 		return false
 	}
+
+	Print("callEvent (3)")
 
 	in := make([]reflect.Value, len(params))
 	for k, param := range params {
 		in[k] = reflect.ValueOf(param)
 	}
 
+	Print("callEvent (4)")
+
 	f.Call(in)
 	// fn(event{Handler: params})
+
+	Print("callEvent (5)")
 	return true
 }
 
