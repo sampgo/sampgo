@@ -12,7 +12,6 @@ AMX_NATIVE_INFO native_list[] = {
 
 PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
-    sampgdk_logprintf("sampgo A: n_CallEvent called (1)");
     // Credits: Y_Less
     const int
         paramCount = ((int)params[1] / 4) + 1;
@@ -22,8 +21,6 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
         return 0;
     }
 
-    sampgdk_logprintf("sampgo A: n_CallEvent called (2)");
-
     char* function = NULL;
     amx_StrParam(amx, params[1], function);
 
@@ -32,8 +29,7 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
         return 0;
     }
 
-    logprintf(function);
-    sampgdk_logprintf("sampgo A: n_CallEvent called (3)");
+    sampgdk_logprintf(function);
     return callEvent(function, &params[2]);
 }
 
