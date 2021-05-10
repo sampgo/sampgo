@@ -43,10 +43,38 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 
 	Print("callEvent (2)")
 
-	f := reflect.ValueOf(events[name])
 	if len(params) > CallbackMaxParams {
 		Print("The number of maximum parameters is 32.")
 		return false
+	}
+
+	// TODO: Reflect doesn't know of the C data types. This means that we need to manually map over to Go types!
+	// TODO: POC code below
+
+	f := reflect.ValueOf(events[name])
+	in := make([]reflect.Value, len(params))
+	for k, param := range params {
+		// in[k] = reflect.ValueOf(param)
+		if param == nil {
+			Print("It is a nil")
+		} else {
+			switch param.(type) {
+			case C.int:
+				Print("It is a int")
+				in[k] = int(param)
+			case C.char_t:
+				Print("It is a string")
+				in[k] = C.GoString(C.constToNonConst(param))
+			case C.bool:
+				Print("It is a bool")
+				in[k] = bool(param)
+			case C.float:
+				Print("It is a float")
+				in[k] = float32(param)
+			default:
+				Print("Unknown type")
+			}
+		}
 	}
 
 	Print("callEvent (3)")
@@ -58,17 +86,10 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 
 	Print("callEvent (4)")
 
-	in := make([]reflect.Value, len(params))
-	for k, param := range params {
-		in[k] = reflect.ValueOf(param)
-	}
-
-	Print("callEvent (5)")
-
 	f.Call(in)
 	// fn(event{Handler: params})
 
-	Print("callEvent (6)")
+	Print("callEvent (5)")
 	return true
 }
 
