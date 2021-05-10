@@ -12,17 +12,13 @@ AMX_NATIVE_INFO native_list[] = {
 
 PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
-    // Credits: Y_Less
-    const int
-        paramCount = ((int)params[1] / 4) + 1;
+    char*
+        function = NULL,
+        format = NULL
+    ;
 
-    if (paramCount < (2 + 1)) {
-        sampgdk_logprintf("sampgo error: Missing required parameters.");
-        return 0;
-    }
-
-    char* function = NULL;
     amx_StrParam(amx, params[1], function);
+    amx_StrParam(amx, params[2], format);
 
     if (function == NULL) {
         sampgdk_logprintf("sampgo error: Function doesn't exist.");
@@ -30,7 +26,7 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
     }
 
     sampgdk_logprintf(function);
-    return callEvent(function, &params[2]);
+    return callEvent(function, format, &params[3]);
 }
 
 /**

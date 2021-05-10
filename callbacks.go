@@ -17,12 +17,10 @@ package sampgo
 #endif
 */
 import "C"
-import (
-	"reflect"
-)
+import "reflect"
 
 //export callEvent
-func callEvent(funcName *C.char_t, params []interface{}) bool {
+func callEvent(funcName *C.char_t, format *C.char_t, params []interface{}) bool {
 	const CallbackMaxParams = 32
 
 	name := C.GoString(C.constToNonConst(funcName))
@@ -48,48 +46,50 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 		return false
 	}
 
+	Print("callEvent (3)")
+
 	// TODO: Reflect doesn't know of the C data types. This means that we need to manually map over to Go types!
 	// TODO: POC code below
 
 	f := reflect.ValueOf(events[name])
 	in := make([]reflect.Value, len(params))
-	for k, param := range params {
-		// in[k] = reflect.ValueOf(param)
-		if param == nil {
-			Print("It is a nil")
-		} else {
-			switch param.(type) {
-			case C.int:
-				Print("It is a int")
-				in[k] = int(param)
-			case C.char_t:
-				Print("It is a string")
-				in[k] = C.GoString(C.constToNonConst(param))
-			case C.bool:
-				Print("It is a bool")
-				in[k] = bool(param)
-			case C.float:
-				Print("It is a float")
-				in[k] = float32(param)
-			default:
-				Print("Unknown type")
-			}
-		}
-	}
+	// for k, param := range params {
+	// 	// in[k] = reflect.ValueOf(param)
+	// 	if param == nil {
+	// 		Print("It is a nil")
+	// 	} else {
+	// 		switch param.(type) {
+	// 		case C.int:
+	// 			Print("It is a int")
+	// 			in[k] = int(param)
+	// 		case C.char_t:
+	// 			Print("It is a string")
+	// 			in[k] = C.GoString(C.constToNonConst(param))
+	// 		case C.bool:
+	// 			Print("It is a bool")
+	// 			in[k] = bool(param)
+	// 		case C.float:
+	// 			Print("It is a float")
+	// 			in[k] = float32(param)
+	// 		default:
+	// 			Print("Unknown type")
+	// 		}
+	// 	}
+	// }
 
-	Print("callEvent (3)")
+	// Print("callEvent (4)")
 
-	if len(params) != f.Type().NumIn() {
-		Print("The number of parameters is out of index.")
-		return false
-	}
+	// if len(params) != f.Type().NumIn() {
+	// 	Print("The number of parameters is out of index.")
+	// 	return false
+	// }
 
-	Print("callEvent (4)")
+	// Print("callEvent (5)")
 
 	f.Call(in)
 	// fn(event{Handler: params})
 
-	Print("callEvent (5)")
+	Print("callEvent (6)")
 	return true
 }
 
