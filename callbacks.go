@@ -49,26 +49,26 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 		return false
 	}
 
-	Print("callEvent (2)")
+	Print("callEvent (3)")
 
 	if len(params) != f.Type().NumIn() {
 		Print("The number of parameters is out of index.")
 		return false
 	}
 
-	Print("callEvent (3)")
+	Print("callEvent (4)")
 
 	in := make([]reflect.Value, len(params))
 	for k, param := range params {
 		in[k] = reflect.ValueOf(param)
 	}
 
-	Print("callEvent (4)")
+	Print("callEvent (5)")
 
 	f.Call(in)
 	// fn(event{Handler: params})
 
-	Print("callEvent (5)")
+	Print("callEvent (6)")
 	return true
 }
 
