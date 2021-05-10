@@ -16,13 +16,11 @@ package sampgo
 
 #endif
 */
-import (
-	"C"
-	"reflect"
-)
+import "C"
+import "reflect"
 
 //export callEvent
-func callEvent(funcName string, params []string) bool {
+func callEvent(funcName string, params []interface{}) bool {
 	const CallbackMaxParams = 32
 
 	evt, ok := events[funcName]
