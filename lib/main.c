@@ -12,19 +12,58 @@ AMX_NATIVE_INFO native_list[] = {
 
 PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
-    char* function = NULL;
-    char* format = NULL;
+    int
+        event_len = NULL,
+        format_len = NULL
+    ;
 
-    amx_StrParam(amx, params[1], function);
-    amx_StrParam(amx, params[2], format);
+    cell *addr  = NULL;
 
-    if (function == NULL) {
-        sampgdk_logprintf("sampgo error: Function doesn't exist.");
-        return 0;
+    amx_GetAddr(amx, params[1], &addr);
+    amx_StrLen(addr, &event_len);
+
+    if (!event_len) {
+        return false;
     }
 
-    sampgdk_logprintf(function);
-    return callEvent(function, format, &params[3]);
+    char* event = new char[++ event_len];
+    amx_GetString(event, addr, 0, event_len);
+    sampgdk_logprintf(event);
+
+    amx_GetAddr(amx, params[2], &addr);
+    amx_StrLen(addr, &format_len);
+    char* format = new char[++ format_len];
+    sampgdk_logprintf(format);
+
+    // POC
+
+    for (unsigned int i = 0; i < format_len; ++ i) {
+        switch (format[i])
+        {
+        case 'i', 'd':
+        {
+            break;
+        }
+        case 's':
+        {
+            break;
+        }
+        case 'b':
+        {
+            break;
+        }
+        case 'f':
+        {
+            break;
+        }
+        }
+    }
+
+    callEvent(event, goparams);
+
+    delete[] event;
+    delete[] format;
+    return true;
 }
 
 /**
