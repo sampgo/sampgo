@@ -575,30 +575,37 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerRequestDownload(int playerid, int type, i
 
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
 {
+    sampgdk_logprintf("Supports");
     return sampgdk_Supports() | SUPPORTS_PROCESS_TICK;
 }
 
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void** ppData)
 {
-    return sampgdk_Load(ppData, 0);
+    sampgdk_logprintf("Load");
+    sampgdk_Load(ppData, 0);
+    return true;
 }
 
 PLUGIN_EXPORT void PLUGIN_CALL Unload()
 {
+    sampgdk_logprintf("Unload");
     sampgdk_Unload(0);
 }
 
 PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 {
+    sampgdk_logprintf("ProcessTick");
     onTick();
     sampgdk_ProcessTick(0);
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx) {
+    sampgdk_logprintf("AmxLoad");
     return AMX_ERR_NONE;
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx) {
+    sampgdk_logprintf("AmxUnload");
     return AMX_ERR_NONE;
 }
 
