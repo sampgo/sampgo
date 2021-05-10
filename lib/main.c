@@ -12,6 +12,7 @@ AMX_NATIVE_INFO native_list[] = {
 
 PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
+    sampgdk_logprintf("sampgo: n_CallEvent called (1)");
     // Credits: Y_Less
     const int
         paramCount = ((int)params[1] / 4) + 1;
@@ -21,20 +22,30 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
         return 0;
     }
 
+    sampgdk_logprintf("sampgo: n_CallEvent called (2)");
+
     cell* addr = NULL;
     int len = (int) NULL;
+
+    sampgdk_logprintf("sampgo: n_CallEvent called (3)");
 
     amx_GetAddr(amx, params[1], &addr);
     amx_StrLen(addr, &len);
 
+    sampgdk_logprintf("sampgo: n_CallEvent called (4)");
+
     if (len) {
         len ++;
+
+        sampgdk_logprintf("sampgo: n_CallEvent called (5)");
 
         char* function = NULL;
         amx_GetString(function, addr, 0, len);
         sampgdk_logprintf(function);
 
-        callEvent(function, &params[2]);
+        sampgdk_logprintf("sampgo: n_CallEvent called (6)");
+
+        return callEvent(function, &params[2]);
     }
     return 1;
 }
