@@ -36,11 +36,18 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
     sampgdk_logprintf(format);
 
     // POC
+    // What I can think of is that we make an array for each data type,
+    // integers, string, boolean and float and then pass those maps to the goFunction
+    // and then use the format string for more information to determine data order
 
     for (unsigned int i = 0; i < format_len; ++ i) {
         switch (format[i])
         {
-        case 'i', 'd':
+        case 'i':
+        {
+            break;
+        }
+        case 'd':
         {
             break;
         }
@@ -59,7 +66,7 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
         }
     }
 
-    callEvent(event, goparams);
+    callEvent(event, "");
 
     free(event);
     free(format);
