@@ -45,22 +45,32 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
         {
         case 'i':
         {
+            // int variable;
+            // sampgdk_param_get_cell(amx, i + 1, (cell*)&variable);
             break;
         }
         case 'd':
         {
+            // int variable;
+            // sampgdk_param_get_cell(amx, i + 1, (cell*)&variable);
             break;
         }
         case 's':
         {
+            // const char* variable;
+            // sampgdk_param_get_string(amx, 1, (char* *)&variable);
             break;
         }
         case 'b':
         {
+            // bool variable;
+            // sampgdk_param_get_bool(amx, i + 1, (bool*)&variable);
             break;
         }
         case 'f':
         {
+            // float variable;
+            // sampgdk_param_get_float(amx, i + 1, (float*)&variable);
             break;
         }
         }
