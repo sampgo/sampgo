@@ -5,6 +5,9 @@
 <p align="center"><strong>Both Linux and Windows supported!</strong></p>
 
 
+## NOTE
+The only working branch is `experimental` - for that to work, you must clone the the base repo, edit the `go get ...` line and add `@experimental` to the end of it.  This will force Go to download the experimental branch (over the master or main branch) and requires GO111MODULE env to be set to `on`.  The provided batch scripts in the base gamemode repository already does it for you and is highly recommended to use that for now!  If you have any issues and wish to update the sampgo your gamemode is built with, please delete the Go cache and edit your `go.mod` file.
+
 ## Quickstart
 Clone the `https://github.com/sampgo/base.git` repo.
 
