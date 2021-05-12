@@ -27,3 +27,6 @@ go get -u github.com/sampgo/sampgo
 
 ## API coverage
 See [here!](https://github.com/sampgo/sampgo/wiki/API-coverage)
+
+## Support
+Join our [Discord](https://discord.gg/6ke4MEkJGB), we will be more than happy to aid you if possible.
