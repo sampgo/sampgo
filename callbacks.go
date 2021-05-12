@@ -17,13 +17,17 @@ package sampgo
 #endif
 */
 import "C"
-import "reflect"
+import (
+	"reflect"
+	"unsafe"
+)
 
 //export callEvent
 func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bool {
 	const CallbackMaxParams = 32
 
 	name := C.GoString(C.constToNonConst(funcName))
+	// specifiers := C.GoString(C.constToNonConst(format))
 
 	_, ok := events[name]
 	if !ok {
@@ -34,24 +38,30 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 	Print("callEvent (1)")
 
 	f := reflect.ValueOf(events[name])
-	in := make([]reflect.Value, len(args))
-	for k, arg := range args {
-		if arg == nil {
+	in := make([]reflect.Value, size)
+	var params []C.int
+	header := (*reflect.SliceHeader)(unsafe.Pointer(&params))
+	header.Cap = size
+	header.Len = size
+	header.Data = uintptr(unsafe.Pointer(args))
+
+	for k, param := range params {
+		if param == nil {
 			Print("It is a nil")
 		} else {
-			switch arg.(type) {
+			switch param.(type) {
 			case C.int:
 				Print("It is a int")
-				in[k] = int(arg)
+				in[k] = int(param)
 			// case C.char_t:
 			// 	Print("It is a string")
-			// 	in[k] = C.GoString(C.constToNonConst(arg))
+			// 	in[k] = C.GoString(C.constToNonConst(param))
 			case C.bool:
 				Print("It is a bool")
-				in[k] = bool(arg)
+				in[k] = bool(param)
 			case C.float:
 				Print("It is a float")
-				in[k] = float32(arg)
+				in[k] = float32(param)
 			default:
 				Print("Unknown type")
 			}
