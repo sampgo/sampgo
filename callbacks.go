@@ -24,10 +24,8 @@ import (
 
 //export callEvent
 func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bool {
-	const CallbackMaxParams = 32
-
 	name := C.GoString(C.constToNonConst(funcName))
-	// specifiers := C.GoString(C.constToNonConst(format))
+	specifiers := C.GoString(C.constToNonConst(format))
 
 	_, ok := events[name]
 	if !ok {
@@ -46,21 +44,19 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 	header.Data = uintptr(unsafe.Pointer(args))
 
 	for k, param := range params {
-		switch param.(type) {
-		case C.int:
+		switch specifiers[k] {
+		case 'i', 'd':
 			Print("It is a int")
 			in[k] = int(param)
-		// case C.char_t:
-		// 	Print("It is a string")
-		// 	in[k] = C.GoString(C.constToNonConst(param))
-		case C.bool:
+		case 's':
+			Print("It is a string")
+			in[k] = C.GoString(C.constToNonConst(param))
+		case 'b':
 			Print("It is a bool")
 			in[k] = bool(int(param))
-		case C.float:
+		case 'f':
 			Print("It is a float")
-			in[k] = float32(param)
-		default:
-			Print("Unknown type")
+			in[k] = float32(int(param))
 		}
 	}
 
