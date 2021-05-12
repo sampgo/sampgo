@@ -91,10 +91,11 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
         }
     }
 
-    callEvent(event, format, &args, len(args));
+    callEvent(event, format, &args, param_offset + 1);
 
     free(event);
     free(format);
+    free(args);
     return true;
 }
 
