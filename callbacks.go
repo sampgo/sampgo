@@ -41,30 +41,26 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 	in := make([]reflect.Value, size)
 	var params []C.int
 	header := (*reflect.SliceHeader)(unsafe.Pointer(&params))
-	header.Cap = size
-	header.Len = size
+	header.Cap = int(size)
+	header.Len = int(size)
 	header.Data = uintptr(unsafe.Pointer(args))
 
 	for k, param := range params {
-		if param == nil {
-			Print("It is a nil")
-		} else {
-			switch param.(type) {
-			case C.int:
-				Print("It is a int")
-				in[k] = int(param)
-			// case C.char_t:
-			// 	Print("It is a string")
-			// 	in[k] = C.GoString(C.constToNonConst(param))
-			case C.bool:
-				Print("It is a bool")
-				in[k] = bool(param)
-			case C.float:
-				Print("It is a float")
-				in[k] = float32(param)
-			default:
-				Print("Unknown type")
-			}
+		switch param.(type) {
+		case C.int:
+			Print("It is a int")
+			in[k] = int(param)
+		// case C.char_t:
+		// 	Print("It is a string")
+		// 	in[k] = C.GoString(C.constToNonConst(param))
+		case C.bool:
+			Print("It is a bool")
+			in[k] = bool(int(param))
+		case C.float:
+			Print("It is a float")
+			in[k] = float32(param)
+		default:
+			Print("Unknown type")
 		}
 	}
 
