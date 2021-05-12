@@ -13,8 +13,9 @@ AMX_NATIVE_INFO native_list[] = {
 PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
     int
-        event_len = NULL,
-        format_len = NULL
+        event_len = (int) NULL,
+        format_len = (int) NULL,
+        param_offset = (int) NULL
     ;
 
     cell *addr  = NULL;
@@ -35,48 +36,62 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
     char* format = malloc( sizeof(*format) * ( format_len + 1) );
     sampgdk_logprintf(format);
 
-    // POC
-    // What I can think of is that we make an array for each data type,
-    // integers, string, boolean and float and then pass those maps to the goFunction
-    // and then use the format string for more information to determine data order
+    char* args = malloc( sizeof(*args) * ( format_len + 1) );
+
+    // thanks to iamir for his some code - this is all untested
 
     for (unsigned int i = 0; i < format_len; ++ i) {
         switch (format[i])
         {
         case 'i':
         {
-            // int variable;
-            // sampgdk_param_get_cell(amx, i + 1, (cell*)&variable);
+            int variable;
+            sampgdk_param_get_cell(amx, i + param_offset + 1, (cell*)&variable);
+            args[param_offset] = variable;
             break;
         }
         case 'd':
         {
-            // int variable;
-            // sampgdk_param_get_cell(amx, i + 1, (cell*)&variable);
+            int variable;
+            sampgdk_param_get_cell(amx, i + param_offset + 1, (cell*)&variable);
+            args[param_offset] = variable;
             break;
         }
         case 's':
         {
-            // const char* variable;
-            // sampgdk_param_get_string(amx, 1, (char* *)&variable);
+            addr = NULL;
+            int len = (int) NULL;
+            char* variable = NULL;
+
+            if (amx_GetAddr(amx, params[2], &addr) == AMX_ERR_NONE) {
+                amx_StrLen(addr, &len);
+                variable = malloc( sizeof(*variable) * ( len + 1) );
+                if (amx_GetString(variable, addr, 0, len + 1) == AMX_ERR_NONE) {
+                    args[i] = variable;
+                    param_offset += len;
+                }
+                free(variable);
+            }
             break;
         }
         case 'b':
         {
-            // bool variable;
-            // sampgdk_param_get_bool(amx, i + 1, (bool*)&variable);
+            bool variable;
+            sampgdk_param_get_bool(amx, i + 1, (bool*)&variable);
+            args[param_offset] = (int) variable;
             break;
         }
         case 'f':
         {
-            // float variable;
-            // sampgdk_param_get_float(amx, i + 1, (float*)&variable);
+            float variable;
+            sampgdk_param_get_float(amx, i + 1, (float*)&variable);
+            args[param_offset] = (int) variable;
             break;
         }
         }
     }
 
-    callEvent(event, "");
+    callEvent(event, format, &args, len(args));
 
     free(event);
     free(format);

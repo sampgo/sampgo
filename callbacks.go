@@ -20,7 +20,7 @@ import "C"
 import "reflect"
 
 //export callEvent
-func callEvent(funcName *C.char_t, params []interface{}) bool {
+func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bool {
 	const CallbackMaxParams = 32
 
 	name := C.GoString(C.constToNonConst(funcName))
@@ -33,59 +33,32 @@ func callEvent(funcName *C.char_t, params []interface{}) bool {
 
 	Print("callEvent (1)")
 
-	// fn, ok := evt.Handler.(func(event) bool)
-	// _ = fn
-	// if !ok {
-	// 	Print("Failed to handle an event that is registered by sampgo.")
-	// 	return false
-	// }
-
-	Print("callEvent (2)")
-
-	if len(params) > CallbackMaxParams {
-		Print("The number of maximum parameters is 32.")
-		return false
-	}
-
-	Print("callEvent (3)")
-
-	// TODO: Reflect doesn't know of the C data types. This means that we need to manually map over to Go types!
-	// TODO: POC code below
-
 	f := reflect.ValueOf(events[name])
-	in := make([]reflect.Value, len(params))
-	for k, param := range params {
-		// in[k] = reflect.ValueOf(param)
-		if param == nil {
+	in := make([]reflect.Value, len(args))
+	for k, arg := range args {
+		if arg == nil {
 			Print("It is a nil")
 		} else {
-			switch param.(type) {
+			switch arg.(type) {
 			case C.int:
 				Print("It is a int")
-				in[k] = int(param)
-			case C.char_t:
-				Print("It is a string")
-				in[k] = C.GoString(C.constToNonConst(param))
+				in[k] = int(arg)
+			// case C.char_t:
+			// 	Print("It is a string")
+			// 	in[k] = C.GoString(C.constToNonConst(arg))
 			case C.bool:
 				Print("It is a bool")
-				in[k] = bool(param)
+				in[k] = bool(arg)
 			case C.float:
 				Print("It is a float")
-				in[k] = float32(param)
+				in[k] = float32(arg)
 			default:
 				Print("Unknown type")
 			}
 		}
 	}
 
-	Print("callEvent (4)")
-
-	if len(params) != f.Type().NumIn() {
-		Print("The number of parameters is out of index.")
-		return false
-	}
-
-	Print("callEvent (5)")
+	Print("callEvent (2)")
 
 	// fn(event{Handler: params})
 	f.Call(in)
