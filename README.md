@@ -25,6 +25,8 @@ go get -u github.com/sampgo/sampgo
 
 - 00face for his amazing graphic artistry! If you would like to support him in anyway, please check out [his Ko-fi](https://ko-fi.com/00face)!
 
+- [JetBrains](https://www.jetbrains.com/) for providing us with access to the All Products Pack.
+
 ## API coverage
 See [here!](https://github.com/sampgo/sampgo/wiki/API-coverage)
 
