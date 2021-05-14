@@ -57,23 +57,6 @@ PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
             args[param_offset] = variable;
             break;
         }
-        case 's':
-        {
-            addr = NULL;
-            int len = (int) NULL;
-            char* variable = NULL;
-
-            if (amx_GetAddr(amx, params[2], &addr) == AMX_ERR_NONE) {
-                amx_StrLen(addr, &len);
-                variable = malloc( sizeof(*variable) * ( len + 1) );
-                if (amx_GetString(variable, addr, 0, len + 1) == AMX_ERR_NONE) {
-                    args[i] = variable;
-                    param_offset += len;
-                }
-                free(variable);
-            }
-            break;
-        }
         case 'b':
         {
             bool variable;

@@ -36,7 +36,8 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 	Print("callEvent (1)")
 
 	f := reflect.ValueOf(events[name])
-	in := make([]reflect.Value, size)
+	in := make([]interface{}, size)
+	fin := make([]reflect.Value, size)
 	var params []C.int
 	header := (*reflect.SliceHeader)(unsafe.Pointer(&params))
 	header.Cap = int(size)
@@ -48,22 +49,26 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 		case 'i', 'd':
 			Print("It is a int")
 			in[k] = int(param)
-		case 's':
-			Print("It is a string")
-			in[k] = C.GoString(C.constToNonConst(param))
+			fin[k] = reflect.ValueOf(in[k])
+		// case 's':
+		// 	Print("It is a string")
+		// 	in[k] = C.GoString(C.constToNonConst(param))
+		// 	fin[k] = reflect.ValueOf(in[k])
 		case 'b':
 			Print("It is a bool")
-			in[k] = bool(int(param))
+			in[k] = !(int(param) == 0)
+			fin[k] = reflect.ValueOf(in[k])
 		case 'f':
 			Print("It is a float")
-			in[k] = float32(int(param))
+			in[k] = float32(param)
+			fin[k] = reflect.ValueOf(in[k])
 		}
 	}
 
 	Print("callEvent (2)")
 
 	// fn(event{Handler: params})
-	f.Call(in)
+	f.Call(fin)
 	return true
 }
 
