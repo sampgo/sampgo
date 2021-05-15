@@ -2494,3 +2494,8 @@ func SetPlayerObjectMaterialText(playerid, objectid int, text string, materialin
 func SetObjectsDefaultCameraCol(disable bool) bool {
 	return bool(C.SetObjectsDefaultCameraCol(C.bool(disable)))
 }
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetNumPedModels
+func UGMPGetNumPedModels() int {
+	return int(C.ugmp_GetNumPedModels())
+}

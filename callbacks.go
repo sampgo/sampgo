@@ -29,11 +29,11 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 
 	_, ok := events[name]
 	if !ok {
-		Print("Called an event that is not registered by sampgo.")
+		_ = Print("Called an event that is not registered by sampgo.")
 		return false
 	}
 
-	Print("callEvent (1)")
+	_ = Print("callEvent (1)")
 
 	f := reflect.ValueOf(events[name])
 	in := make([]interface{}, size)
@@ -47,7 +47,7 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 	for k, param := range params {
 		switch specifiers[k] {
 		case 'i', 'd':
-			Print("It is a int")
+			_ = Print("It is a int")
 			in[k] = int(param)
 			fin[k] = reflect.ValueOf(in[k])
 		// case 's':
@@ -55,17 +55,17 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 		// 	in[k] = C.GoString(C.constToNonConst(param))
 		// 	fin[k] = reflect.ValueOf(in[k])
 		case 'b':
-			Print("It is a bool")
+			_ = Print("It is a bool")
 			in[k] = !(int(param) == 0)
 			fin[k] = reflect.ValueOf(in[k])
 		case 'f':
-			Print("It is a float")
+			_ = Print("It is a float")
 			in[k] = float32(param)
 			fin[k] = reflect.ValueOf(in[k])
 		}
 	}
 
-	Print("callEvent (2)")
+	_ = Print("callEvent (2)")
 
 	// fn(event{Handler: params})
 	f.Call(fin)

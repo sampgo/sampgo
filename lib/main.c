@@ -10,7 +10,7 @@ AMX_NATIVE_INFO native_list[] = {
 	{ NULL, NULL }
 };
 
-PLUGIN_EXPORT cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
+cell n_CallEvent(AMX* amx, cell* params)
 {
     int
         event_len = (int) NULL,
