@@ -87,11 +87,11 @@ int ugmp_GetVehicleRadioStation(int vehicleid) {
 	else return sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ ), 0;
 }
 
-/*void ugmp_GetRadioStationName(int station, char** str, size_t len = sizeof(str)) {
+void ugmp_GetRadioStationName(int station, char** str, int len) {
 	AMX_NATIVE Native = sampgdk_FindNative("GetRadioStationName");
 	if (Native != NULL) sampgdk_InvokeNative(Native, "iRi", station, str, len);
 	else sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ );
-}*/
+}
 
 bool ugmp_IsRadioAutoTuneEnabled() {
 	AMX_NATIVE Native = sampgdk_FindNative("IsRadioAutoTuneEnabled");
@@ -409,7 +409,7 @@ void ugmp_InitialiseDiscordRichPresence(char_t* applicationID) {
 	else sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ );
 }
 
-void ugmp_UpdateDiscordRichPresence(char_t* smallImageKey, const char smallImageText[], const char largeImageKey[], const char largeImageText[], const char details[]) {
+void ugmp_UpdateDiscordRichPresence(char_t* smallImageKey, char_t* smallImageText, char_t* largeImageKey, char_t* largeImageText, char_t* details) {
 	AMX_NATIVE Native = sampgdk_FindNative("UpdateDiscordRichPresence");
 	if (Native != NULL) sampgdk_InvokeNative(Native, "sssss", smallImageKey, smallImageText, largeImageKey, largeImageText, details);
 	else sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ );
