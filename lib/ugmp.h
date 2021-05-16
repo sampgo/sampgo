@@ -157,7 +157,7 @@ void ugmp_SetPlayerFireProof(int playerid, bool enable);
 void ugmp_TogglePlayerInfiniteSprint(int playerid, bool enable);
 void ugmp_TogglePlayerSun(int playerid, bool enable);
 void ugmp_TogglePlayerRubbish(int playerid, bool enable);
-void ugmp_IsRubbishVisibleForPlayer(int playerid);
+bool ugmp_IsRubbishVisibleForPlayer(int playerid);
 void ugmp_TogglePlayerGrass(int playerid, bool enable);
 
 
