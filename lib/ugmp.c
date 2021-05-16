@@ -87,7 +87,7 @@ int ugmp_GetVehicleRadioStation(int vehicleid) {
 	else return sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ ), 0;
 }
 
-void ugmp_GetRadioStationName(int station, char** str, int len) {
+void ugmp_GetRadioStationName(int station, char* str, int len) {
 	AMX_NATIVE Native = sampgdk_FindNative("GetRadioStationName");
 	if (Native != NULL) sampgdk_InvokeNative(Native, "iRi", station, str, len);
 	else sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ );

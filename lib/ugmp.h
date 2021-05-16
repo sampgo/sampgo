@@ -83,7 +83,7 @@ void ugmp_ChangePlayerPedColour(int playerid, int colour1, int colour2, int colo
 void ugmp_EnableRadioAutoTune(bool toggle);
 void ugmp_SetVehicleRadioStation(int vehicleid, int station);
 int ugmp_GetVehicleRadioStation(int vehicleid);
-void ugmp_GetRadioStationName(int station, char** str, int len);
+void ugmp_GetRadioStationName(int station, char* str, int len);
 bool ugmp_IsRadioAutoTuneEnabled();
 
 void ugmp_ChangeVehicleColourRGB(int vehicleid, int colour, int red, int green, int blue);
