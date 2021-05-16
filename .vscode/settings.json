@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"*.go": "go",
+		"main.h": "c",
+		"sampgdk.h": "c",
+		"amx.h": "c"
+	}
+}

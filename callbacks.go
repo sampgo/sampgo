@@ -19,11 +19,10 @@ package sampgo
 import "C"
 import (
 	"reflect"
-	"unsafe"
 )
 
 //export callEvent
-func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bool {
+func callEvent(amx *AMX, funcName *C.char_t, format *C.char_t, params *C.int) bool {
 	name := C.GoString(C.constToNonConst(funcName))
 	specifiers := C.GoString(C.constToNonConst(format))
 
@@ -36,38 +35,45 @@ func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bo
 	_ = Print("callEvent (1)")
 
 	f := reflect.ValueOf(events[name])
-	in := make([]interface{}, size)
-	fin := make([]reflect.Value, size)
-	var params []C.int
-	header := (*reflect.SliceHeader)(unsafe.Pointer(&params))
-	header.Cap = int(size)
-	header.Len = int(size)
-	header.Data = uintptr(unsafe.Pointer(args))
+	fin := make([]reflect.Value, len(specifiers))
+	in := make([]interface{}, len(specifiers))
 
-	for k, param := range params {
-		switch specifiers[k] {
+	var param_offset C.int = 0
+
+	for i, j := 0, len(specifiers); i < j; i++ {
+		switch specifiers[i] {
 		case 'i', 'd':
-			_ = Print("It is a int")
-			in[k] = int(param)
-			fin[k] = reflect.ValueOf(in[k])
-		// case 's':
-		// 	Print("It is a string")
-		// 	in[k] = C.GoString(C.constToNonConst(param))
-		// 	fin[k] = reflect.ValueOf(in[k])
+			_ = Print("It is an int")
+			var variable C.int
+			C.amx_GetAddr(&amx, &params[C.int(i) + param_offset + C.int(1)], &variable);
+			fin[i] = reflect.ValueOf(int(variable))
 		case 'b':
 			_ = Print("It is a bool")
-			in[k] = !(int(param) == 0)
-			fin[k] = reflect.ValueOf(in[k])
+			var variable C.bool
+			C.amx_GetAddr(&amx, &params[C.int(i) + param_offset + C.int(1)], &variable)
+			fin[i] = reflect.ValueOf(bool(variable))
 		case 'f':
-			_ = Print("It is a float")
-			in[k] = float32(param)
-			fin[k] = reflect.ValueOf(in[k])
+			_ = Print("It is an float")
+			var variable C.float
+			variable = C.amx_ctof(&params[C.int(i) + param_offset + C.int(1)])
+			fin[i] = reflect.ValueOf(float32(variable))
+		case 's':
+			_ = Print("It is a string")
+			var maddr *C.cell = C.int(0x0)
+			var len C.int = 0
+			var sval *C.char = 0x0
+			if (C.amx_GetAddr(&amx, &params[C.int(i) + C.int(1), &maddr]) == C.AMX_ERR_NONE) {
+				C.amx_StrLen(maddr, &len)
+				sval = C.malloc(len + C.int(1))
+				if (C.amx_GetString(sval, maddr, C.int(0), len + C.int(1)) == AMX_ERR_NONE) {
+					fin[i] = reflect.ValueOf(C.GoString(C.sval))
+				}
+			}
 		}
 	}
 
 	_ = Print("callEvent (2)")
 
-	// fn(event{Handler: params})
 	f.Call(fin)
 	return true
 }

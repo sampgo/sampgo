@@ -14,8 +14,7 @@ cell n_CallEvent(AMX* amx, cell* params)
 {
     int
         event_len = (int) NULL,
-        format_len = (int) NULL,
-        param_offset = (int) NULL
+        format_len = (int) NULL
     ;
 
     cell *addr  = NULL;
@@ -36,49 +35,10 @@ cell n_CallEvent(AMX* amx, cell* params)
     char* format = malloc( sizeof(*format) * ( format_len + 1) );
     sampgdk_logprintf(format);
 
-    char* args = malloc( sizeof(*args) * ( format_len + 1) );
-
-    // thanks to iamir for his some code - this is all untested
-
-    for (unsigned int i = 0; i < format_len; ++ i) {
-        switch (format[i])
-        {
-        case 'i':
-        {
-            int variable;
-            sampgdk_param_get_cell(amx, i + param_offset + 1, (cell*)&variable);
-            args[param_offset] = variable;
-            break;
-        }
-        case 'd':
-        {
-            int variable;
-            sampgdk_param_get_cell(amx, i + param_offset + 1, (cell*)&variable);
-            args[param_offset] = variable;
-            break;
-        }
-        case 'b':
-        {
-            bool variable;
-            sampgdk_param_get_bool(amx, i + 1, (bool*)&variable);
-            args[param_offset] = (int) variable;
-            break;
-        }
-        case 'f':
-        {
-            float variable;
-            sampgdk_param_get_float(amx, i + 1, (float*)&variable);
-            args[param_offset] = (int) variable;
-            break;
-        }
-        }
-    }
-
-    callEvent(event, format, &args, param_offset + 1);
+    callEvent(&amx, event, format, &params);
 
     free(event);
     free(format);
-    free(args);
     return true;
 }
 
