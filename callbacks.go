@@ -22,7 +22,7 @@ import (
 )
 
 //export callEvent
-func callEvent(amx *AMX, funcName *C.char_t, format *C.char_t, params *C.int) bool {
+func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *C.int) bool {
 	name := C.GoString(C.constToNonConst(funcName))
 	specifiers := C.GoString(C.constToNonConst(format))
 
@@ -55,7 +55,7 @@ func callEvent(amx *AMX, funcName *C.char_t, format *C.char_t, params *C.int) bo
 		case 'f':
 			_ = Print("It is an float")
 			var variable C.float
-			variable = C.amx_ctof(&params[C.int(i)+param_offset+C.int(1)])
+			variable = (*((*C.float) & params[C.int(i)+param_offset+C.int(1)]))
 			fin[i] = reflect.ValueOf(float32(variable))
 		case 's':
 			_ = Print("It is a string")
@@ -65,7 +65,7 @@ func callEvent(amx *AMX, funcName *C.char_t, format *C.char_t, params *C.int) bo
 			if C.amx_GetAddr(&amx, &params[C.int(i)+C.int(1)], &maddr) == C.AMX_ERR_NONE {
 				C.amx_StrLen(maddr, &len)
 				sval = C.malloc(len + C.int(1))
-				if C.amx_GetString(sval, maddr, C.int(0), len+C.int(1)) == AMX_ERR_NONE {
+				if C.amx_GetString(sval, maddr, C.int(0), len+C.int(1)) == C.AMX_ERR_NONE {
 					fin[i] = reflect.ValueOf(C.GoString(sval))
 				}
 			}
