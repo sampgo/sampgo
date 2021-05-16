@@ -19,10 +19,11 @@ package sampgo
 import "C"
 import (
 	"reflect"
+	"unsafe"
 )
 
 //export callEvent
-func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *C.int) bool {
+func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int) bool {
 	name := C.GoString(C.constToNonConst(funcName))
 	specifiers := C.GoString(C.constToNonConst(format))
 
@@ -36,37 +37,33 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *C.int) 
 
 	f := reflect.ValueOf(events[name])
 	fin := make([]reflect.Value, len(specifiers))
-	in := make([]interface{}, len(specifiers))
 
 	var param_offset C.int = 0
 
 	for i, j := 0, len(specifiers); i < j; i++ {
+		var index int = i + int(param_offset) + 1
 		switch specifiers[i] {
 		case 'i', 'd':
 			_ = Print("It is an int")
-			var variable C.int
-			C.amx_GetAddr(&amx, &params[C.int(i)+param_offset+C.int(1)], &variable)
-			fin[i] = reflect.ValueOf(int(variable))
-		case 'b':
-			_ = Print("It is a bool")
-			var variable C.bool
-			C.amx_GetAddr(&amx, &params[C.int(i)+param_offset+C.int(1)], &variable)
-			fin[i] = reflect.ValueOf(bool(variable))
+			var variable *C.cell
+			C.amx_GetAddr(amx, (*params)[index], &variable)
+			fin[i] = reflect.ValueOf(int(*variable))
 		case 'f':
-			_ = Print("It is an float")
-			var variable C.float
-			variable = (*((*C.float) & params[C.int(i)+param_offset+C.int(1)]))
-			fin[i] = reflect.ValueOf(float32(variable))
+			_ = Print("It is a float")
+			var variable *C.cell
+			C.amx_GetAddr(amx, (*params)[index], &variable)
+			fin[i] = reflect.ValueOf(float32(*variable))
 		case 's':
 			_ = Print("It is a string")
-			var maddr *C.cell = C.int(0x0)
+			var maddr *C.cell
 			var len C.int = 0
-			var sval *C.char = 0x0
-			if C.amx_GetAddr(&amx, &params[C.int(i)+C.int(1)], &maddr) == C.AMX_ERR_NONE {
+			var sval unsafe.Pointer
+			if C.amx_GetAddr(amx, (*params)[index], &maddr) == C.AMX_ERR_NONE {
 				C.amx_StrLen(maddr, &len)
-				sval = C.malloc(len + C.int(1))
-				if C.amx_GetString(sval, maddr, C.int(0), len+C.int(1)) == C.AMX_ERR_NONE {
-					fin[i] = reflect.ValueOf(C.GoString(sval))
+				sval = C.malloc(C.uint(len + 1))
+				param_offset += len
+				if C.amx_GetString(/*sval*/, maddr, C.int(0), C.uint(len+1)) == C.AMX_ERR_NONE {
+					fin[i] = reflect.ValueOf(C.GoString(/*sval*/))
 				}
 			}
 		}
