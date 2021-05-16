@@ -45,28 +45,28 @@ func callEvent(amx *AMX, funcName *C.char_t, format *C.char_t, params *C.int) bo
 		case 'i', 'd':
 			_ = Print("It is an int")
 			var variable C.int
-			C.amx_GetAddr(&amx, &params[C.int(i) + param_offset + C.int(1)], &variable);
+			C.amx_GetAddr(&amx, &params[C.int(i)+param_offset+C.int(1)], &variable)
 			fin[i] = reflect.ValueOf(int(variable))
 		case 'b':
 			_ = Print("It is a bool")
 			var variable C.bool
-			C.amx_GetAddr(&amx, &params[C.int(i) + param_offset + C.int(1)], &variable)
+			C.amx_GetAddr(&amx, &params[C.int(i)+param_offset+C.int(1)], &variable)
 			fin[i] = reflect.ValueOf(bool(variable))
 		case 'f':
 			_ = Print("It is an float")
 			var variable C.float
-			variable = C.amx_ctof(&params[C.int(i) + param_offset + C.int(1)])
+			variable = C.amx_ctof(&params[C.int(i)+param_offset+C.int(1)])
 			fin[i] = reflect.ValueOf(float32(variable))
 		case 's':
 			_ = Print("It is a string")
 			var maddr *C.cell = C.int(0x0)
 			var len C.int = 0
 			var sval *C.char = 0x0
-			if (C.amx_GetAddr(&amx, &params[C.int(i) + C.int(1), &maddr]) == C.AMX_ERR_NONE) {
+			if C.amx_GetAddr(&amx, &params[C.int(i)+C.int(1)], &maddr) == C.AMX_ERR_NONE {
 				C.amx_StrLen(maddr, &len)
 				sval = C.malloc(len + C.int(1))
-				if (C.amx_GetString(sval, maddr, C.int(0), len + C.int(1)) == AMX_ERR_NONE) {
-					fin[i] = reflect.ValueOf(C.GoString(C.sval))
+				if C.amx_GetString(sval, maddr, C.int(0), len+C.int(1)) == AMX_ERR_NONE {
+					fin[i] = reflect.ValueOf(C.GoString(sval))
 				}
 			}
 		}
