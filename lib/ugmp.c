@@ -451,10 +451,10 @@ void ugmp_TogglePlayerRubbish(int playerid, bool enable) {
 	else sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ );
 }
 
-void ugmp_IsRubbishVisibleForPlayer(int playerid) {
+bool ugmp_IsRubbishVisibleForPlayer(int playerid) {
 	AMX_NATIVE Native = sampgdk_FindNative("IsRubbishVisibleForPlayer");
-	if (Native != NULL) sampgdk_InvokeNative(Native, "i", playerid);
-	else sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ );
+	if (Native != NULL) return sampgdk_InvokeNative(Native, "i", playerid);
+	else return sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ ), false;
 }
 
 void ugmp_TogglePlayerGrass(int playerid, bool enable) {
@@ -466,7 +466,7 @@ void ugmp_TogglePlayerGrass(int playerid, bool enable) {
 bool ugmp_IsValidAnimationAndLibrary(char_t* animlib, char_t* animname) {
 	AMX_NATIVE Native = sampgdk_FindNative("IsValidAnimationAndLibrary");
 	if (Native != NULL) return sampgdk_InvokeNative(Native, "RR", animlib, animname);
-	else sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ ), false;
+	else return sampgdk_logprintf( "'" __FILE__ "' / '%s' - Function not discovered !", __func__ ), false;
 }
 
 bool ugmp_SetAircraftHeightLimitForPlayer(int playerid, float limit) {
