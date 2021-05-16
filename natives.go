@@ -2495,7 +2495,380 @@ func SetObjectsDefaultCameraCol(disable bool) bool {
 	return bool(C.SetObjectsDefaultCameraCol(C.bool(disable)))
 }
 
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/MT19937_Random
+func UGMPMT19937_Random(a, b int) int {
+	return int(C.ugmp_MT19937_Random(a, b));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ApplyMapOffsetToCoords
+func UGMPApplyMapOffsetToCoords(type int, x, y, z float32) {
+	C.ugmp_ApplyMapOffsetToCoords(C.int(type), C.float(x), C.float(y), C.float(z));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ChangePlayerPedColour
+func UGMPChangePlayerPedColour(playerid, colour1, colour2, colour3, colour4 int) {
+	C.ugmp_ChangePlayerPedColour(C.int(playerid), C.int(colour1), C.int(colour2), C.int(colour3), C.int(colour4));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/EnableRadioAutoTune
+func UGMPEnableRadioAutoTune(toggle bool) {
+	C.ugmp_EnableRadioAutoTune(C.bool(toggle));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetVehicleRadioStation
+func UGMPSetVehicleRadioStation(vehicleid, station int) {
+	C.ugmp_SetVehicleRadioStation(C.int(vehicleid), C.int(station));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetVehicleRadioStation
+func UGMPGetVehicleRadioStation(vehicleid int) {
+	C.ugmp_GetVehicleRadioStation(C.int(vehicleid));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetRadioStationName
+// func UGMPGetRadioStationName(station int, str string, len int) {
+// 	csstr := C.CString(str)
+// 	defer C.free(unsafe.Pointer(csstr))
+// 	C.ugmp_GetRadioStationName(C.int(station), str, C.int(len));
+// }
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsRadioAutoTuneEnabled
+func UGMPIsRadioAutoTuneEnabled() bool {
+	return bool(C.ugmp_IsRadioAutoTuneEnabled());
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ChangeVehicleColourRGB
+func UGMPChangeVehicleColourRGB(vehicleid, colour, red, green, blue int) {
+	C.ugmp_ChangeVehicleColourRGB(C.int(vehicleid), C.int(colour), C.int(red), C.int(green), C.int(blue));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ChangeVehiclePearlColour
+func UGMPChangeVehiclePearlColour(vehicleid, color int) {
+	C.ugmp_ChangeVehiclePearlColour(C.int(vehicleid), C.int(colour));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ChangeVehiclePearlColourRGB
+func UGMPChangeVehiclePearlColourRGB() {
+	C.ugmp_ChangeVehiclePearlColourRGB(C.int(vehicleid), C.int(red), C.int(green), C.int(blue));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/CreateExtraWeather
+func UGMPCreateExtraWeather(weatherHandlingType, weatherType, colourFilter int) int {
+	C.ugmp_CreateExtraWeather(C.int(weatherHandlingType), C.int(weatherType), C.int(colourFilter));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/DestroyExtraWeather
+func UGMPDestroyExtraWeather(extraWeatherID int) int {
+	C.ugmp_DestroyExtraWeather(C.int(extraWeatherID));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetExtraWeatherParam_RGB
+func UGMPSetExtraWeatherParam_RGB(extraweatherid, hour, param, red, green, blue int) int {
+	C.ugmp_SetExtraWeatherParam_RGB(C.int(extraweatherid), C.int(hour), C.int(param), C.int(red), C.int(green), C.int(blue));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetExtraWeatherParam_RGBA
+func UGMPSetExtraWeatherParam_RGBA(extraweatherid, hour, param int, red, green, blue, alpha float32) int {
+	C.ugmp_SetExtraWeatherParam_RGBA(C.int(extraweatherid), C.int(hour), C.int(param), C.int(red), C.int(green), C.int(blue), C.float(alpha));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetExtraWeatherParam_Float
+func UGMPSetExtraWeatherParam_Float(extraweatherid, hour, param int, fParam float) int {
+	C.ugmp_SetExtraWeatherParam_Float(C.int(extraweatherid), C.int(hour), C.int(param), C.float(fParam));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetExtraWeatherParam_Int
+func UGMPSetExtraWeatherParam_Int(extraweatherid, hour, param, nParam int) int {
+	C.ugmp_SetExtraWeatherParam_Int(C.int(extraweatherid), C.int(hour), C.int(param), C.int(nParam));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetExtraWeatherParam_Flags
+func UGMPSetExtraWeatherParam_Flags(extraweatherid, flags int) int {
+	C.ugmp_SetExtraWeatherParam_Flags(C.int(extraweatherid), C.int(flags));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetExtraWeatherParam_Windyness
+func UGMPSetExtraWeatherParam_Windyness(extraweatherid int, windyness float32) int {
+	C.ugmp_SetExtraWeatherParam_Windyness(C.int(extraweatherid), C.float(windyness));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleMoon
+func UGMPToggleMoon(enable bool) {
+	C.ugmp_ToggleMoon(C.bool(enable))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleStars
+func UGMPToggleStars(enable bool) {
+	C.ugmp_ToggleStars(C.bool(enable))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleLowClouds
+func UGMPToggleLowClouds(enable bool) {
+	C.ugmp_ToggleLowClouds(C.bool(enable))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleFluffyClouds
+func UGMPToggleFluffyClouds(enable bool) {
+	C.ugmp_ToggleFluffyClouds(C.bool(enable))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleRainbow
+func UGMPToggleRainbow(enable bool) {
+	C.ugmp_ToggleRainbow(C.bool(enable))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetCurrentSeason
+func UGMPSetCurrentSeason(season int) {
+	C.ugmp_SetCurrentSeason(C.int(season));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerMoon
+func UGMPTogglePlayerMoon(playerid int, enable bool) {
+	C.ugmp_TogglePlayerMoon(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerStars
+func UGMPTogglePlayerStars(playerid int, enable bool) {
+	C.ugmp_TogglePlayerStars(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerLowClouds
+func UGMPTogglePlayerLowClouds(playerid int, enable bool) {
+	C.ugmp_TogglePlayerLowClouds(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerFluffyClouds
+func UGMPTogglePlayerFluffyClouds(playerid int, enable bool) {
+	C.ugmp_TogglePlayerFluffyClouds(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerRainbow
+func UGMPTogglePlayerRainbow(playerid int, enable bool) {
+	C.ugmp_TogglePlayerRainbow(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetPlayerSeason
+func UGMPSetPlayerSeason() {
+	C.ugmp_SetPlayerSeason(C.int(playerid), C.int(season));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleSASunPositionFormula
+func UGMPToggleSASunPositionFormula() {
+	C.ugmp_ToggleSASunPositionFormula(C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleSASunPositionFormula_Pl
+func UGMPToggleSASunPositionFormula_Pl() {
+	C.ugmp_ToggleSASunPositionFormula_Pl(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsSASunPositionFormulaEnabled
+func UGMPIsSASunPositionFormulaEnabled() int {
+	C.ugmp_IsSASunPositionFormulaEnabled(C.int(playerid));
+}
+
 // For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetNumPedModels
 func UGMPGetNumPedModels() int {
 	return int(C.ugmp_GetNumPedModels())
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetNumVehicleModels
+func UGMPGetNumVehicleModels() int {
+	return int(C.ugmp_GetNumVehicleModels())
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetNumWeaponModels
+func UGMPGetNumWeaponModels() int {
+	return int(ugmp_GetNumWeaponModels());
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleVehicleColorRGB
+func UGMPToggleVehicleColorRGB(vehicleid, color int, enable bool) {
+	ugmp_ToggleVehicleColorRGB(C.int(vehicleid), C.int(color), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetVehicleComponentTypeEx
+func UGMPGetVehicleComponentTypeEx(component int) int {
+	return int(C.ugmp_GetVehicleComponentTypeEx(C.int(component)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerNightVision
+func UGMPTogglePlayerNightVision(playerid int, enable bool) {
+	C.ugmp_TogglePlayerNightVision(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerInfraRed
+func UGMPTogglePlayerInfraRed(playerid int, enable bool) {
+	C.ugmp_TogglePlayerInfraRed(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerCCTV
+func UGMPTogglePlayerCCTV(playerid int, enable bool) {
+	C.ugmp_TogglePlayerCCTV(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerFogOverlay
+func UGMPTogglePlayerFogOverlay(playerid int, enable bool) {
+	C.ugmp_TogglePlayerFogOverlay(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerDarknessFilter
+func UGMPTogglePlayerDarknessFilter(playerid int, enable bool, darknessAlpha int) {
+	C.ugmp_TogglePlayerDarknessFilter(C.int(playerid), C.bool(enable), C.int(darknessAlpha));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerVideoCameraOverlay
+func UGMPTogglePlayerVideoCameraOverlay(playerid int, enable bool) {
+	C.ugmp_TogglePlayerVideoCameraOverlay(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsValidVehicleModel
+func UGMPIsValidVehicleModel(modelid int) bool {
+	return bool(C.ugmp_IsValidVehicleModel(C.int(modelid)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetValidVehicleModelAt
+func UGMPGetValidVehicleModelAt(index int) int {
+	return int(C.ugmp_GetValidVehicleModelAt(C.int(index)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetValidVehicleModelAtEx
+// func UGMPGetValidVehicleModelAtEx() //int {
+// 	return C.ugmp_GetValidVehicleModelAtEx(t index, int* modelid, int* vehtype, int* modifyas, char** name, size_t namelen = sizeof (name))
+// }
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetRandomVehicleModel
+func UGMPGetRandomVehicleModel() int {
+	return int(C.ugmp_GetRandomVehicleModel());
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsValidPedModel
+func UGMPIsValidPedModel(modelid int) bool {
+	return bool(C.ugmp_IsValidPedModel(C.int(modelid)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetValidPedModelAt
+func UGMPGetValidPedModelAt(index int) bool {
+	return int(C.ugmp_GetValidPedModelAt(C.int(index)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetRandomPedModel
+func UGMPGetRandomPedModel() bool {
+	return bool(C.UGMPGetRandomPedModel())
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/_GetRandomPedModel
+func UGMPGetRandomPedModel() int {
+	return int(C.ugmp_GetRandomPedModel())
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetWeaponHighestParentType
+func UGMPGetWeaponHighestParentType(weapontype int) int {
+	return int(C.ugmp_GetWeaponHighestParentType(C.int(weapontype)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetValidWeaponModelAt
+func UGMPGetValidWeaponModelAt(index int) int {
+	return int(C.ugmp_GetValidWeaponModelAt(C.int(index)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetValidWeaponTypeAt
+func UGMPGetValidWeaponTypeAt(index int) int {
+	return int(C.ugmp_GetValidWeaponTypeAt(C.int(index)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsValidWeaponType
+func UGMPIsValidWeaponType(weapontype int) bool {
+	return C.ugmp_IsValidWeaponType(C.int(weapontype));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsValidWeaponModel
+func UGMPIsValidWeaponModel(modelid int) bool {
+	return C.ugmp_IsValidWeaponModel(C.int(modelid));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetRandomWeaponModel
+func UGMPGetRandomWeaponModel() int {
+	return int(C.ugmp_GetRandomWeaponModel())
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetRandomWeaponType
+func UGMPGetRandomWeaponType() int {
+	return int(C.ugmp_GetRandomWeaponType())
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/InitialiseDiscordRichPresence
+func UGMPInitialiseDiscordRichPresence(applicationID string) void {
+	csapplicationID := C.CString(applicationID)
+	defer C.free(unsafe.Pointer(csapplicationID))
+	C.ugmp_InitialiseDiscordRichPresence(csapplicationID);
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/UpdateDiscordRichPresence
+func UGMPUpdateDiscordRichPresence(smallImageKey, smallImageText, largeImageKey, largeImageText, details string) void {
+	cssmallImageKey := C.CString(smallImageKey)
+	defer C.free(unsafe.Pointer(cssmallImageKey))
+	cssmallImageText := C.CString(smallImageText)
+	defer C.free(unsafe.Pointer(cssmallImageText))
+	cslargeImageKey := C.CString(largeImageKey)
+	defer C.free(unsafe.Pointer(cslargeImageKey))
+	cslargeImageText := C.CString(largeImageText)
+	defer C.free(unsafe.Pointer(cslargeImageText))
+	csdetails := C.CString(details)
+	defer C.free(unsafe.Pointer(csdetails))
+	C.ugmp_UpdateDiscordRichPresence(C.nonConstToConst(cssmallImageKey), C.nonConstToConst(cssmallImageText), C.nonConstToConst(cslargeImageKey), C.nonConstToConst(cslargeImageText), C.nonConstToConst(csdetails));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ShutdownDiscordRichPresence
+func UGMPShutdownDiscordRichPresence() void {
+	C.ugmp_ShutdownDiscordRichPresence();
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetPlayerKnockedOffBikeState
+func UGMPSetPlayerKnockedOffBikeState(playerid, knockState int) void {
+	C.ugmp_SetPlayerKnockedOffBikeState(C.int(playerid), C.int(knockState));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetPlayerFireProof
+func UGMPSetPlayerFireProof(playerid int, enable bool) void {
+	C.ugmp_SetPlayerFireProof(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerInfiniteSprint
+func UGMPTogglePlayerInfiniteSprint(playerid int, enable bool) void {
+	C.ugmp_TogglePlayerInfiniteSprint(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerSun
+func UGMPTogglePlayerSun(playerid int, enable bool) void {
+	C.ugmp_TogglePlayerSun(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerRubbish
+func UGMPTogglePlayerRubbish(playerid int, enable bool) void {
+	C.ugmp_TogglePlayerRubbish(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsRubbishVisibleForPlayer
+func UGMPIsRubbishVisibleForPlayer(playerid int) bool {
+	return C.ugmp_IsRubbishVisibleForPlayer(C.int(playerid));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/TogglePlayerGrass
+func UGMPTogglePlayerGrass(playerid int, enable bool) void {
+	C.ugmp_TogglePlayerGrass(C.int(playerid), C.bool(enable));
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/IsValidAnimationAndLibrary
+func UGMPIsValidAnimationAndLibrary(animlib, animname string) bool {
+	csanimlib := C.CString(animlib)
+	defer C.free(Unsafe.Pointer(csanimlib))
+	csanimname := C.CString(animname)
+	defer C.free(Unsafe.Pointer(csanimname))
+	return bool(C.ugmp_IsValidAnimationAndLibrary(C.nonConstToConst(csanimlib), C.nonConstToConst(csanimname)))
+}
+
+// For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/SetAircraftHeightLimitForPlayer
+func UGMPSetAircraftHeightLimitForPlayer(playerid int, limit float32) bool {
+	return bool(C.ugmp_SetAircraftHeightLimitForPlayer(C.int(playerid), C.float(limit)))
 }
