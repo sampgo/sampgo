@@ -57,12 +57,12 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 			case 'i', 'd':
 				_ = Print("It is an int")
 				var variable *C.cell
-				C.amx_GetAddr(amx, (*params)[index], &variable)
+				variable = &(*params)[index]
 				fin[i] = reflect.ValueOf(int(*variable))
 			case 'f':
 				_ = Print("It is a float")
 				var variable *C.cell
-				C.amx_GetAddr(amx, (*params)[index], &variable)
+				variable = &(*params)[index]
 				fin[i] = reflect.ValueOf(float32(*variable))
 			case 's':
 				_ = Print("It is a string")
