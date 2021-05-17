@@ -18,6 +18,7 @@ package sampgo
 */
 import "C"
 import (
+	"fmt"
 	"reflect"
 	"unsafe"
 )
@@ -29,7 +30,7 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 
 	_, ok := events[name]
 	if !ok {
-		_ = Print("Called an event that is not registered by sampgo.")
+		_ = Print(fmt.Sprintf("Called an event ('%s') that is not registered by sampgo.", name))
 		return false
 	}
 
