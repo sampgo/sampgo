@@ -23,7 +23,7 @@ import (
 )
 
 //export callEvent
-func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int) bool {
+func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params []C.int) bool {
 	name := C.GoString(C.constToNonConst(funcName))
 	specifiers := C.GoString(C.constToNonConst(format))
 
@@ -57,19 +57,15 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 			switch specifiers[i] {
 			case 'i', 'd':
 				_ = Print("It is an int")
-				var variable *C.cell
-				variable = &(*params)[index]
-				in[i] = int(C.int(variable))
+				in[i] = int(params[index])
 			case 'f':
 				_ = Print("It is a float")
-				var variable *C.cell
-				variable = &(*params)[index]
-				in[i] = float32(C.float(*variable))
+				in[i] = float32(params[index])
 			case 's':
 				_ = Print("It is a string")
 				var maddr *C.cell
 				var len C.int = 0
-				if C.amx_GetAddr(amx, (*params)[index], &maddr) == C.AMX_ERR_NONE {
+				if C.amx_GetAddr(amx, params[index], &maddr) == C.AMX_ERR_NONE || &maddr != nil {
 					C.amx_StrLen(maddr, &len)
 					len++
 					sval := C.malloc(C.uint(C.sizeof_char * (len)))
