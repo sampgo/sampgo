@@ -26,16 +26,16 @@ cell n_CallEvent(AMX* amx, cell* params)
         return false;
     }
 
-    char* event = malloc( sizeof(*event) * ( event_len + 1 ) );
+    char* event = malloc( sizeof(char) * (event_len + 1));
     amx_GetString(event, addr, 0, event_len);
     sampgdk_logprintf(event);
 
     amx_GetAddr(amx, params[2], &addr);
     amx_StrLen(addr, &format_len);
-    char* format = malloc( sizeof(*format) * ( format_len + 1) );
+    char* format = malloc( sizeof(char) * (format_len + 1));
     sampgdk_logprintf(format);
 
-    callEvent(&amx, event, format, &params);
+    callEvent(&amx, &event, &format, &params);
 
     free(event);
     free(format);
@@ -612,20 +612,17 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerRequestDownload(int playerid, int type, i
 
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
 {
-    sampgdk_logprintf("Supports");
     return sampgdk_Supports() | SUPPORTS_PROCESS_TICK | SUPPORTS_AMX_NATIVES;
 }
 
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void** ppData)
 {
-    sampgdk_logprintf("Load");
     sampgdk_Load(ppData, 0);
     return true;
 }
 
 PLUGIN_EXPORT void PLUGIN_CALL Unload()
 {
-    sampgdk_logprintf("Unload");
     sampgdk_Unload(0);
 }
 
@@ -636,12 +633,10 @@ PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx) {
-    sampgdk_logprintf("AmxLoad");
     return amx_Register(amx, native_list, -1);
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx) {
-    sampgdk_logprintf("AmxUnload");
     return AMX_ERR_NONE;
 }
 
