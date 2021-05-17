@@ -39,11 +39,11 @@ cell n_CallEvent(AMX* amx, cell* params)
 
     sampgdk_logprintf("sampgo: Received event name (%s) with format (%s)", event, format);
 
-    callEvent(&amx, event, format, &params);
+    bool retval = callEvent(&amx, event, format, &params);
 
     free(event);
     free(format);
-    return true;
+    return retval;
 }
 
 /**
