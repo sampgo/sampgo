@@ -61,12 +61,12 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 				_ = Print("It is an int")
 				var variable *C.cell
 				variable = &(*params)[index]
-				in[i] = int(*variable)
+				in[i] = int(&variable)
 			case 'f':
 				_ = Print("It is a float")
 				var variable *C.cell
 				variable = &(*params)[index]
-				in[i] = float32(*variable)
+				in[i] = float32(&variable)
 			case 's':
 				_ = Print("It is a string")
 				var maddr *C.cell
