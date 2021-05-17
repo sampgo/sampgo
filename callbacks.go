@@ -30,7 +30,7 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 
 	_, ok := events[name]
 	if !ok {
-		_ = Print(fmt.Sprintf("Called an event ('%s') that is not registered by sampgo.", name))
+		_ = Print(fmt.Sprintf("sampgo: Called an event ('%s') that is not registered by sampgo.", name))
 		return false
 	}
 
