@@ -27,11 +27,13 @@ cell n_CallEvent(AMX* amx, cell* params)
         return false;
     }
 
-    char* event = malloc( sizeof(char) * (event_len + 1));
+    ++ event_len;
+    char* event = malloc( sizeof(char) * (event_len));
     amx_GetString(event, addr, 0, event_len);
 
     amx_GetAddr(amx, params[2], &addr);
     amx_StrLen(addr, &format_len);
+    ++ format_len;
     char* format = malloc( sizeof(char) * (format_len + 1));
     amx_GetString(format, addr, 0, format_len);
 
