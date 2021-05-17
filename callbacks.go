@@ -36,8 +36,6 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 	_ = Print("callEvent (1)")
 	specifiersLen := len(specifiers)
 
-	// if specifiersLen is nil, then there's no need to use reflect
-	// else we do that
 	if specifiersLen == 0 {
 		fn, ok := evt.Handler.(func())
 		if !ok {
@@ -61,29 +59,30 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 				_ = Print("It is an int")
 				var variable *C.cell
 				variable = &(*params)[index]
-				in[i] = int(&variable)
+				in[i] = int(C.int(variable))
 			case 'f':
 				_ = Print("It is a float")
 				var variable *C.cell
 				variable = &(*params)[index]
-				in[i] = float32(&variable)
+				in[i] = float32(C.float(*variable))
 			case 's':
 				_ = Print("It is a string")
 				var maddr *C.cell
 				var len C.int = 0
 				if C.amx_GetAddr(amx, (*params)[index], &maddr) == C.AMX_ERR_NONE {
 					C.amx_StrLen(maddr, &len)
-					sval := C.malloc(C.uint(C.sizeof_char * (len + 1)))
+					len++
+					sval := C.malloc(C.uint(C.sizeof_char * (len)))
 					defer C.free(unsafe.Pointer(sval))
 					param_offset += len
-					if C.amx_GetString((*C.char)(sval), maddr, C.int(0), C.uint(len+1)) == C.AMX_ERR_NONE {
+					if C.amx_GetString((*C.char)(sval), maddr, C.int(0), C.uint(len)) == C.AMX_ERR_NONE {
 						in[i] = C.GoString((*C.char)(sval))
 					}
 				}
 			}
-			_ = Print("callEvent (2)")
-			fn(in)
 		}
+		_ = Print("callEvent (2)")
+		fn(in)
 	}
 	return true
 }
