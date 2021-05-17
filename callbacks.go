@@ -35,13 +35,23 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 	}
 
 	_ = Print("callEvent (1)")
+	specifiersLen := len(specifiers)
 
-	f := reflect.ValueOf(events[name])
-	fin := make([]reflect.Value, len(specifiers))
-
-	var param_offset C.int = 0
-
-	for i, j := 0, len(specifiers); i < j; i++ {
+	// if specifiersLen is nil, then there's no need to use reflect
+	// else we do that
+	if (!specifiersLen) {
+		fn, ok := evt.Handler.(func())
+		if !ok {
+			_ = Print(fmt.Sprintf("sampgo: Event ('%s') failed to call", name))
+			return false
+		}
+		_ = Print("callEvent (2)")
+		fn()
+	} else {
+		f := reflect.ValueOf(events[name])
+		fin := make([]reflect.Value, specifierLen)
+		var param_offset C.int = 0
+		for i := 0; i < specifiersLen; i++ {
 		var index int = i + int(param_offset) + 1
 		switch specifiers[i] {
 		case 'i', 'd':
@@ -68,11 +78,9 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 				}
 			}
 		}
+		_ = Print("callEvent (2)")
+		f.Call(fin)
 	}
-
-	_ = Print("callEvent (2)")
-
-	f.Call(fin)
 	return true
 }
 
