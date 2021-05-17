@@ -19,7 +19,6 @@ package sampgo
 import "C"
 import (
 	"fmt"
-	"reflect"
 	"unsafe"
 )
 
@@ -48,8 +47,12 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 		_ = Print("callEvent (2)")
 		fn()
 	} else {
-		f := reflect.ValueOf(events[name])
-		fin := make([]reflect.Value, specifiersLen)
+		fn, ok := evt.Handler.(func([]interface{}))
+		if !ok {
+			_ = Print(fmt.Sprintf("sampgo: Event ('%s') failed to call", name))
+			return false
+		}
+		in := make([]interface{}, specifiersLen)
 		var param_offset C.int = 0
 		for i := 0; i < specifiersLen; i++ {
 			var index int = i + int(param_offset) + 1
@@ -58,12 +61,12 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 				_ = Print("It is an int")
 				var variable *C.cell
 				variable = &(*params)[index]
-				fin[i] = reflect.ValueOf(int(*variable))
+				in[i] = int(*variable)
 			case 'f':
 				_ = Print("It is a float")
 				var variable *C.cell
 				variable = &(*params)[index]
-				fin[i] = reflect.ValueOf(float32(*variable))
+				in[i] = float32(*variable)
 			case 's':
 				_ = Print("It is a string")
 				var maddr *C.cell
@@ -74,12 +77,12 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 					defer C.free(unsafe.Pointer(sval))
 					param_offset += len
 					if C.amx_GetString((*C.char)(sval), maddr, C.int(0), C.uint(len+1)) == C.AMX_ERR_NONE {
-						fin[i] = reflect.ValueOf(C.GoString((*C.char)(sval)))
+						in[i] = C.GoString((*C.char)(sval))
 					}
 				}
 			}
 			_ = Print("callEvent (2)")
-			f.Call(fin)
+			fn(in)
 		}
 	}
 	return true
