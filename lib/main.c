@@ -23,17 +23,19 @@ cell n_CallEvent(AMX* amx, cell* params)
     amx_StrLen(addr, &event_len);
 
     if (!event_len) {
+        sampgdk_logprintf("sampgo: Empty event length passed to n_CallEvent");
         return false;
     }
 
     char* event = malloc( sizeof(char) * (event_len + 1));
     amx_GetString(event, addr, 0, event_len);
-    sampgdk_logprintf(event);
 
     amx_GetAddr(amx, params[2], &addr);
     amx_StrLen(addr, &format_len);
     char* format = malloc( sizeof(char) * (format_len + 1));
-    sampgdk_logprintf(format);
+    amx_GetString(format, addr, 0, format_len);
+
+    sampgdk_logprintf("sampgo: Received event name (%s) with format (%s)", event, format);
 
     callEvent(&amx, &event, &format, &params);
 
