@@ -57,13 +57,13 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params *[]C.int
 			_ = Print("It is a string")
 			var maddr *C.cell
 			var len C.int = 0
-			var sval unsafe.Pointer
 			if C.amx_GetAddr(amx, (*params)[index], &maddr) == C.AMX_ERR_NONE {
 				C.amx_StrLen(maddr, &len)
-				sval = C.malloc(C.uint(len + 1))
+				sval := C.malloc(C.uint(C.sizeof_char * (len + 1)))
+				defer C.free(unsafe.Pointer(sval))
 				param_offset += len
-				if C.amx_GetString(/*sval*/, maddr, C.int(0), C.uint(len+1)) == C.AMX_ERR_NONE {
-					fin[i] = reflect.ValueOf(C.GoString(/*sval*/))
+				if C.amx_GetString((*C.char)(sval), maddr, C.int(0), C.uint(len+1)) == C.AMX_ERR_NONE {
+					fin[i] = reflect.ValueOf(C.GoString((*C.char)(sval)))
 				}
 			}
 		}
