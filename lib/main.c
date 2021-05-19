@@ -10,6 +10,7 @@ AMX_NATIVE_INFO native_list[] = {
 	{ NULL, NULL }
 };
 
+// GoInt32: sampgo_CallEvent(const event[32], const format[], {Float,_}:...);
 cell n_CallEvent(AMX* amx, cell* params)
 {
     int
@@ -34,7 +35,7 @@ cell n_CallEvent(AMX* amx, cell* params)
     amx_GetAddr(amx, params[2], &addr);
     amx_StrLen(addr, &format_len);
     ++ format_len;
-    char* format = malloc( sizeof(char) * (format_len + 1));
+    char* format = malloc( sizeof(char) * (format_len));
     amx_GetString(format, addr, 0, format_len);
 
     sampgdk_logprintf("sampgo: Received event name (%s) with format (%s)", event, format);
