@@ -23,7 +23,7 @@ import (
 )
 
 //export callEvent
-func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params []C.int) bool {
+func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params []C.cell) bool {
 	name := C.GoString(C.constToNonConst(funcName))
 	specifiers := C.GoString(C.constToNonConst(format))
 
@@ -51,9 +51,9 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params []C.int)
 			return false
 		}
 		in := make([]interface{}, specifiersLen)
-		var param_offset C.int = 0
+		param_offset := 0
 		for i := 0; i < specifiersLen; i++ {
-			var index int = i + int(param_offset) + 1
+			var index int = i + param_offset + 3
 			switch specifiers[i] {
 			case 'i', 'd':
 				_ = Print("It is an int")
@@ -70,7 +70,7 @@ func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params []C.int)
 					len++
 					sval := C.malloc(C.uint(C.sizeof_char * (len)))
 					defer C.free(unsafe.Pointer(sval))
-					param_offset += len
+					param_offset += int(len)
 					if C.amx_GetString((*C.char)(sval), maddr, C.int(0), C.uint(len)) == C.AMX_ERR_NONE {
 						in[i] = C.GoString((*C.char)(sval))
 					}
