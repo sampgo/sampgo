@@ -11,36 +11,38 @@ AMX_NATIVE_INFO native_list[] = {
 };
 
 // GoInt32: sampgo_CallEvent(const event[32], const format[], {Float,_}:...);
-cell n_CallEvent(AMX* amx, cell* params)
+cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
     int
-        event_len = (int) NULL,
-        format_len = (int) NULL
+        len = (int) NULL
     ;
 
     cell *addr  = NULL;
 
     amx_GetAddr(amx, params[1], &addr);
-    amx_StrLen(addr, &event_len);
+    amx_StrLen(addr, &len);
 
-    if (!event_len) {
-        sampgdk_logprintf("sampgo: Empty event length passed to n_CallEvent");
+    if (!len) {
+        sampgdk_logprintf("(C) sampgo: Empty event name passed to n_CallEvent");
         return false;
     }
 
-    ++ event_len;
-    char* event = malloc( sizeof(char) * (event_len));
-    amx_GetString(event, addr, 0, event_len);
+    ++ len;
+    char* event = malloc( sizeof(char) * (len));
+    amx_GetString(event, addr, 0, len);
+
+    len = (int) NULL;
 
     amx_GetAddr(amx, params[2], &addr);
-    amx_StrLen(addr, &format_len);
-    ++ format_len;
-    char* format = malloc( sizeof(char) * (format_len));
-    amx_GetString(format, addr, 0, format_len);
+    amx_StrLen(addr, &len);
 
-    sampgdk_logprintf("sampgo: Received event name (%s) with format (%s)", event, format);
+    ++ len;
+    char* format = malloc( sizeof(char) * (len));
+    amx_GetString(format, addr, 0, len);
 
     bool retval = callEvent(&amx, event, format, params);
+
+    sampgdk_logprintf("(C) sampgo: Received event name (%s) with format (%s) and retval (%i)", event, format, retval);
 
     free(event);
     free(format);
