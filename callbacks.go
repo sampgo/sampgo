@@ -18,57 +18,68 @@ package sampgo
 */
 import "C"
 import (
-	"reflect"
+	"fmt"
 	"unsafe"
 )
 
 //export callEvent
-func callEvent(funcName *C.char_t, format *C.char_t, args *C.int, size C.int) bool {
+func callEvent(amx *C.AMX, funcName *C.char_t, format *C.char_t, params []C.cell) bool {
 	name := C.GoString(C.constToNonConst(funcName))
 	specifiers := C.GoString(C.constToNonConst(format))
 
-	_, ok := events[name]
+	evt, ok := events[name]
 	if !ok {
-		_ = Print("Called an event that is not registered by sampgo.")
+		_ = Print(fmt.Sprintf("sampgo: Called an event ('%s') that is not registered by sampgo.", name))
 		return false
 	}
 
 	_ = Print("callEvent (1)")
+	specifiersLen := len(specifiers)
 
-	f := reflect.ValueOf(events[name])
-	in := make([]interface{}, size)
-	fin := make([]reflect.Value, size)
-	var params []C.int
-	header := (*reflect.SliceHeader)(unsafe.Pointer(&params))
-	header.Cap = int(size)
-	header.Len = int(size)
-	header.Data = uintptr(unsafe.Pointer(args))
-
-	for k, param := range params {
-		switch specifiers[k] {
-		case 'i', 'd':
-			_ = Print("It is a int")
-			in[k] = int(param)
-			fin[k] = reflect.ValueOf(in[k])
-		// case 's':
-		// 	Print("It is a string")
-		// 	in[k] = C.GoString(C.constToNonConst(param))
-		// 	fin[k] = reflect.ValueOf(in[k])
-		case 'b':
-			_ = Print("It is a bool")
-			in[k] = !(int(param) == 0)
-			fin[k] = reflect.ValueOf(in[k])
-		case 'f':
-			_ = Print("It is a float")
-			in[k] = float32(param)
-			fin[k] = reflect.ValueOf(in[k])
+	if specifiersLen == 0 {
+		fn, ok := evt.Handler.(func())
+		if !ok {
+			_ = Print(fmt.Sprintf("sampgo: Event ('%s') failed to call", name))
+			return false
 		}
+		_ = Print("callEvent (2)")
+		fn()
+	} else {
+		fn, ok := evt.Handler.(func([]interface{}))
+		if !ok {
+			_ = Print(fmt.Sprintf("sampgo: Event ('%s') failed to call", name))
+			return false
+		}
+		in := make([]interface{}, specifiersLen)
+		param_offset := 0
+		for i := 0; i < specifiersLen; i++ {
+			var index int = i + param_offset + 3
+			switch specifiers[i] {
+			case 'i', 'd':
+				_ = Print("It is an int")
+				in[i] = int(params[index])
+			case 'f':
+				_ = Print("It is a float")
+				in[i] = float32(params[index])
+			case 's':
+				_ = Print("It is a string")
+				var maddr *C.cell
+				var len C.int = 0
+				if C.amx_GetAddr(amx, params[index], &maddr) == C.AMX_ERR_NONE || &maddr != nil {
+					C.amx_StrLen(maddr, &len)
+					len++
+					sval := C.malloc(C.uint(C.sizeof_char * (len)))
+					defer C.free(unsafe.Pointer(sval))
+					param_offset += int(len)
+					if C.amx_GetString((*C.char)(sval), maddr, C.int(0), C.uint(len)) == C.AMX_ERR_NONE {
+						in[i] = C.GoString((*C.char)(sval))
+					}
+				}
+			}
+		}
+		_ = Print("callEvent (2)")
+		fn(in)
 	}
-
-	_ = Print("callEvent (2)")
-
-	// fn(event{Handler: params})
-	f.Call(fin)
 	return true
 }
 

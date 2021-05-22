@@ -83,7 +83,7 @@ void ugmp_ChangePlayerPedColour(int playerid, int colour1, int colour2, int colo
 void ugmp_EnableRadioAutoTune(bool toggle);
 void ugmp_SetVehicleRadioStation(int vehicleid, int station);
 int ugmp_GetVehicleRadioStation(int vehicleid);
-//void ugmp_GetRadioStationName(int station, char** str, size_t len = sizeof(str));
+void ugmp_GetRadioStationName(int station, char* str, int len);
 bool ugmp_IsRadioAutoTuneEnabled();
 
 void ugmp_ChangeVehicleColourRGB(int vehicleid, int colour, int red, int green, int blue);
@@ -148,9 +148,9 @@ bool ugmp_IsValidWeaponModel(int modelid);
 int  ugmp_GetRandomWeaponModel();
 int  ugmp_GetRandomWeaponType();
 
-// void ugmp_InitialiseDiscordRichPresence(char_t* applicationID);
-// void ugmp_UpdateDiscordRichPresence(char_t* smallImageKey, const char smallImageText[], const char largeImageKey[], const char largeImageText[], const char details[]);
-// void ugmp_ShutdownDiscordRichPresence();
+void ugmp_InitialiseDiscordRichPresence(char_t* applicationID);
+void ugmp_UpdateDiscordRichPresence(char_t* smallImageKey, char_t* smallImageText, char_t* largeImageKey, char_t* largeImageText, char_t* details);
+void ugmp_ShutdownDiscordRichPresence();
 
 void ugmp_SetPlayerKnockedOffBikeState(int playerid, int knockState);
 void ugmp_SetPlayerFireProof(int playerid, bool enable);

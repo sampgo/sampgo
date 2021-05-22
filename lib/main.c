@@ -10,76 +10,43 @@ AMX_NATIVE_INFO native_list[] = {
 	{ NULL, NULL }
 };
 
-cell n_CallEvent(AMX* amx, cell* params)
+// GoInt32: sampgo_CallEvent(const event[32], const format[], {Float,_}:...);
+cell AMX_NATIVE_CALL n_CallEvent(AMX* amx, cell* params)
 {
     int
-        event_len = (int) NULL,
-        format_len = (int) NULL,
-        param_offset = (int) NULL
+        len = (int) NULL
     ;
 
     cell *addr  = NULL;
 
     amx_GetAddr(amx, params[1], &addr);
-    amx_StrLen(addr, &event_len);
+    amx_StrLen(addr, &len);
 
-    if (!event_len) {
+    if (!len) {
+        sampgdk_logprintf("(C) sampgo: Empty event name passed to n_CallEvent");
         return false;
     }
 
-    char* event = malloc( sizeof(*event) * ( event_len + 1 ) );
-    amx_GetString(event, addr, 0, event_len);
-    sampgdk_logprintf(event);
+    ++ len;
+    char* event = malloc( sizeof(char) * (len));
+    amx_GetString(event, addr, 0, len);
+
+    len = (int) NULL;
 
     amx_GetAddr(amx, params[2], &addr);
-    amx_StrLen(addr, &format_len);
-    char* format = malloc( sizeof(*format) * ( format_len + 1) );
-    sampgdk_logprintf(format);
+    amx_StrLen(addr, &len);
 
-    char* args = malloc( sizeof(*args) * ( format_len + 1) );
+    ++ len;
+    char* format = malloc( sizeof(char) * (len));
+    amx_GetString(format, addr, 0, len);
 
-    // thanks to iamir for his some code - this is all untested
+    bool retval = callEvent(&amx, event, format, params);
 
-    for (unsigned int i = 0; i < format_len; ++ i) {
-        switch (format[i])
-        {
-        case 'i':
-        {
-            int variable;
-            sampgdk_param_get_cell(amx, i + param_offset + 1, (cell*)&variable);
-            args[param_offset] = variable;
-            break;
-        }
-        case 'd':
-        {
-            int variable;
-            sampgdk_param_get_cell(amx, i + param_offset + 1, (cell*)&variable);
-            args[param_offset] = variable;
-            break;
-        }
-        case 'b':
-        {
-            bool variable;
-            sampgdk_param_get_bool(amx, i + 1, (bool*)&variable);
-            args[param_offset] = (int) variable;
-            break;
-        }
-        case 'f':
-        {
-            float variable;
-            sampgdk_param_get_float(amx, i + 1, (float*)&variable);
-            args[param_offset] = (int) variable;
-            break;
-        }
-        }
-    }
-
-    callEvent(event, format, &args, param_offset + 1);
+    sampgdk_logprintf("(C) sampgo: Received event name (%s) with format (%s) and retval (%i)", event, format, retval);
 
     free(event);
     free(format);
-    free(args);
-    return true;
+    return retval;
 }
 
 /**
@@ -652,20 +619,17 @@ PLUGIN_EXPORT bool PLUGIN_CALL OnPlayerRequestDownload(int playerid, int type, i
 
 PLUGIN_EXPORT unsigned int PLUGIN_CALL Supports()
 {
-    sampgdk_logprintf("Supports");
     return sampgdk_Supports() | SUPPORTS_PROCESS_TICK | SUPPORTS_AMX_NATIVES;
 }
 
 PLUGIN_EXPORT bool PLUGIN_CALL Load(void** ppData)
 {
-    sampgdk_logprintf("Load");
     sampgdk_Load(ppData, 0);
     return true;
 }
 
 PLUGIN_EXPORT void PLUGIN_CALL Unload()
 {
-    sampgdk_logprintf("Unload");
     sampgdk_Unload(0);
 }
 
@@ -676,12 +640,10 @@ PLUGIN_EXPORT void PLUGIN_CALL ProcessTick()
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx) {
-    sampgdk_logprintf("AmxLoad");
     return amx_Register(amx, native_list, -1);
 }
 
 PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx) {
-    sampgdk_logprintf("AmxUnload");
     return AMX_ERR_NONE;
 }
 
