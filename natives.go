@@ -2526,11 +2526,11 @@ func UGMPGetVehicleRadioStation(vehicleid int) {
 }
 
 // For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/GetRadioStationName
-func UGMPGetRadioStationName(station int, str *string, len int) {
+func UGMPGetRadioStationName(station int, str *string, length int) {
 	var cstr *C.char
-	cstr = (*C.char)(C.malloc(C.uint(len)))
+	cstr = (*C.char)(C.malloc(C.uint(length)))
 	defer C.free(unsafe.Pointer(cstr))
-	C.ugmp_GetRadioStationName(C.int(station), cstr, C.int(len))
+	C.ugmp_GetRadioStationName(C.int(station), cstr, C.int(length))
 	*str = C.GoString(C.constToNonConst(cstr))
 }
 
