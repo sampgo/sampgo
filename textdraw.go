@@ -16,7 +16,7 @@ type PlayerTextDraw struct {
 	align    int
 }
 
-func (p *Player) NewTextDraw(x, y float32, text string) (PlayerTextDraw, error) {
+func (p *Player) NewPlayerTextDraw(x, y float32, text string) (PlayerTextDraw, error) {
 	td := PlayerTextDraw{player: p, textDraw: CreatePlayerTextDraw(p.ID, x, y, text)}
 	if td.textDraw == InvalidTextDraw {
 		return td, fmt.Errorf("invalid playertextdraw")
@@ -77,3 +77,28 @@ func (p *PlayerTextDraw) SetBackgroundColor(color int) {
 }
 
 var SetBackgroundColour = (*PlayerTextDraw).SetBackgroundColor
+
+func (p *PlayerTextDraw) SetSelectable(selectable bool) {
+	PlayerTextDrawSetSelectable(p.player.ID, p.textDraw, selectable)
+}
+
+func (p *PlayerTextDraw) SetPreviewModel(modelindex int) error {
+	if !PlayerTextDrawSetPreviewModel(p.player.ID, p.textDraw, modelindex) {
+		return fmt.Errorf("invalid player or textdraw")
+	}
+	return nil
+}
+
+func (p *PlayerTextDraw) SetPreviewRot(rotX, rotY, rotZ, zoom float32) error {
+	if !PlayerTextDrawSetPreviewRot(p.player.ID, p.textDraw, rotX, rotY, rotZ, zoom) {
+		return fmt.Errorf("invalid player or textdraw")
+	}
+	return nil
+}
+
+func (p *PlayerTextDraw) SetPreviewVehCol(color1, color2 int) error {
+	if !PlayerTextDrawSetPreviewVehCol(p.player.ID, p.textDraw, color1, color2) {
+		return fmt.Errorf("invalid player or textdraw")
+	}
+	return nil
+}

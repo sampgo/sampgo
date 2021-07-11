@@ -76,6 +76,11 @@ func (p *Player) Spawn() error {
 	return nil
 }
 
+// Set player spawn info
+func (p *Player) SetSpawnInfo(team, skin int, x, y, z, rotation float32, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo int) {
+	SetSpawnInfo(p.ID, team, skin, x, y, z, rotation, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
+}
+
 func (p *Player) ShowDialog(dialogid, style int, caption, info, button1, button2 string) error {
 	if !ShowPlayerDialog(p.ID, dialogid, style, caption, info, button1, button2) {
 		return fmt.Errorf("couldn't show dialog")
@@ -89,4 +94,73 @@ func (p *Player) GetFacingAngle() (float32, error) {
 		return a, fmt.Errorf("invalid player")
 	}
 	return a, nil
+}
+
+func (p *Player) GiveMoney(money int) error {
+	if !GivePlayerMoney(p.ID, money) {
+		return fmt.Errorf("invalid player")
+	}
+	return nil
+}
+
+func (p *Player) GetMoney() int {
+	return GetPlayerMoney(p.ID)
+}
+
+func (p *Player) ResetMoney() error {
+	if !ResetPlayerMoney(p.ID) {
+		return fmt.Errorf("invalid player")
+	}
+	return nil
+}
+
+func (p *Player) IsAdmin() bool {
+	return IsPlayerAdmin(p.ID)
+}
+
+func (p *Player) GetPlayerState() int {
+	return GetPlayerState(p.ID)
+}
+
+func (p *Player) GetVehicle() (v Vehicle, err error) {
+	v.ID = GetPlayerVehicleID(p.ID)
+	if v.ID == 0 {
+		err = fmt.Errorf("player is not in a vehicle")
+	}
+	return
+}
+
+func (p *Player) IsInVehicle(v *Vehicle) bool {
+	return IsPlayerInVehicle(p.ID, v.ID)
+}
+
+func (p *Player) IsInAnyVehicle(v *Vehicle) bool {
+	return IsPlayerInAnyVehicle(p.ID)
+}
+
+func (p *Player) ApplyAnimation(animlib, animname string, fDelta float32, loop, lockx, locky, freeze bool, time int, forcesync bool) {
+	ApplyAnimation(p.ID, animlib, animname, fDelta, loop, lockx, locky, freeze, time, forcesync)
+}
+
+func (p *Player) ClearAnimations(forcesync bool) {
+	ClearAnimations(p.ID, forcesync)
+}
+
+func (p *Player) SetSpecialAction(actionid int) error {
+	if !SetPlayerSpecialAction(p.ID, actionid) {
+		return fmt.Errorf("invalid player")
+	}
+	return nil
+}
+
+func (p *Player) GetSpecialAction() int {
+	return GetPlayerSpecialAction(p.ID)
+}
+
+func (p *Player) SelectTextDraw(hovercolor int) {
+	SelectTextDraw(p.ID, hovercolor)
+}
+
+func (p *Player) CancelSelectTextDraw() {
+	CancelSelectTextDraw(p.ID)
 }
