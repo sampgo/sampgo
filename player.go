@@ -2,11 +2,16 @@ package sampgo
 
 import (
 	"fmt"
+	"time"
 )
 
 // Player implements OO players.
 type Player struct {
 	ID int
+}
+
+func (p *Player) GetID() int {
+	return p.ID
 }
 
 // GetName returns the players name.
@@ -163,4 +168,51 @@ func (p *Player) SelectTextDraw(hovercolor int) {
 
 func (p *Player) CancelSelectTextDraw() {
 	CancelSelectTextDraw(p.ID)
+}
+
+func (p *Player) Kick() {
+	Kick(p.ID)
+}
+
+func (p *Player) Ban() {
+	Ban(p.ID)
+}
+
+func (p *Player) BanEx(reason string) {
+	BanEx(p.ID, reason)
+}
+
+func (p *Player) GetIP() (ip string, err error) {
+	GetPlayerIp(p.ID, &ip, 16)
+	if ip == "255.255.255.255" {
+		err = fmt.Errorf("invalid/disconnected player")
+	}
+	return
+}
+
+func (p *Player) GetIPPort() (ipPort string) {
+	NetStats_GetIpPort(p.ID, &ipPort, 22)
+	return
+}
+
+func (p *Player) GetPing() time.Duration {
+	return time.Duration(GetPlayerPing(p.ID)) * time.Millisecond
+}
+
+func (p *Player) GetVersion() (version string) {
+	GetPlayerVersion(p.ID, &version, 24)
+	return
+}
+
+func (p *Player) GetConnectedTime() (time.Duration, error) {
+	connectedTime := time.Duration(NetStats_GetConnectedTime(p.ID))
+	if connectedTime == 0 {
+		return connectedTime, fmt.Errorf("invalid player")
+	}
+
+	return connectedTime * time.Millisecond, nil
+}
+
+func (p *Player) AttachObject(o Object, offsetX, offsetY, offsetZ, rotX, rotY, rotZ float32) {
+	AttachObjectToPlayer(o.ID, p.ID, offsetX, offsetY, offsetZ, rotX, rotY, rotZ)
 }
