@@ -39,11 +39,18 @@ func NewVehicle(modelid int, x, y, z, rotation float32, color1, color2 uint8, re
 }
 
 func (v *Vehicle) Destroy() error {
-
 	if !DestroyVehicle(v.ID) {
 		return fmt.Errorf("vehicle doesn't exist")
 	}
 	return nil
+}
+
+func (v *Vehicle) SetToRespawn() error {
+	if !SetVehicleToRespawn(v.ID) {
+		return fmt.Errorf("vehicle doesn't exist")
+	}
+	return nil
+
 }
 
 func (v *Vehicle) GetSpeedFloat64() float64 {
@@ -76,4 +83,25 @@ func (v *Vehicle) GetParams() VehicleParams {
 
 func (v *Vehicle) SetParams(params VehicleParams) {
 	SetVehicleParamsEx(v.ID, params.Engine, params.Lights, params.Alarm, params.Doors, params.Bonnet, params.Boot, params.Objective)
+}
+
+func (v *Vehicle) GetPos() (x, y, z float32, err error) {
+	if !GetVehiclePos(v.ID, &x, &y, &z) {
+		err = fmt.Errorf("invalid vehicle")
+	}
+	return
+}
+
+func (v *Vehicle) GetZAngle() (zAngle float32, err error) {
+	if !GetVehicleZAngle(v.ID, &zAngle) {
+		err = fmt.Errorf("invalid vehicle")
+	}
+	return
+}
+
+func (v *Vehicle) GetRotationQuad() (quatW, quatX, quatY, quatZ float32, err error) {
+	if !GetVehicleRotationQuat(v.ID, &quatW, &quatX, &quatY, &quatZ) {
+		err = fmt.Errorf("invalid vehicle")
+	}
+	return
 }
