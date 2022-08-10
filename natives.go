@@ -277,7 +277,7 @@ func SetPlayerDrunkLevel(playerid, level int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerColor
-func SetPlayerColor(playerid, color int) bool {
+func SetPlayerColor(playerid, color int64) bool {
 	return bool(C.SetPlayerColor(C.int(playerid), C.int(color)))
 }
 
@@ -574,7 +574,7 @@ func PlayerTextDrawAlignment(playerid, textid, alignment int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawColor
-func PlayerTextDrawColor(playerid, textid, color int) bool {
+func PlayerTextDrawColor(playerid, textid, color int64) bool {
 	return bool(C.PlayerTextDrawColor(C.int(playerid), C.int(textid), C.int(color)))
 }
 
@@ -584,7 +584,7 @@ func PlayerTextDrawUseBox(playerid, textid int, use bool) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawBoxColor
-func PlayerTextDrawBoxColor(playerid, textid, color int) bool {
+func PlayerTextDrawBoxColor(playerid, textid, color int64) bool {
 	return bool(C.PlayerTextDrawBoxColor(C.int(playerid), C.int(textid), C.int(color)))
 }
 
@@ -599,7 +599,7 @@ func PlayerTextDrawSetOutline(playerid, textid, size int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/PlayerTextDrawBackgroundColor
-func PlayerTextDrawBackgroundColor(playerid, textid, color int) bool {
+func PlayerTextDrawBackgroundColor(playerid, textid, color int64) bool {
 	return bool(C.PlayerTextDrawBackgroundColor(C.int(playerid), C.int(textid), C.int(color)))
 }
 
@@ -731,7 +731,7 @@ func GetPVarType(playerid int, varname string) int {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerChatBubble
-func SetPlayerChatBubble(playerid int, text string, color int, drawdistance float32, expiretime int) bool {
+func SetPlayerChatBubble(playerid int, text string, color int64, drawdistance float32, expiretime int) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return bool(C.SetPlayerChatBubble(C.int(playerid), C.nonConstToConst(cstext), C.int(color), C.float(drawdistance), C.int(expiretime)))
@@ -842,7 +842,7 @@ func SetPlayerWorldBounds(playerid int, x_max, x_min, y_max, y_min float32) bool
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerMarkerForPlayer
-func SetPlayerMarkerForPlayer(playerid, showplayerid, color int) bool {
+func SetPlayerMarkerForPlayer(playerid, showplayerid, color int64) bool {
 	return bool(C.SetPlayerMarkerForPlayer(C.int(playerid), C.int(showplayerid), C.int(color)))
 }
 
@@ -1355,14 +1355,14 @@ func GetVehicleModelInfo(model, infotype int, X, Y, Z *float32) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SendClientMessage
-func SendClientMessage(playerid, color int, message string) bool {
+func SendClientMessage(playerid, color int64, message string) bool {
 	csmessage := C.CString(message)
 	defer C.free(unsafe.Pointer(csmessage))
 	return bool(C.SendClientMessage(C.int(playerid), C.int(color), C.nonConstToConst(csmessage)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SendClientMessageToAll
-func SendClientMessageToAll(color int, message string) bool {
+func SendClientMessageToAll(color int64, message string) bool {
 	csmessage := C.CString(message)
 	defer C.free(unsafe.Pointer(csmessage))
 	return bool(C.SendClientMessageToAll(C.int(color), C.nonConstToConst(csmessage)))
@@ -1973,7 +1973,7 @@ func TextDrawAlignment(textid, alignment int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawColor
-func TextDrawColor(textid, color int) bool {
+func TextDrawColor(textid, color int64) bool {
 	return bool(C.TextDrawColor(C.int(textid), C.int(color)))
 }
 
@@ -1983,7 +1983,7 @@ func TextDrawUseBox(textid int, use bool) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawBoxColor
-func TextDrawBoxColor(textid, color int) bool {
+func TextDrawBoxColor(textid, color int64) bool {
 	return bool(C.TextDrawBoxColor(C.int(textid), C.int(color)))
 }
 
@@ -1998,7 +1998,7 @@ func TextDrawSetOutline(textid, size int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/TextDrawBackgroundColor
-func TextDrawBackgroundColor(textid, color int) bool {
+func TextDrawBackgroundColor(textid, color int64) bool {
 	return bool(C.TextDrawBackgroundColor(C.int(textid), C.int(color)))
 }
 
@@ -2060,7 +2060,7 @@ func TextDrawSetPreviewVehCol(textid, color1, color2 int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SelectTextDraw
-func SelectTextDraw(playerid, hovercolor int) bool {
+func SelectTextDraw(playerid, hovercolor int64) bool {
 	return bool(C.SelectTextDraw(C.int(playerid), C.int(hovercolor)))
 }
 
@@ -2088,12 +2088,12 @@ func GangZoneDestroy(zone int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneShowForPlayer
-func GangZoneShowForPlayer(playerid, zone, color int) bool {
+func GangZoneShowForPlayer(playerid, zone, color int64) bool {
 	return bool(C.GangZoneShowForPlayer(C.int(playerid), C.int(zone), C.int(color)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneShowForAll
-func GangZoneShowForAll(zone, color int) bool {
+func GangZoneShowForAll(zone, color int64) bool {
 	return bool(C.GangZoneShowForAll(C.int(zone), C.int(color)))
 }
 
@@ -2108,12 +2108,12 @@ func GangZoneHideForAll(zone int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneFlashForPlayer
-func GangZoneFlashForPlayer(playerid, zone, flashcolor int) bool {
+func GangZoneFlashForPlayer(playerid, zone, flashcolor int64) bool {
 	return bool(C.GangZoneFlashForPlayer(C.int(playerid), C.int(zone), C.int(flashcolor)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/GangZoneFlashForAll
-func GangZoneFlashForAll(zone, flashcolor int) bool {
+func GangZoneFlashForAll(zone, flashcolor int64) bool {
 	return bool(C.GangZoneFlashForAll(C.int(zone), C.int(flashcolor)))
 }
 
@@ -2128,7 +2128,7 @@ func GangZoneStopFlashForAll(zone int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/Create3DTextLabel
-func Create3DTextLabel(text string, color int, x, y, z, DrawDistance float32, virtualworld int, testLOS bool) int {
+func Create3DTextLabel(text string, color int64, x, y, z, DrawDistance float32, virtualworld int, testLOS bool) int {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return int(C.Create3DTextLabel(C.nonConstToConst(cstext), C.int(color), C.float(x), C.float(y), C.float(z), C.float(DrawDistance), C.int(virtualworld), C.bool(testLOS)))
@@ -2150,14 +2150,14 @@ func Attach3DTextLabelToVehicle(id, vehicleid int, OffsetX, OffsetY, OffsetZ flo
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/Update3DTextLabelText
-func Update3DTextLabelText(id, color int, text string) bool {
+func Update3DTextLabelText(id, color int64, text string) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return bool(C.Update3DTextLabelText(C.int(id), C.int(color), C.nonConstToConst(cstext)))
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/CreatePlayer3DTextLabel
-func CreatePlayer3DTextLabel(playerid int, text string, color int, x, y, z, DrawDistance float32, attachedplayer, attachedvehicle int, testLOS bool) int {
+func CreatePlayer3DTextLabel(playerid int, text string, color int64, x, y, z, DrawDistance float32, attachedplayer, attachedvehicle int, testLOS bool) int {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return int(C.CreatePlayer3DTextLabel(C.int(playerid), C.nonConstToConst(cstext), C.int(color), C.float(x), C.float(y), C.float(z), C.float(DrawDistance), C.int(attachedplayer), C.int(attachedvehicle), C.bool(testLOS)))
@@ -2169,7 +2169,7 @@ func DeletePlayer3DTextLabel(playerid, id int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/UpdatePlayer3DTextLabelText
-func UpdatePlayer3DTextLabelText(playerid, id, color int, text string) bool {
+func UpdatePlayer3DTextLabelText(playerid, id, color int64, text string) bool {
 	cstext := C.CString(text)
 	defer C.free(unsafe.Pointer(cstext))
 	return bool(C.UpdatePlayer3DTextLabelText(C.int(playerid), C.int(id), C.int(color), C.nonConstToConst(cstext)))
@@ -2455,7 +2455,7 @@ func IsPlayerObjectMoving(playerid, objectid int) bool {
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetObjectMaterial
-func SetObjectMaterial(objectid, materialindex, modelid int, txdname, texturename string, materialcolor int) bool {
+func SetObjectMaterial(objectid, materialindex, modelid int, txdname, texturename string, materialcolor int64) bool {
 	cstxdname := C.CString(txdname)
 	defer C.free(unsafe.Pointer(cstxdname))
 	cstexturename := C.CString(texturename)
@@ -2464,7 +2464,7 @@ func SetObjectMaterial(objectid, materialindex, modelid int, txdname, texturenam
 }
 
 // For documentation, please visit https://open.mp/docs/scripting/functions/SetPlayerObjectMaterial
-func SetPlayerObjectMaterial(playerid, objectid, materialindex, modelid int, txdname, texturename string, materialcolor int) bool {
+func SetPlayerObjectMaterial(playerid, objectid, materialindex, modelid int, txdname, texturename string, materialcolor int64) bool {
 	cstxdname := C.CString(txdname)
 	defer C.free(unsafe.Pointer(cstxdname))
 	cstexturename := C.CString(texturename)
@@ -2545,7 +2545,7 @@ func UGMPChangeVehicleColourRGB(vehicleid, colour, red, green, blue int) {
 }
 
 // For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ChangeVehiclePearlColour
-func UGMPChangeVehiclePearlColour(vehicleid, color int) {
+func UGMPChangeVehiclePearlColour(vehicleid, color int64) {
 	C.ugmp_ChangeVehiclePearlColour(C.int(vehicleid), C.int(color))
 }
 
@@ -2685,7 +2685,7 @@ func UGMPGetNumWeaponModels() int {
 }
 
 // For documentation, please visit https://gtaundergroundmod.com/pages/ug-mp/documentation/native/ToggleVehicleColorRGB
-func UGMPToggleVehicleColorRGB(vehicleid, color int, enable bool) {
+func UGMPToggleVehicleColorRGB(vehicleid, color int64, enable bool) {
 	C.ugmp_ToggleVehicleColorRGB(C.int(vehicleid), C.int(color), C.bool(enable))
 }
 
